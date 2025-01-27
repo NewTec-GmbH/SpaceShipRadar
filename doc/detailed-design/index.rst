@@ -1,4 +1,4 @@
-.. template_python documentation master file.
+.. space_ship_radar documentation master file.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
    This file is written in ``reStructuredText`` syntax. Dor documentation see:
@@ -55,7 +55,7 @@ Software Detailed Design
    :template: custom-module-template.rst
    :recursive:
 
-   template_python
+   space_ship_radar
 .. </User editable section source> 
 
 Testing
