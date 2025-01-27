@@ -6,7 +6,7 @@ Author: Name (mail)
 """
 
 # *******************************************************************************
-# Copyright (c) NewTec GmbH 2024   -   www.newtec.de
+# Copyright (c) NewTec GmbH 2025   -   www.newtec.de
 # *******************************************************************************
 
 # Imports **********************************************************************
@@ -20,9 +20,9 @@ except ModuleNotFoundError:
     # provide dummy information when not installed as package but called directly
     # also necessary to get sphinx running without error
     __version__ = 'dev'
-    __author__ = 'development'
-    __email__ = 'none'
-    __repository__ = 'none'
+    __author__ = 'Marc Trosch'
+    __email__ = 'marc.trosch@newtec.de'
+    __repository__ = 'SpaceShipRadar'
     __license__ = 'none'
 
 # Variables ********************************************************************

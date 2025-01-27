@@ -9,7 +9,7 @@
  
 .. <User editable section introduction>
 
-TBD Project Name
+TBD Space Ship Radar
 ================
 
 Overview
