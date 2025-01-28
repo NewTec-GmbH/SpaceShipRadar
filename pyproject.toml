@@ -3,13 +3,13 @@ requires = ["setuptools", "setuptools-scm", "wheel", "toml"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "template_python"
+name = "SpaceShipRadar"
 version = "1.0.0"
-description = "template_python"
+description = "Visually tracks Zumo-robots"
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [
-    { name = "template_python", email = "template_python@newtec.de" }
+    { name = "Marc Trosch", email = "marc.trosch@newtec.de" }
 ]
 license = {text = "BSD 3-Clause"}
 classifiers = [
@@ -32,12 +32,12 @@ test = [
 ]
 
 [project.urls]
-documentation = "https://github.com/NewTec-GmbH/template_python"
-repository = "https://github.com/NewTec-GmbH/template_python"
-tracker = "https://github.com/NewTec-GmbH/template_python/issues"
+documentation = "https://github.com/NewTec-GmbH/SpaceShipRadar"
+repository = "https://github.com/NewTec-GmbH/SpaceShipRadar"
+tracker = "https://github.com/NewTec-GmbH/SpaceShipRadar/issues"
 
 [project.scripts]
-template_python = "template_python.template_python:main"
+space_ship_radar = "space_ship_radar.space_ship_radar:main"
 
 [tool.pytest.ini_options]
 pythonpath = [
@@ -45,4 +45,4 @@ pythonpath = [
 ]
 
 [tool.setuptools.package-data]
-template_python = ["pyproject.toml"]
+space_ship_radar = ["pyproject.toml"]
