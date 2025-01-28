@@ -1,4 +1,4 @@
-.. space_ship_radar documentation master file.
+.. Space Ship Radar documentation master file.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
    This file is written in ``reStructuredText`` syntax. Dor documentation see:
@@ -9,7 +9,7 @@
  
 .. <User editable section introduction>
 
-TBD Space Ship Radar
+Space Ship Radar
 ================
 
 Overview
@@ -55,7 +55,7 @@ Software Detailed Design
    :template: custom-module-template.rst
    :recursive:
 
-   space_ship_radar
+   Space Ship Radar
 .. </User editable section source> 
 
 Testing
