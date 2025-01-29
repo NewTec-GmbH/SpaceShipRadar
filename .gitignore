@@ -173,3 +173,6 @@ cython_debug/
 
 # Development Scripts
 dev/
+
+# Webots temp files
+*wbproj
