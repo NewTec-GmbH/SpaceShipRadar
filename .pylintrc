@@ -43,3 +43,4 @@ ignore-long-lines=(?x)(
 [MASTER]
 init-hook='import sys; sys.path.append("src/space_ship_radar")'
 extension-pkg-whitelist=cv2
+generated-members=cv2.*
