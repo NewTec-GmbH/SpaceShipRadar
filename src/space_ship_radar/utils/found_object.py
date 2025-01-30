@@ -7,7 +7,7 @@
 # Imports **********************************************************************
 
 import numpy as np
-import utils.helper as helper
+from utils import helper
 
 
 # Classes **********************************************************************

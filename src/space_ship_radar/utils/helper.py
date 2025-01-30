@@ -62,13 +62,13 @@ def get_image(camera):
 
         return image_bgr
 
-    elif isinstance(camera, cv2.VideoCapture):
+    if isinstance(camera, cv2.VideoCapture):
         ok, frame = VideoChef.get_video().read()
         if ok:
             return frame
         return None
-    else:
-        raise TypeError("Unsupported type")
+
+    raise TypeError("Unsupported type")
 
 
 def get_contours(image: np.ndarray, background: np.ndarray):
@@ -93,8 +93,8 @@ def get_contours(image: np.ndarray, background: np.ndarray):
         (contours, _) = cv2.findContours(tframe.copy(),
                                          cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         return contours
-    else:
-        return []
+
+    return []
 
 
 color_generator = ColorGenerator()

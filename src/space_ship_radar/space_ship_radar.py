@@ -16,7 +16,7 @@ import logging
 import cv2
 import keyboard
 from controller import Robot  # type: ignore # pylint: disable=import-error
-import utils.helper as helper
+from utils import helper
 from utils.core import SpaceShipRadar
 
 try:
@@ -41,7 +41,7 @@ class Controller(Robot):
     """Class representing a Controller"""
 
     def __init__(self):
-        super(Controller, self).__init__()
+        super().__init__()
         self.time_step = 32
         self.camera = self.getDevice('camera')
         self.camera.enable(self.time_step)

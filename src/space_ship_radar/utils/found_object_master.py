@@ -7,7 +7,7 @@
 # Imports **********************************************************************
 
 import cv2
-import utils.helper as helper
+from utils import helper
 from utils.found_object import FoundObject
 
 # Classes **********************************************************************
@@ -19,8 +19,9 @@ class FoundObjectMaster:
     def __init__(self):
         self.found_objects: list[FoundObject] = []
 
-    def is_found_object(self, image, x, y, w, h) -> bool:
+    def is_found_object(self, image, rectangle: tuple[int, int, int, int]) -> bool:
         """determins if the picture is a object which should be tracked"""
+        x, y, w, h = rectangle
         source_image = image.copy()
 
         # Extract the region of interest (ROI) from the source image

@@ -15,6 +15,7 @@ class Transformer:
         pass
 
     def webots_position(self, curr_positon: tuple[int, int]):
+        """not implemented"""
         # start position (webots) = x: -0.268006 y: -0.036941 z: 0.0139938
         # start position (my_code) = x: 1302 y: 737
 
@@ -23,5 +24,3 @@ class Transformer:
 
         # start position (webots) = x: -0.341224 y: -0.672733 z: 0.0139938
         # start position (my_code) = x: 1350 y: 42
-
-        pass

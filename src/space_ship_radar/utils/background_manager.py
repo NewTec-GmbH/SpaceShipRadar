@@ -24,8 +24,9 @@ class BackgroundManager:
         """getter for the empty background"""
         return self.empty
 
-    def copy_region(self, image, x: int, y: int, w: int, h: int):
+    def copy_region(self, image, rectangle: tuple[int, int, int, int]):
         """copies a image into the background"""
+        x, y, w, h = rectangle
         source_image = image.copy()
         source_image = cv2.cvtColor(source_image, cv2.COLOR_BGR2GRAY)
 

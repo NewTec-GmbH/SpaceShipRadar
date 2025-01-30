@@ -8,11 +8,11 @@
 
 import cv2
 import keyboard
-import utils.helper as helper
+from utils import helper
 from utils.found_object_master import FoundObjectMaster
 from utils.found_object import FoundObject
 from utils.background_manager import BackgroundManager
-import utils.drawer as drawer
+from utils import drawer
 
 # Classes **********************************************************************
 
@@ -42,12 +42,12 @@ class SpaceShipRadar():
             # check if the found object is a roboter and should be trackerd
             # or if it is 'noise' and can be added to the background and therefore
             # will not be considered for the tracking (does only work for static/non-moving obsticles)
-            if SpaceShipRadar.found_object_master.is_found_object(image_bgr, x, y, w, h):
+            if SpaceShipRadar.found_object_master.is_found_object(image_bgr, (x, y, w, h)):
                 SpaceShipRadar.found_object_master.add_found_object(
                     FoundObject(0, center_point))
             else:
                 SpaceShipRadar.background_manager.copy_region(
-                    image_bgr, x, y, w, h)
+                    image_bgr, (x, y, w, h))
 
     @staticmethod
     def main_loop(camera):
