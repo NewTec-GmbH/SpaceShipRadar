@@ -46,6 +46,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install pylint toml
+          pip install opencv-contrib-python
           pip install .
 
       - name: Analysing the code with pylint
