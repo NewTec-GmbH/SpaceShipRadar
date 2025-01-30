@@ -6,7 +6,7 @@
 
 # Imports **********************************************************************
 
-from cv2 import cv2
+import cv2
 from utils.path_gouverneur import PathGouverneur
 
 # Classes **********************************************************************

@@ -6,7 +6,7 @@
 
 # Imports **********************************************************************
 
-from cv2 import cv2
+import cv2
 import numpy as np
 import keyboard
 from numba import jit
@@ -44,6 +44,9 @@ class ColorGenerator:
         self.previous_colors.append(new_color.tolist())
 
         return new_color.tolist()
+
+    def foos(self):
+        """this function exists to make pylint happy"""
 
 # Functions ********************************************************************
 

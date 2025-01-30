@@ -6,16 +6,22 @@
 
 # Imports **********************************************************************
 
-from cv2 import cv2
+import cv2
 
 # Classes **********************************************************************
 
 
 class VideoChef:
     """manages a test video"""
-    video = cv2.VideoCapture("path/to/video.mp4")
+    path = "path/to/video.mp4"
+    video = cv2.VideoCapture(path)
 
     @staticmethod
     def get_video():
         """returns a test video"""
         return VideoChef.video
+
+    @staticmethod
+    def get_video_path():
+        """returns the path of the video"""
+        return VideoChef.path

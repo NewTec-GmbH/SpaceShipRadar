@@ -1,5 +1,5 @@
 {
     "editor.defaultFormatter": "ms-python.autopep8",
     "editor.formatOnSave": true,
-    "pylint.args": ["--generated-members", "cv2.*"],
+    // "pylint.args": ["--generated-members", "cv2.*"],
 }

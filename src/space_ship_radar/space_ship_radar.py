@@ -13,7 +13,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 import sys
 import logging
-from cv2 import cv2
+import cv2
 import keyboard
 from controller import Robot  # type: ignore # pylint: disable=import-error
 from utils import helper
