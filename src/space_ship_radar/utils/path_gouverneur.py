@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 
 class PathGouverneur:
+    """Path Gouverneur"""
 
     load_dotenv()
     image_folder_path = os.getenv('ImageFolder_PATH')

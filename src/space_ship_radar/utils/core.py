@@ -13,7 +13,6 @@ from utils.found_object_master import FoundObjectMaster
 from utils.found_object import FoundObject
 from utils.background_manager import BackgroundManager
 import utils.drawer as drawer
-from utils.path_gouverneur import PathGouverneur
 
 # Classes **********************************************************************
 

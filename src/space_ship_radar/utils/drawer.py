@@ -9,7 +9,6 @@
 
 import cv2
 from utils.found_object_master import FoundObjectMaster
-import utils.helper as helper
 import utils.drawer as drawer
 
 # Functions ********************************************************************

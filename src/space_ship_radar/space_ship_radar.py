@@ -15,7 +15,7 @@ import sys
 import logging
 import cv2
 import keyboard
-from controller import Robot
+from controller import Robot  # type: ignore # pylint: disable=import-error
 import utils.helper as helper
 from utils.core import SpaceShipRadar
 
@@ -79,7 +79,6 @@ class Controller(Robot):
 
 
 def main() -> int:
-    # TODO adjust this
     """ The program entry point function.
 
     .. uml::

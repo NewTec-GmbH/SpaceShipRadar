@@ -10,7 +10,7 @@ import cv2
 import numpy as np
 import keyboard
 from numba import jit
-import controller
+import controller  # type: ignore # pylint: disable=import-error
 from utils.path_gouverneur import PathGouverneur
 from utils.video_chef import VideoChef
 

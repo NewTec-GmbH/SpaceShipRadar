@@ -22,6 +22,7 @@
 ```pip install opencv-contrib-python```
 ```pip install keyboard```
 ```pip install numba```
+```pip install m2r```
 <!-- ```pip install PyQt5``` -->
 
 ```bash

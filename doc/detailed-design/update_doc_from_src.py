@@ -132,18 +132,18 @@ def update_pylint():
     print("Update PyLint")
     pylintrc_path = os.path.abspath('../..')
     # run pylint to generate a report that can be included
-    os.system(f'pylint {os.path.abspath('../../src')} - -rcfile = {os.path.join(
-        pylintrc_path, '.pylintrc')} - -reports = y - sn - -output-format = text > _pylint.tmp')
+    os.system(f'pylint {os.path.abspath("../../src")} - -rcfile={os.path.join(pylintrc_path, ".pylintrc")}'
+              '- -reports=y - sn - -output-format=text > _pylint.tmp')
 
     # Fix report output, that generates an incomplete table when there are no PyLint messages
     with open('_pylint.tmp', 'r', encoding="utf-8") as file:
-        content= file.read()
+        content = file.read()
 
     # Define the pattern for the incomplete table
-    table_pattern= r"\+-----------\+------------\+\n\|message id \|occurrences \|\n\+===========\+============\+"
+    table_pattern = r"\+-----------\+------------\+\n\|message id \|occurrences \|\n\+===========\+============\+"
 
     # Replace the pattern with a note
-    updated_content= re.sub(table_pattern, "No messages", content)
+    updated_content = re.sub(table_pattern, "No messages", content)
 
     # Save the updated content to a new file (or overwrite the original file)
     with open('pylint.rst', 'w', encoding="utf-8") as file:
@@ -153,25 +153,25 @@ def update_pylint():
 def update_architecture():
     """Copy Architecture files from ./doc folder to detailed design for inclusion by sphinx """
 
-    file_path= "index.rst"
-    start_tag= "<User editable section architecture>"
-    end_tag= ".. </User editable section architecture>"
-    new_content= "\nSoftware Architecture\n---------------------\n.. toctree::\n   :maxdepth: 2\n"
+    file_path = "index.rst"
+    start_tag = "<User editable section architecture>"
+    end_tag = ".. </User editable section architecture>"
+    new_content = "\nSoftware Architecture\n---------------------\n.. toctree::\n   :maxdepth: 2\n"
 
-    sw_arch_incl_dir= '_sw-architecture'  # sw architecture destination folder
-    sw_arch_src_dir= os.path.abspath('../')  # sw architecture source folder
+    sw_arch_incl_dir = '_sw-architecture'  # sw architecture destination folder
+    sw_arch_src_dir = os.path.abspath('../')  # sw architecture source folder
 
     if not os.path.exists(sw_arch_incl_dir):
         os.makedirs(sw_arch_incl_dir)
-    files_in_doc= os.listdir(sw_arch_src_dir)
+    files_in_doc = os.listdir(sw_arch_src_dir)
     for file_name in files_in_doc:
         if file_name.endswith('.md'):
             print(sw_arch_src_dir + file_name, sw_arch_incl_dir)
             shutil.copy(os.path.join(sw_arch_src_dir,
                         file_name), sw_arch_incl_dir)
-            new_content= new_content + '\n   ' + sw_arch_incl_dir + '/' + file_name
-            print(f"copy SW Architecture file to include directory: {
-                sw_arch_src_dir}{file_name} to: {sw_arch_incl_dir}")
+            new_content = new_content + '\n   ' + sw_arch_incl_dir + '/' + file_name
+            print(
+                f"copy SW Architecture file to include directory: {sw_arch_src_dir}{file_name} to: {sw_arch_incl_dir}")
 
     # update architecture section in index.rst with copied files
     replace_section(file_path, start_tag, end_tag, new_content.rstrip())
