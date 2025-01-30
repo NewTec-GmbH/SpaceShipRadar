@@ -7,7 +7,7 @@
 # Imports **********************************************************************
 
 
-import cv2
+from cv2 import cv2
 from utils.found_object_master import FoundObjectMaster
 from utils import drawer
 

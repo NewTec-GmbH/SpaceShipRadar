@@ -6,7 +6,7 @@
 
 # Imports **********************************************************************
 
-import cv2
+from cv2 import cv2
 import keyboard
 from utils import helper
 from utils.found_object_master import FoundObjectMaster
