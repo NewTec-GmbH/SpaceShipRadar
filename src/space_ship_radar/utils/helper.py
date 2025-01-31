@@ -26,7 +26,7 @@ class ColorGenerator:
     def random_color(self):
         """returns a random color which is different from the previous random colors"""
 
-        new_color = np.random.randint(50, 200, (1, 3))[0]
+        new_color: np.ndarray = np.random.randint(50, 200, (1, 3))[0]
 
         # Check for maximum distance from previous colors
         i: int = 0
@@ -74,7 +74,7 @@ def get_image(camera):
     raise TypeError("Unsupported type")
 
 
-def get_contours(image: np.ndarray, background: np.ndarray):
+def get_contours(image: np.ndarray, background: np.ndarray) -> np.array:
     """get the contours from an images"""
     gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     cv2.namedWindow("Background: ", cv2.WINDOW_NORMAL)
@@ -84,7 +84,7 @@ def get_contours(image: np.ndarray, background: np.ndarray):
     cv2.namedWindow("Dframe: ", cv2.WINDOW_NORMAL)
     cv2.imshow("Dframe: ", dframe)
 
-    # blurred numer has to be uneven
+    # blurred number has to be uneven
     blurred = cv2.GaussianBlur(dframe, (41, 41), 0)
     cv2.namedWindow("GaussianBlur: ", cv2.WINDOW_NORMAL)
     cv2.imshow("GaussianBlur: ", blurred)
@@ -97,7 +97,7 @@ def get_contours(image: np.ndarray, background: np.ndarray):
                                          cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         return contours
 
-    return []
+    return np.array([])
 
 
 color_generator = ColorGenerator()
@@ -105,24 +105,17 @@ color_generator = ColorGenerator()
 
 def random_color() -> tuple[int, int, int]:
     """returns a random color"""
-    # color = np.random.randint(20, 220, (1, 3))
     return color_generator.random_color()
 
 
 def record_video(camera, step, time_step, width=1920, height=1440):
     """records a video for the webots camera"""
-    video_output_file_name = 'output34909r' + '.mp4'
+    video_output_file_name = 'video_output' + '.mp4'
     video_out = cv2.VideoWriter(
         video_output_file_name, -1, 40, (width, height))
 
     while step(time_step) != -1:
         frame = get_image(camera)
-
-        # timer = cv2.getTickCount()
-
-        # fps = cv2.getTickFrequency() / (cv2.getTickCount() - timer);
-
-        # draw_text(frame, "FPS: " + str(int(fps)), (80, 100))
 
         video_out.write(frame)
 

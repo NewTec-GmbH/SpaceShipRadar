@@ -16,9 +16,9 @@ from utils import drawer
 
 def draw_objet_master(object_master: FoundObjectMaster, frame):
     """Draws every object from an object master"""
-    i: int = 0
+    current_found_object_amount: int = 0
     for found in object_master.found_objects:
-        i += 1
+        current_found_object_amount += 1
         found_speed = found.calculate_speed()
 
         found_color = found.color
@@ -31,7 +31,7 @@ def draw_objet_master(object_master: FoundObjectMaster, frame):
         # scale text based on image size
         scaler = frame.shape[0] / 300
         drawer.draw_text(frame, display_text,
-                         (5, int(20 + i * scaler * 20)), color=found_color)
+                         (5, int(20 + current_found_object_amount * scaler * 20)), color=found_color)
 
 
 def draw_text(frame, txt: str, location: tuple[int, int], color=(100, 100, 100)):

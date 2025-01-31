@@ -18,7 +18,7 @@ class BackgroundManager:
 
     def __init__(self):
         self.empty = cv2.imread(
-            PathGouverneur.get_path() + 'empty.png', cv2.IMREAD_GRAYSCALE)
+            f"{PathGouverneur.get_path()}empty.png", cv2.IMREAD_GRAYSCALE)
 
     def get_background(self):
         """getter for the empty background"""

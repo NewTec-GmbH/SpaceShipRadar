@@ -18,12 +18,10 @@
 
 ## Installation
 
->TODO
-```pip install opencv-contrib-python```
-```pip install keyboard```
-```pip install numba```
-```pip install m2r```
-<!-- ```pip install PyQt5``` -->
+>TODO  
+
+`pip install -r requirements.txt`
+
 
 ```bash
 git clone https://github.com/NewTec-GmbH/SpaceShipRadar.git
@@ -56,7 +54,7 @@ RadonUlzer_PATH=C:\path\to\your\LineFollowerSim\program.exe
 4. Set the Path for Space Ship Radar Script:
 
 Locate the line starting with SpaceShipRadar_PATH=.
-Update it with the absolute path to space_ship_radar.py which is in this repo under ```src\space_ship_radar\```. For example:
+Update it with the absolute path to space_ship_radar.py which is in this repo under `src\space_ship_radar\`. For example:
 
 SpaceShipRadar_PATH=C:\path\to\your\SpaceShipRadar\src\space_ship_radar\space_ship_radar.py
 
@@ -64,7 +62,7 @@ SpaceShipRadar_PATH=C:\path\to\your\SpaceShipRadar\src\space_ship_radar\space_sh
 5. Set the Path for Image Folder:
 
 Find the line that begins with ImageFolder_PATH=.
-Ensure this points to the folder containing images (found in this repo under ```src\```), and make sure it ends with a backslash '\\'. For example:
+Ensure this points to the folder containing images (found in this repo under `src\`), and make sure it ends with a backslash '\\'. For example:
 
 ImageFolder_PATH=C:\path\to\your\src\img\
 
@@ -75,9 +73,11 @@ After updating all necessary paths, save and close the .env file.
 
 ### Start Script
 
-If webots if open, you can use the start script:
+If webots is open, you can use the start script:
 
-```.\start.ps1```
+```cmd
+.\start.ps1
+```
 
 This will load the RadonUlzer Program specified .env and also load the SpaceShipRadar
 

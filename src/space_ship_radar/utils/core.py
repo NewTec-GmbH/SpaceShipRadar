@@ -18,7 +18,7 @@ from utils import drawer
 
 
 class SpaceShipRadar():
-    """Class representing a Controller"""
+    """Defines the Setup (pre_main) and the Tracking (main_loop)"""
     # save_index is used as a file suffix for saved images
     save_index = 0
     found_object_master = FoundObjectMaster()

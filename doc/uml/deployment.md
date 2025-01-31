@@ -1,3 +1,4 @@
+```plantuml
 @startuml deployment
 title Simulation View: SpaceShipRadar, RadonUlzer and the World
 
@@ -21,3 +22,4 @@ SpaceShipRadar/webots/worlds/WorkSpace.wbt
 end note
 
 @enduml
+```

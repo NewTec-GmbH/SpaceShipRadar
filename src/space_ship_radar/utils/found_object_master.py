@@ -22,10 +22,9 @@ class FoundObjectMaster:
     def is_found_object(self, image, rectangle: tuple[int, int, int, int]) -> bool:
         """determins if the picture is a object which should be tracked"""
         x, y, w, h = rectangle
-        source_image = image.copy()
 
         # Extract the region of interest (ROI) from the source image
-        roi = source_image[y:y+h, x:x+w]
+        roi = image[y:y+h, x:x+w]
 
         hist = helper.get_hist(roi)
         diff = cv2.compareHist(helper.get_robo_hist(),
@@ -36,10 +35,9 @@ class FoundObjectMaster:
 
         return True
 
-    def add_found_object(self, found_o: FoundObject) -> bool:
+    def add_found_object(self, found_o: FoundObject) -> None:
         """adder for Found Objects"""
         self.found_objects.append(found_o)
-        return True
 
     def get_best_match(self, point: tuple[int, int]) -> int:
         """Return the index of the Found Objects which is closest to the point"""

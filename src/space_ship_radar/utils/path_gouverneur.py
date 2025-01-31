@@ -1,9 +1,11 @@
 """Path Gouverneur"""
 
 import os
+from dataclasses import dataclass
 from dotenv import load_dotenv
 
 
+@dataclass
 class PathGouverneur:
     """Path Gouverneur"""
 
@@ -14,9 +16,6 @@ class PathGouverneur:
     def get_path() -> str:
         """returns the path to the img folder of this repo"""
         return PathGouverneur.image_folder_path
-
-    def foos(self):
-        """this function exists to make pylint happy"""
 
 
 if __name__ == "__main__":
