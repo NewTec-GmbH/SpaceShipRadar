@@ -1,4 +1,7 @@
-"""Defines the main loop of the programm or core functionality"""
+"""Defines the main loop of the programm or core functionality
+
+Author: Marc Trosch (marc.trosch@newtec.de)
+"""
 
 # *******************************************************************************
 # Copyright (c) NewTec GmbH 2025   -   www.newtec.de
@@ -13,6 +16,8 @@ from utils.found_object_master import FoundObjectMaster
 from utils.found_object import FoundObject
 from utils.background_manager import BackgroundManager
 from utils import drawer
+
+# Variables ********************************************************************
 
 # Classes **********************************************************************
 
@@ -66,14 +71,16 @@ class SpaceShipRadar():
             x, y, w, h = cv2.boundingRect(cnt)
             SpaceShipRadar.found_object_master.update_found_object(x, y, w, h)
 
-        drawer.draw_objet_master(
+        drawer.draw_objets(
             SpaceShipRadar.found_object_master, sample_frame)
         cv2.imshow('Webots Camera Image',
                    cv2.resize(sample_frame, (800, 600)))
         cv2.waitKey(25)  # (1000ms / 40fps = 25)
 
+# Functions ********************************************************************
 
 # Main *************************************************************************
+
 
 if __name__ == "__main__":
     pass

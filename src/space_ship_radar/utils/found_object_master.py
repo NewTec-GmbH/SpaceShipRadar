@@ -1,4 +1,7 @@
-"""Found Object Master"""
+"""Found Object Master
+
+Author: Marc Trosch (marc.trosch@newtec.de)
+"""
 
 # *******************************************************************************
 # Copyright (c) NewTec GmbH 2025   -   www.newtec.de
@@ -9,6 +12,8 @@
 import cv2
 from utils import helper
 from utils.found_object import FoundObject
+
+# Variables ********************************************************************
 
 # Classes **********************************************************************
 
@@ -72,3 +77,7 @@ class FoundObjectMaster:
     def get_found_object(self, index: int) -> FoundObject:
         """getter for found object"""
         return self.found_objects[index]
+
+# Functions ********************************************************************
+
+# Main *************************************************************************

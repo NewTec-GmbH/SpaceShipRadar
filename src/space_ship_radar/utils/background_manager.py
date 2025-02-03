@@ -1,4 +1,7 @@
-"""Manages what is considered to be background"""
+"""Manages what is considered to be background
+
+Author: Marc Trosch (marc.trosch@newtec.de)
+"""
 
 # *******************************************************************************
 # Copyright (c) NewTec GmbH 2025   -   www.newtec.de
@@ -8,6 +11,8 @@
 
 import cv2
 from utils.path_gouverneur import PathGouverneur
+
+# Variables ********************************************************************
 
 # Classes **********************************************************************
 
@@ -37,3 +42,7 @@ class BackgroundManager:
 
         # Paste the ROI into the destination image at the same location
         self.empty[y:y+h, x:x+w] = roi
+
+# Functions ********************************************************************
+
+# Main *************************************************************************

@@ -18,11 +18,6 @@
 
 ## Installation
 
->TODO  
-
-`pip install -r requirements.txt`
-
-
 ```bash
 git clone https://github.com/NewTec-GmbH/SpaceShipRadar.git
 cd SpaceShipRadar

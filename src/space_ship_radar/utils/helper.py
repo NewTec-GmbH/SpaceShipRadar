@@ -1,4 +1,7 @@
-"""Helper Functions"""
+"""Helper Functions
+
+Author: Marc Trosch (marc.trosch@newtec.de)
+"""
 
 # *******************************************************************************
 # Copyright (c) NewTec GmbH 2025   -   www.newtec.de
@@ -13,6 +16,8 @@ from numba import jit
 import controller  # type: ignore # pylint: disable=import-error
 from utils.path_gouverneur import PathGouverneur
 from utils.video_chef import VideoChef
+
+# Variables ********************************************************************
 
 # Classes **********************************************************************
 
@@ -173,3 +178,5 @@ def get_robo_hist():
     image = cv2.imread(PathGouverneur.get_path() + "just_robo.png")
 
     return get_hist(image)
+
+# Main *************************************************************************

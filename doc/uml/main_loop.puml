@@ -1,0 +1,26 @@
+@startuml mainloop
+title Tracking
+
+participant Core
+participant Helper
+participant FoundObjectMaster
+participant Drawer
+
+loop 
+    Core -> Helper : get_image()
+    Helper -> Core : image
+
+    Core -> Helper: get_contours()
+    Helper -> Core : contours
+
+    note right 
+    A contour represents a found object
+    end note
+
+    loop for contour in contours
+        Core -> FoundObjectMaster : update_found_object(x, y, w, h)
+    end
+    Core -> Drawer : draw_objets()
+end
+
+@enduml

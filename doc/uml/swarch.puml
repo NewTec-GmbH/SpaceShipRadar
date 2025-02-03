@@ -1,0 +1,11 @@
+@startuml swarch
+
+class BackgroundManager
+class Drawer
+class FoundObject
+class FoundObjectMaster
+class PathGouverneur
+class Core
+class Helper
+
+@enduml

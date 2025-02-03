@@ -1,4 +1,7 @@
-"""Found Object"""
+"""Found Object
+
+Author: Marc Trosch (marc.trosch@newtec.de)
+"""
 
 # *******************************************************************************
 # Copyright (c) NewTec GmbH 2025   -   www.newtec.de
@@ -9,8 +12,10 @@
 import numpy as np
 from utils import helper
 
+# Variables ********************************************************************
 
 # Classes **********************************************************************
+
 
 class FoundObject:
     """Found Object"""
@@ -46,3 +51,7 @@ class FoundObject:
         """calculates the speed based on the previous points"""
         points = np.array(self.previous_points, dtype=np.int32)
         return helper.calculate_speed(points)
+
+# Functions ********************************************************************
+
+# Main *************************************************************************

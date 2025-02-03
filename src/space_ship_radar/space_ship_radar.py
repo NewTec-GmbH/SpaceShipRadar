@@ -44,6 +44,12 @@ class Controller(Robot):
         super().__init__()
         self.time_step = 32
         self.camera = self.getDevice('camera')
+
+        if self.camera is None:
+            print("Camera init failed!")
+            sys.exit(1)
+
+        # Currently unknown what enable does
         self.camera.enable(self.time_step)
 
     def run(self) -> None:
