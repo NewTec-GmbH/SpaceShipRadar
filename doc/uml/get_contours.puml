@@ -2,7 +2,7 @@
 title get_contours()
 
 start
-:Recieve Image;
+:Receive Image;
 :Convert it to grayscale;
 :Calculate the absolute difference between gray image and gray background;
 :Add a gaussian blur to the result;

@@ -20,7 +20,7 @@ loop
     loop for contour in contours
         Core -> FoundObjectMaster : update_found_object(x, y, w, h)
     end
-    Core -> Drawer : draw_objets()
+    Core -> Drawer : draw_objects()
 end
 
 @enduml

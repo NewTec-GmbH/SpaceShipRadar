@@ -44,9 +44,9 @@ class SpaceShipRadar():
             x, y, w, h = cv2.boundingRect(cnt)
             center_point = (int(x+w/2), int(y+h/2))
 
-            # check if the found object is a roboter and should be trackerd
+            # check if the found object is a roboter and should be tracked
             # or if it is 'noise' and can be added to the background and therefore
-            # will not be considered for the tracking (does only work for static/non-moving obsticles)
+            # will not be considered for the tracking (does only work for static/non-moving obstacles)
             if SpaceShipRadar.found_object_master.is_found_object(image_bgr, (x, y, w, h)):
                 SpaceShipRadar.found_object_master.add_found_object(
                     FoundObject(0, center_point))
@@ -71,7 +71,7 @@ class SpaceShipRadar():
             x, y, w, h = cv2.boundingRect(cnt)
             SpaceShipRadar.found_object_master.update_found_object(x, y, w, h)
 
-        drawer.draw_objets(
+        drawer.draw_objects(
             SpaceShipRadar.found_object_master, sample_frame)
         cv2.imshow('Webots Camera Image',
                    cv2.resize(sample_frame, (800, 600)))

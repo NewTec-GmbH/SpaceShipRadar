@@ -21,7 +21,7 @@ from utils import drawer
 # Functions ********************************************************************
 
 
-def draw_objets(object_master: FoundObjectMaster, frame):
+def draw_objects(object_master: FoundObjectMaster, frame):
     """Draws every object from an object master"""
     current_found_object_amount: int = 0
     for found in object_master.found_objects:
