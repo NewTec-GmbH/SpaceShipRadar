@@ -1,11 +1,31 @@
 @startuml swarch
+title Dependencies
 
-class BackgroundManager
-class Drawer
-class FoundObject
-class FoundObjectMaster
-class PathGouverneur
 class Core
 class Helper
+class FoundObject
+class FoundObjectMaster
+class Drawer
+class BackgroundManager
+class PathGouverneur
+class VideoChef
+
+Core -- Helper
+Core -- FoundObject
+Core -- FoundObjectMaster
+Core -- Drawer
+Core -- BackgroundManager
+
+Helper -- PathGouverneur
+Helper -- VideoChef
+
+FoundObject -- Helper
+
+FoundObjectMaster -- FoundObject
+FoundObjectMaster -- Helper
+
+Drawer -- FoundObjectMaster
+
+BackgroundManager -- PathGouverneur
 
 @enduml
