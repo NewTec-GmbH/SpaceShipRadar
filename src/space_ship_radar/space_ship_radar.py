@@ -18,6 +18,7 @@ import keyboard
 from controller import Robot  # type: ignore # pylint: disable=import-error
 from utils import helper
 from utils.core import SpaceShipRadar
+from utils.image_getter import ImageGetter
 
 try:
     from space_ship_radar.version import __version__, __author__, __email__, __repository__, __license__
@@ -69,7 +70,7 @@ class Controller(Robot):
     def run_save(self) -> None:
         """Debug function to save an image"""
         self.step(self.time_step)
-        image = helper.get_image(self.camera)
+        image = ImageGetter.get_image(self.camera)
         cv2.imwrite("new_not_empty.png", image)
 
     def run_record(self) -> None:

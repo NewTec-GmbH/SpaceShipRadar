@@ -16,6 +16,7 @@ from numba import jit
 import controller  # type: ignore # pylint: disable=import-error
 from utils.path_gouverneur import PathGouverneur
 from utils.video_chef import VideoChef
+from utils.image_getter import ImageGetter
 
 # Variables ********************************************************************
 
@@ -54,29 +55,6 @@ class ColorGenerator:
         """this function exists to make pylint happy"""
 
 # Functions ********************************************************************
-
-
-def get_image(camera):
-    """returns the current image from the webots camera or a video for testing"""
-
-    if isinstance(camera, controller.camera.Camera):
-        image = camera.getImage()
-        width = camera.getWidth()
-        height = camera.getHeight()
-
-        image_array = np.frombuffer(
-            image, dtype=np.uint8).reshape((height, width, 4))
-        image_bgr = image_array[:, :, :3]
-
-        return image_bgr
-
-    if isinstance(camera, cv2.VideoCapture):
-        ok, frame = VideoChef.get_video().read()
-        if ok:
-            return frame
-        return None
-
-    raise TypeError("Unsupported type")
 
 
 def get_contours(image: np.ndarray, background: np.ndarray) -> np.array:
@@ -120,7 +98,7 @@ def record_video(camera, step, time_step, width=1920, height=1440):
         video_output_file_name, -1, 40, (width, height))
 
     while step(time_step) != -1:
-        frame = get_image(camera)
+        frame = ImageGetter.get_image(camera)
 
         video_out.write(frame)
 

@@ -16,6 +16,7 @@ from utils.found_object_master import FoundObjectMaster
 from utils.found_object import FoundObject
 from utils.background_manager import BackgroundManager
 from utils import drawer
+from utils.image_getter import ImageGetter
 
 # Variables ********************************************************************
 
@@ -36,7 +37,7 @@ class SpaceShipRadar():
     def pre_main(camera):
         """setup before the main loop"""
 
-        image_bgr = helper.get_image(camera)
+        image_bgr = ImageGetter.get_image(camera)
 
         empty = SpaceShipRadar.background_manager.get_background()
         contours = helper.get_contours(image_bgr, empty)
@@ -59,10 +60,10 @@ class SpaceShipRadar():
         """main loop"""
         if keyboard.is_pressed('s'):  # save image
             cv2.imwrite("image_saved" + str(SpaceShipRadar.save_index) +
-                        ".png", helper.get_image(camera))
+                        ".png", ImageGetter.get_image(camera))
             SpaceShipRadar.save_index += 1
 
-        image_bgr = helper.get_image(camera)
+        image_bgr = ImageGetter.get_image(camera)
         contours = helper.get_contours(
             image_bgr, SpaceShipRadar.background_manager.get_background())
         sample_frame = image_bgr.copy()
