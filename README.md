@@ -18,8 +18,6 @@
 
 ## Installation
 
->TODO
-
 ```bash
 git clone https://github.com/NewTec-GmbH/SpaceShipRadar.git
 cd SpaceShipRadar
@@ -29,6 +27,54 @@ pip install .
 ## Usage
 
 >TODO
+
+### Setup .env
+1. Rename the File:
+
+Locate the file named template.env in your project directory.
+Rename this file to .env. This is important as the application will look for this specific filename.
+
+2. Adjust the Paths:
+
+Open the newly renamed .env file in a text editor.
+You will see several lines that specify paths. You need to update these paths to point to the correct locations on your system.
+
+3. Set the Path for RadonUlzer Executable:
+
+Find the line that starts with RadonUlzer_PATH=.
+Change it to reflect the absolute path where program.exe is located on your machine. For example:
+
+RadonUlzer_PATH=C:\path\to\your\LineFollowerSim\program.exe
+
+4. Set the Path for Space Ship Radar Script:
+
+Locate the line starting with SpaceShipRadar_PATH=.
+Update it with the absolute path to space_ship_radar.py which is in this repo under `src\space_ship_radar\`. For example:
+
+SpaceShipRadar_PATH=C:\path\to\your\SpaceShipRadar\src\space_ship_radar\space_ship_radar.py
+
+
+5. Set the Path for Image Folder:
+
+Find the line that begins with ImageFolder_PATH=.
+Ensure this points to the folder containing images (found in this repo under `src\`), and make sure it ends with a backslash '\\'. For example:
+
+ImageFolder_PATH=C:\path\to\your\src\img\
+
+6. Save Your Changes:
+
+After updating all necessary paths, save and close the .env file.
+
+
+### Start Script
+
+If webots is open, you can use the start script:
+
+```cmd
+.\start.ps1
+```
+
+This will load the RadonUlzer Program specified .env and also load the SpaceShipRadar
 
 <!-- ```bash
 template_python [-h] [-v] {command} {command_options}

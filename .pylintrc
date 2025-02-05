@@ -38,3 +38,9 @@ max-line-length=120
 ignore-long-lines=(?x)(
   ^\s*(\#\ )?<?https?://\S+>?$|
   ^\s*(from\s+\S+\s+)?import\s+.+$)
+
+
+[MASTER]
+init-hook='import sys; sys.path.append("src/space_ship_radar")'
+extension-pkg-whitelist=cv2
+generated-members=cv2.*

@@ -173,3 +173,18 @@ cython_debug/
 
 # Development Scripts
 dev/
+
+# Webots temp files
+*wbproj
+
+# Jupyter Notebooks for debugging
+notebook/
+
+# Kanban Board
+kanpilot.toml
+
+# out folder
+out/
+
+# test image folder
+test_img/

@@ -1,0 +1,108 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "../protos/Zumo32U4.proto"
+EXTERNPROTO "../protos/LineFollowerTrack.proto"
+IMPORTABLE EXTERNPROTO "../protos/Supervisor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/animals/protos/Cat.proto"
+
+WorldInfo {
+  info [
+    "Example uses of Track nodes, as caterpillar tracks on a robot, or as a conveyor belt."
+  ]
+  title "Track"
+  basicTimeStep 8
+  contactProperties [
+    ContactProperties {
+      material1 "rubber"
+      material2 "cardboard"
+      coulombFriction [
+        0.65
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.3293483770738452 0.42033919288701255 -0.8454848369083381 1.6267290138457793
+  position -0.8730075656198307 7.8117549840380915 8.50184483510956
+}
+Pose {
+  translation 0 0 0.84
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+LineFollowerTrack {
+  contactMaterial "cardboard"
+}
+Cat {
+  translation 0.546557 0.16971 0
+  rotation 0 0 -1 -2.6179953071795863
+}
+DEF ROBOT Zumo32U4 {
+  hidden linearVelocity_0 1.8150414883956024e-18 -1.4466735876781163e-17 -1.395654446586282e-17
+  hidden angularVelocity_0 9.520700470124835e-16 -4.47805984772331e-17 1.2380051588181697e-17
+  translation -0.24893048408354218 -0.026251886210478734 0.013993817028896181
+  rotation -4.791468081859199e-07 2.6814319978384374e-07 0.9999999999998492 1.7179220035730205
+  name "Zumo2"
+  contactMaterial "rubber"
+}
+Robot {
+  translation 0.0441266 0.025843 3.15
+  rotation 0.5862258396317882 0.5591808470302289 -0.5862218396328824 2.12186
+  children [
+    Pose {
+      translation 0 0 0.0415
+      rotation 0 0 1 -1.570796
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.0820075 0.364731 0.8
+            roughness 1
+            metalness 0
+          }
+          geometry DEF BODY Cylinder {
+            height 0.08
+            radius 0.045
+          }
+        }
+      ]
+    }
+    Camera {
+      translation 0.04 0 0.0915
+      children [
+        Pose {
+          translation -0.015 0 0
+          rotation -0.5771968951617173 -0.577656895078166 -0.5771968951617173 -2.093935
+          children [
+            Shape {
+              appearance PBRAppearance {
+                roughness 1
+                metalness 0
+              }
+              geometry Cylinder {
+                height 0.03
+                radius 0.01
+              }
+            }
+          ]
+        }
+      ]
+      fieldOfView 1
+      width 1920
+      height 1440
+      antiAliasing TRUE
+    }
+  ]
+  name "MyBot"
+  boundingObject Pose {
+    translation 0 0 0.0415
+    rotation 0 0 1 -1.570796
+    children [
+      USE BODY
+    ]
+  }
+  controller "<extern>"
+}
