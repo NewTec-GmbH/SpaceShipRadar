@@ -16,7 +16,6 @@ import logging
 import cv2
 import keyboard
 from controller import Robot  # type: ignore # pylint: disable=import-error
-from utils import helper
 from utils.core import SpaceShipRadar
 from utils.image_getter import ImageGetter
 
@@ -80,7 +79,8 @@ class Controller(Robot):
                 break
 
             if keyboard.is_pressed('s'):
-                helper.record_video(self.camera, self.step, self.time_step)
+                ImageGetter.record_video(
+                    self.camera, self.step, self.time_step)
 
 # Functions ********************************************************************
 

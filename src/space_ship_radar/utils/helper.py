@@ -11,10 +11,8 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 import cv2
 import numpy as np
-import keyboard
 from numba import jit
 from utils.path_gouverneur import PathGouverneur
-from utils.image_getter import ImageGetter
 
 # Variables ********************************************************************
 
@@ -61,23 +59,6 @@ color_generator = ColorGenerator()
 def random_color() -> tuple[int, int, int]:
     """returns a random color"""
     return color_generator.random_color()
-
-
-def record_video(camera, step, time_step, width=1920, height=1440):
-    """records a video for the webots camera"""
-    video_output_file_name = 'video_output' + '.mp4'
-    video_out = cv2.VideoWriter(
-        video_output_file_name, -1, 40, (width, height))
-
-    while step(time_step) != -1:
-        frame = ImageGetter.get_image(camera)
-
-        video_out.write(frame)
-
-        if keyboard.is_pressed('q'):
-            break
-
-    video_out.release()
 
 
 @jit
