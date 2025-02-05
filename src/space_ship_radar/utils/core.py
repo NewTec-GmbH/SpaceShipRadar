@@ -43,7 +43,7 @@ class SpaceShipRadar():
         empty = SpaceShipRadar.background_manager.get_background()
         contours = ObjectFinder.get_contours(image_bgr, empty)
         for cnt in contours:
-            x, y, w, h = cv2.boundingRect(cnt)
+            x, y, w, h = cnt
             center_point = (int(x+w/2), int(y+h/2))
 
             # check if the found object is a roboter and should be tracked
@@ -70,7 +70,7 @@ class SpaceShipRadar():
         sample_frame = image_bgr.copy()
 
         for cnt in contours:
-            x, y, w, h = cv2.boundingRect(cnt)
+            x, y, w, h = cnt
             SpaceShipRadar.found_object_master.update_found_object(x, y, w, h)
 
         drawer.draw_objects(

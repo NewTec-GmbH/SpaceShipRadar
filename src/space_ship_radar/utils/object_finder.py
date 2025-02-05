@@ -37,12 +37,14 @@ class ObjectFinder:
         if ret:
             (contours, _) = cv2.findContours(tframe.copy(),
                                              cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            return contours
-        return np.array([])
 
-    # for cnt in contours:
-    #     x, y, w, h = cv2.boundingRect(cnt)
-    #     center_point = (int(x+w/2), int(y+h/2))
+            object_location = []
+            for cnt in contours:
+                x, y, w, h = cv2.boundingRect(cnt)
+                object_location.append([x, y, w, h])
+
+            return np.array(object_location)
+        return np.array([])
 
     # Classes **********************************************************************
     # Functions ********************************************************************
