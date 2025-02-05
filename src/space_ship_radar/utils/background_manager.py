@@ -10,6 +10,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # Imports **********************************************************************
 
 import cv2
+import numpy as np
 from utils.path_gouverneur import PathGouverneur
 
 # Variables ********************************************************************
@@ -22,8 +23,12 @@ class BackgroundManager:
         and therefore what is ignored by the visual recognition. """
 
     def __init__(self):
-        self.empty = cv2.imread(
-            f"{PathGouverneur.get_path()}empty.png", cv2.IMREAD_GRAYSCALE)
+        self.background_path: str = "./empty.png"
+        self.__load_background()
+
+    def __load_background(self):
+        self.empty: np.array = cv2.imread(
+            f"{PathGouverneur.get_path()}{self.background_path}", cv2.IMREAD_GRAYSCALE)
 
     def get_background(self):
         """getter for the empty background"""
@@ -42,6 +47,15 @@ class BackgroundManager:
 
         # Paste the ROI into the destination image at the same location
         self.empty[y:y+h, x:x+w] = roi
+
+    def get_background_path(self) -> str:
+        """getter for the current background image"""
+        return self.background_path
+
+    def set_background_path(self, path: str) -> None:
+        """setter for the current background image and reload the background image"""
+        self.background_path = path
+        self.__load_background()
 
 # Functions ********************************************************************
 

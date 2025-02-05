@@ -1,23 +1,33 @@
 @startuml swarch
 title Dependencies
 
+package Test {
+}
+
 class Core
 class Helper
+
 class FoundObject
 class FoundObjectMaster
+
 class Drawer
 class BackgroundManager
 class PathGouverneur
-class VideoChef
 
-Core -- Helper
+class VideoChef
+class ImageGetter
+
+class ObjectFinder
+
 Core -- FoundObject
 Core -- FoundObjectMaster
 Core -- Drawer
 Core -- BackgroundManager
+Core -- ImageGetter
+Core -- ObjectFinder
 
 Helper -- PathGouverneur
-Helper -- VideoChef
+Helper -- ImageGetter
 
 FoundObject -- Helper
 
@@ -27,5 +37,7 @@ FoundObjectMaster -- Helper
 Drawer -- FoundObjectMaster
 
 BackgroundManager -- PathGouverneur
+
+ImageGetter -- VideoChef
 
 @enduml

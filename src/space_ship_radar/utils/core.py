@@ -11,7 +11,6 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 import cv2
 import keyboard
-from utils import helper
 from utils.found_object_master import FoundObjectMaster
 from utils.found_object import FoundObject
 from utils.background_manager import BackgroundManager
