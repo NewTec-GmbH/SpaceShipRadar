@@ -11,7 +11,6 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 
 import cv2
-from utils.found_object_master import FoundObjectMaster
 
 # Variables ********************************************************************
 
@@ -28,15 +27,16 @@ def draw_text(frame, txt: str, location: tuple[int, int], color=(100, 100, 100))
                 scaler, color, int(1 * scaler))
 
 
-def draw_objects(object_master: FoundObjectMaster, frame):
+def draw_objects(found_object_list, frame):
     """Draws every object from an object master"""
     current_found_object_amount: int = 0
-    for found in object_master.found_objects:
+    for found in found_object_list:
         current_found_object_amount += 1
-        found_speed = found.calculate_speed()
 
-        found_color = found.color
-        x, y, w, h = found.current_position[:4]
+        found_speed = found["speed"]
+        found_color = found["color"]
+        x, y, w, h = found["position"]
+
         cv2.rectangle(frame, (x, y),
                       (x+w, y+h), found_color, 2)
 

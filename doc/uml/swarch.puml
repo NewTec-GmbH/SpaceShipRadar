@@ -34,8 +34,6 @@ FoundObject -- Helper
 FoundObjectMaster -- FoundObject
 FoundObjectMaster -- Helper
 
-Drawer -- FoundObjectMaster
-
 BackgroundManager -- PathGouverneur
 
 ImageGetter -- VideoChef

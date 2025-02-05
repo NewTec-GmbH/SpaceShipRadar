@@ -72,8 +72,15 @@ class SpaceShipRadar():
             x, y, w, h = cnt
             SpaceShipRadar.found_object_master.update_found_object(x, y, w, h)
 
-        drawer.draw_objects(
-            SpaceShipRadar.found_object_master, sample_frame)
+        found_object_list = []
+        for found in SpaceShipRadar.found_object_master.found_objects:
+            speed = found.get_speed()
+            found_color = found.color
+            x, y, w, h = found.current_position[:4]
+            found_object_list.append(
+                {"speed": speed, "color": found_color, "position": [x, y, w, h]})
+
+        drawer.draw_objects(found_object_list, sample_frame)
         cv2.imshow('Webots Camera Image',
                    cv2.resize(sample_frame, (800, 600)))
         cv2.waitKey(25)  # (1000ms / 40fps = 25)
