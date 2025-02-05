@@ -17,6 +17,7 @@ from utils.found_object import FoundObject
 from utils.background_manager import BackgroundManager
 from utils import drawer
 from utils.image_getter import ImageGetter
+from utils.object_finder import ObjectFinder
 
 # Variables ********************************************************************
 
@@ -40,7 +41,7 @@ class SpaceShipRadar():
         image_bgr = ImageGetter.get_image(camera)
 
         empty = SpaceShipRadar.background_manager.get_background()
-        contours = helper.get_contours(image_bgr, empty)
+        contours = ObjectFinder.get_contours(image_bgr, empty)
         for cnt in contours:
             x, y, w, h = cv2.boundingRect(cnt)
             center_point = (int(x+w/2), int(y+h/2))
@@ -64,7 +65,7 @@ class SpaceShipRadar():
             SpaceShipRadar.save_index += 1
 
         image_bgr = ImageGetter.get_image(camera)
-        contours = helper.get_contours(
+        contours = ObjectFinder.get_contours(
             image_bgr, SpaceShipRadar.background_manager.get_background())
         sample_frame = image_bgr.copy()
 

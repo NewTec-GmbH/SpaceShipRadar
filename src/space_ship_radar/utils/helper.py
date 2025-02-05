@@ -13,9 +13,7 @@ import cv2
 import numpy as np
 import keyboard
 from numba import jit
-import controller  # type: ignore # pylint: disable=import-error
 from utils.path_gouverneur import PathGouverneur
-from utils.video_chef import VideoChef
 from utils.image_getter import ImageGetter
 
 # Variables ********************************************************************
@@ -55,32 +53,6 @@ class ColorGenerator:
         """this function exists to make pylint happy"""
 
 # Functions ********************************************************************
-
-
-def get_contours(image: np.ndarray, background: np.ndarray) -> np.array:
-    """get the contours from an images"""
-    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    cv2.namedWindow("Background: ", cv2.WINDOW_NORMAL)
-    cv2.imshow("Background: ", background)
-
-    dframe = cv2.absdiff(background, gray_image)
-    cv2.namedWindow("Dframe: ", cv2.WINDOW_NORMAL)
-    cv2.imshow("Dframe: ", dframe)
-
-    # blurred number has to be uneven
-    blurred = cv2.GaussianBlur(dframe, (41, 41), 0)
-    cv2.namedWindow("GaussianBlur: ", cv2.WINDOW_NORMAL)
-    cv2.imshow("GaussianBlur: ", blurred)
-    cv2.waitKey(1)
-
-    ret, tframe = cv2.threshold(
-        blurred, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
-    if ret:
-        (contours, _) = cv2.findContours(tframe.copy(),
-                                         cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        return contours
-
-    return np.array([])
 
 
 color_generator = ColorGenerator()

@@ -1,5 +1,7 @@
 """Interface for Image-Getting Protocol
 
+Adapter to get a image for different devices
+
 Author: Marc Trosch (marc.trosch@newtec.de)
 """
 
