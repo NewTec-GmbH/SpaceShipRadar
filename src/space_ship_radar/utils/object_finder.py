@@ -9,12 +9,14 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
+from dataclasses import dataclass
 import cv2
 import numpy as np
 
 # Variables ********************************************************************
 
 
+@dataclass
 class ObjectFinder:
     """Object Finder"""
 
