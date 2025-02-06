@@ -39,7 +39,7 @@ class SpaceShipRadar():
 
         image_bgr = ImageGetter.get_image(camera)
 
-        empty = SpaceShipRadar.background_manager.get_background()
+        empty = SpaceShipRadar.background_manager.background
         contours = ObjectFinder.get_contours(image_bgr, empty)
         for cnt in contours:
             x, y, w, h = cnt
@@ -65,7 +65,7 @@ class SpaceShipRadar():
 
         image_bgr = ImageGetter.get_image(camera)
         contours = ObjectFinder.get_contours(
-            image_bgr, SpaceShipRadar.background_manager.get_background())
+            image_bgr, SpaceShipRadar.background_manager.background)
         sample_frame = image_bgr.copy()
 
         for cnt in contours:

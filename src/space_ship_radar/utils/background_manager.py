@@ -23,16 +23,17 @@ class BackgroundManager:
         and therefore what is ignored by the visual recognition. """
 
     def __init__(self):
-        self.background_path: str = "./empty.png"
+        self._background_path: str = "./empty.png"
         self.__load_background()
 
     def __load_background(self):
-        self.empty: np.array = cv2.imread(
+        self._empty: np.array = cv2.imread(
             f"{PathGouverneur.get_path()}{self.background_path}", cv2.IMREAD_GRAYSCALE)
 
-    def get_background(self):
+    @property
+    def background(self) -> np.array:
         """getter for the empty background"""
-        return self.empty
+        return self._empty
 
     def copy_region(self, image, rectangle: tuple[int, int, int, int]):
         """copies a image into the background"""
@@ -46,15 +47,17 @@ class BackgroundManager:
         cv2.waitKey(1)
 
         # Paste the ROI into the destination image at the same location
-        self.empty[y:y+h, x:x+w] = roi
+        self._empty[y:y+h, x:x+w] = roi
 
-    def get_background_path(self) -> str:
-        """getter for the current background image"""
-        return self.background_path
+    @property
+    def background_path(self) -> str:
+        """getter for the current background image path"""
+        return self._background_path
 
-    def set_background_path(self, path: str) -> None:
+    @background_path.setter
+    def background_path(self, path: str) -> None:
         """setter for the current background image and reload the background image"""
-        self.background_path = path
+        self._background_path = path
         self.__load_background()
 
 # Functions ********************************************************************

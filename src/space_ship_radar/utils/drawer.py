@@ -24,14 +24,12 @@ def draw_text(frame, txt: str, location: tuple[int, int], color=(100, 100, 100))
     # scales text based on image size
     scaler = frame.shape[0] / 300
     cv2.putText(frame, txt, location, cv2.FONT_HERSHEY_SIMPLEX, .5 *
-                scaler, color, int(1 * scaler))
+                scaler, color, int(scaler))
 
 
 def draw_objects(found_object_list, frame):
     """Draws every object from an object master"""
-    current_found_object_amount: int = 0
-    for found in found_object_list:
-        current_found_object_amount += 1
+    for current_found_object_amount, found in enumerate(found_object_list, start=1):
 
         found_speed = found["speed"]
         found_color = found["color"]
@@ -43,9 +41,9 @@ def draw_objects(found_object_list, frame):
         display_text = f"X: {int(x+w/2)} ; Y: {int(y+h/2)}; Speed {found_speed}"
 
         # scale text based on image size
-        scaler = frame.shape[0] / 300
+        scaler = frame.shape[0] / 15
         draw_text(frame, display_text,
-                  (5, int(20 + current_found_object_amount * scaler * 20)), color=found_color)
+                  (5, int(current_found_object_amount * scaler)), color=found_color)
 
 
 # Main *************************************************************************

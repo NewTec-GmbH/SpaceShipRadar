@@ -35,4 +35,6 @@ BackgroundManager -- PathGouverneur
 
 ImageGetter -- VideoChef
 
+VideoChef -- PathGouverneur
+
 @enduml
