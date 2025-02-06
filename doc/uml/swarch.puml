@@ -3,7 +3,7 @@ title Dependencies
 
 
 
-class Core
+class Scene
 class Helper
 
 class FoundObject
@@ -16,13 +16,19 @@ class PathGouverneur
 class VideoChef
 class ImageGetter
 class ObjectFinder
+class Tracker
 
-Core -- FoundObject
-Core -- FoundObjectMaster
-Core -- Drawer
-Core -- BackgroundManager
-Core -- ImageGetter
-Core -- ObjectFinder
+package States <<rectangle>>{
+    abstract State
+    class SetupState 
+    class TrackingState
+    
+}
+' class Context
+
+
+Scene -- FoundObjectMaster
+Scene -- BackgroundManager
 
 Helper -- PathGouverneur
 
@@ -36,5 +42,18 @@ BackgroundManager -- PathGouverneur
 ImageGetter -- VideoChef
 
 VideoChef -- PathGouverneur
+
+SetupState -- Tracker
+SetupState -right- TrackingState
+"State" <|-- SetupState
+
+TrackingState -- Tracker
+"State" <|-- TrackingState
+
+Tracker -- Scene
+Tracker -- ImageGetter
+Tracker -- ObjectFinder
+Tracker -- Drawer
+
 
 @enduml

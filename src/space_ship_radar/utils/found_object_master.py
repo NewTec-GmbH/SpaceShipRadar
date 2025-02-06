@@ -40,9 +40,9 @@ class FoundObjectMaster:
 
         return True
 
-    def add_found_object(self, found_o: FoundObject) -> None:
+    def add_found_object(self, num: int, position: tuple[int, int]) -> None:
         """adder for Found Objects"""
-        self.found_objects.append(found_o)
+        self.found_objects.append(FoundObject(num, position))
 
     def get_best_match(self, point: tuple[int, int]) -> int:
         """Return the index of the Found Objects which is closest to the point"""

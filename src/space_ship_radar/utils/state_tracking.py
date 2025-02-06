@@ -1,4 +1,4 @@
-"""Scene
+"""Tracking State
 
 Author: Marc Trosch (marc.trosch@newtec.de)
 """
@@ -8,30 +8,21 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # *******************************************************************************
 
 # Imports **********************************************************************
-
-from utils.found_object_master import FoundObjectMaster
-from utils.background_manager import BackgroundManager
+from utils.state import State
+from utils.tracker import Tracker
 
 # Variables ********************************************************************
 
 # Classes **********************************************************************
 
 
-class Scene():
-    """Defines the Setup (pre_main) and the Tracking (main_loop)"""
-    # save_index is used as a file suffix for saved images
-    save_index = 0
-    found_object_master = FoundObjectMaster()
-    background_manager = BackgroundManager()
+class TrackingState(State):
+    """main loop"""
 
-    def __init__(self):
-        self.save_index: int = 0
-
+    def run(self, camera) -> None:
+        """tracking ..."""
+        Tracker.tracking(camera)
 
 # Functions ********************************************************************
 
 # Main *************************************************************************
-
-
-if __name__ == "__main__":
-    pass

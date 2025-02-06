@@ -16,8 +16,9 @@ import logging
 import cv2
 import keyboard
 from controller import Robot  # type: ignore # pylint: disable=import-error
-from utils.core import SpaceShipRadar
 from utils.image_getter import ImageGetter
+from utils.state import Context
+from utils.state_setup import SetupState
 
 try:
     from space_ship_radar.version import __version__, __author__, __email__, __repository__, __license__
@@ -57,11 +58,11 @@ class Controller(Robot):
 
         # Setup
         self.step(self.time_step)  # step required
-        SpaceShipRadar.pre_main(self.camera)
 
+        context = Context(SetupState())
         # Main Loop
         while self.step(self.time_step) != -1:
-            SpaceShipRadar.main_loop(self.camera)
+            context.update(self.camera)
             if keyboard.is_pressed('q'):  # quit
                 break
         cv2.destroyAllWindows()
