@@ -25,7 +25,7 @@ class FoundObjectMaster:
         self.found_objects: list[FoundObject] = []
 
     def is_found_object(self, image, rectangle: tuple[int, int, int, int]) -> bool:
-        """determins if the picture is a object which should be tracked"""
+        """determines if the picture is a object which should be tracked"""
         x, y, w, h = rectangle
 
         # Extract the region of interest (ROI) from the source image

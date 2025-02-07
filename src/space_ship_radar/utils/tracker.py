@@ -36,7 +36,7 @@ class Tracker:
             x, y, w, h = cnt
             center_point = (int(x+w/2), int(y+h/2))
 
-            # check if the found object is a roboter and should be tracked
+            # check if the found object is a robot and should be tracked
             # or if it is 'noise' and can be added to the background and therefore
             # will not be considered for the tracking (does only work for static/non-moving obstacles)
             if Scene.found_object_master.is_found_object(image_bgr, (x, y, w, h)):

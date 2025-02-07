@@ -1,0 +1,20 @@
+# Custom Dictionary Words
+newtec
+imread
+imshow
+robo
+HISTCMP_CORREL
+ndarray
+Trosch
+linalg
+foos
+NORM_MINMAX
+webots
+frombuffer
+dframe
+Dframe
+absdiff
+THRESH_OTSU
+tframe
+dotenv
+imwrite

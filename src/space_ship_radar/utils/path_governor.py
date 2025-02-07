@@ -1,4 +1,4 @@
-"""Path Gouverneur
+"""Path Governor
 
 Author: Marc Trosch (marc.trosch@newtec.de)
 """
@@ -19,8 +19,8 @@ from dotenv import load_dotenv
 
 
 @dataclass
-class PathGouverneur:
-    """Path Gouverneur"""
+class PathGovernor:
+    """Path Governor"""
 
     load_dotenv()
     image_folder_path = os.getenv('ImageFolder_PATH')
@@ -28,7 +28,7 @@ class PathGouverneur:
     @staticmethod
     def get_path() -> str:
         """returns the path to the img folder of this repo"""
-        return PathGouverneur.image_folder_path
+        return PathGovernor.image_folder_path
 
 
 # Functions ********************************************************************
@@ -36,4 +36,4 @@ class PathGouverneur:
 # Main *************************************************************************
 
 if __name__ == "__main__":
-    print(PathGouverneur.get_path())
+    print(PathGovernor.get_path())

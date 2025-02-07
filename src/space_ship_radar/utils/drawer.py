@@ -20,7 +20,7 @@ import cv2
 
 
 def draw_text(frame, txt: str, location: tuple[int, int], color=(100, 100, 100)):
-    """helper functino to draw a text onto an image"""
+    """helper function to draw a text onto an image"""
     # scales text based on image size
     scaler = frame.shape[0] / 300
     cv2.putText(frame, txt, location, cv2.FONT_HERSHEY_SIMPLEX, .5 *

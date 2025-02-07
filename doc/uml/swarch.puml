@@ -11,7 +11,7 @@ class FoundObjectMaster
 
 class Drawer
 class BackgroundManager
-class PathGouverneur
+class PathGovernor
 
 class VideoChef
 class ImageGetter
@@ -34,11 +34,11 @@ FoundObject -- Helper
 FoundObjectMaster -- FoundObject
 FoundObjectMaster -- HistogramStar
 
-BackgroundManager -- PathGouverneur
+BackgroundManager -- PathGovernor
 
 ImageGetter -- VideoChef
 
-VideoChef -- PathGouverneur
+VideoChef -- PathGovernor
 
 SetupState -- Tracker
 SetupState -right- TrackingState
@@ -52,6 +52,6 @@ Tracker -- ImageGetter
 Tracker -- ObjectFinder
 Tracker -- Drawer
 
-HistogramStar -- PathGouverneur
+HistogramStar -- PathGovernor
 
 @enduml

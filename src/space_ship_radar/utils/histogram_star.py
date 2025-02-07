@@ -9,7 +9,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 import cv2
-from utils.path_gouverneur import PathGouverneur
+from utils.path_governor import PathGovernor
 
 # Variables ********************************************************************
 
@@ -44,7 +44,7 @@ class HistogramStar:
     @staticmethod
     def get_robo_hist():
         """returns a histogram from a picture of the robot"""
-        image = cv2.imread(PathGouverneur.get_path() + "just_robo.png")
+        image = cv2.imread(PathGovernor.get_path() + "just_robo.png")
 
         return HistogramStar.get_hist(image)
 

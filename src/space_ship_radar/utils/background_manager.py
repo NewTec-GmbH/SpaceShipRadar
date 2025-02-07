@@ -11,7 +11,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 import cv2
 import numpy as np
-from utils.path_gouverneur import PathGouverneur
+from utils.path_governor import PathGovernor
 
 # Variables ********************************************************************
 
@@ -28,7 +28,7 @@ class BackgroundManager:
 
     def __load_background(self):
         self._empty: np.array = cv2.imread(
-            f"{PathGouverneur.get_path()}{self.background_path}", cv2.IMREAD_GRAYSCALE)
+            f"{PathGovernor.get_path()}{self.background_path}", cv2.IMREAD_GRAYSCALE)
 
     @property
     def background(self) -> np.array:
