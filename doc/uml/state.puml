@@ -1,0 +1,11 @@
+@startuml state
+hide empty description
+
+state Setup
+state Tracking
+
+[*] --> Setup
+Setup -> Tracking
+Tracking -> Tracking
+
+@enduml

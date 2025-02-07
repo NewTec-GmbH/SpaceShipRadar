@@ -17,6 +17,7 @@ class VideoChef
 class ImageGetter
 class ObjectFinder
 class Tracker
+class HistogramStar
 
 package States <<rectangle>>{
     abstract State
@@ -24,18 +25,14 @@ package States <<rectangle>>{
     class TrackingState
     
 }
-' class Context
-
 
 Scene -- FoundObjectMaster
 Scene -- BackgroundManager
 
-Helper -- PathGouverneur
-
 FoundObject -- Helper
 
 FoundObjectMaster -- FoundObject
-FoundObjectMaster -- Helper
+FoundObjectMaster -- HistogramStar
 
 BackgroundManager -- PathGouverneur
 
@@ -55,5 +52,6 @@ Tracker -- ImageGetter
 Tracker -- ObjectFinder
 Tracker -- Drawer
 
+HistogramStar -- PathGouverneur
 
 @enduml

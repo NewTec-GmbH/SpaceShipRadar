@@ -10,7 +10,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # Imports **********************************************************************
 
 import cv2
-from utils import helper
+from utils.histogram_star import HistogramStar
 from utils.found_object import FoundObject
 
 # Variables ********************************************************************
@@ -31,8 +31,8 @@ class FoundObjectMaster:
         # Extract the region of interest (ROI) from the source image
         roi = image[y:y+h, x:x+w]
 
-        hist = helper.get_hist(roi)
-        diff = cv2.compareHist(helper.get_robo_hist(),
+        hist = HistogramStar.get_hist(roi)
+        diff = cv2.compareHist(HistogramStar.get_robo_hist(),
                                hist, cv2.HISTCMP_CORREL)
 
         if diff < 0.5:
