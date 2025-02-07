@@ -9,6 +9,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
+from dataclasses import dataclass
 from utils.found_object_master import FoundObjectMaster
 from utils.background_manager import BackgroundManager
 
@@ -17,6 +18,7 @@ from utils.background_manager import BackgroundManager
 # Classes **********************************************************************
 
 
+@dataclass
 class Scene():
     """Defines the Setup (pre_main) and the Tracking (main_loop)"""
     # save_index is used as a file suffix for saved images

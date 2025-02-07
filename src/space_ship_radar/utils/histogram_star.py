@@ -17,6 +17,7 @@ from utils.path_gouverneur import PathGouverneur
 
 
 class HistogramStar:
+    """HistogramStar"""
 
     # from: https://docs.opencv.org/3.4/d8/dbc/tutorial_histogram_calculation.html
     @staticmethod
