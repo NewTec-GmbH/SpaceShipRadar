@@ -43,7 +43,9 @@ class Controller(Robot):
 
     def __init__(self):
         super().__init__()
-        self.time_step = 32
+        # time_step defines the smallest update time
+        # (1000ms / 40fps = 25)
+        self.time_step = 25  # ms
         self.camera = self.getDevice('camera')
 
         if self.camera is None:
@@ -97,7 +99,7 @@ def main() -> int:
     Returns:
         int: System exit status.
     """
-    logging.basicConfig(level=logging.DEBUG,
+    logging.basicConfig(level=logging.INFO,
                         format="%(asctime)s - %(levelname)s - %(message)s")
     LOG.debug("Logger displays Debug Info!")
 
