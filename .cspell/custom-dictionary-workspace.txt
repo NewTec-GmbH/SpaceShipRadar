@@ -18,3 +18,4 @@ THRESH_OTSU
 tframe
 dotenv
 imwrite
+levelname

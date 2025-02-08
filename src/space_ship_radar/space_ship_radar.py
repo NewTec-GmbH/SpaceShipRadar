@@ -47,7 +47,7 @@ class Controller(Robot):
         self.camera = self.getDevice('camera')
 
         if self.camera is None:
-            print("Camera init failed!")
+            logging.error("Camera init failed!")
             sys.exit(1)
 
         # Currently unknown what enable does
@@ -97,10 +97,12 @@ def main() -> int:
     Returns:
         int: System exit status.
     """
+    logging.basicConfig(level=logging.DEBUG,
+                        format="%(asctime)s - %(levelname)s - %(message)s")
+    LOG.debug("Logger displays Debug Info!")
+
     controller = Controller()
     controller.run()
-    logging.basicConfig(level=logging.INFO)
-    LOG.info("Hello World!")
     return 0  # return without errors
 
 # Main *************************************************************************
