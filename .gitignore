@@ -188,3 +188,9 @@ out/
 
 # test image folder
 test_img/
+
+# webots controller for testing
+src/space_ship_radar/controller/*
+
+# quick test 
+src/space_ship_radar/quick_test.py

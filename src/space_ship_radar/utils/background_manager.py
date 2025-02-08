@@ -43,7 +43,6 @@ class BackgroundManager:
 
         # Extract the region of interest (ROI) from the source image
         roi = source_image[y:y+h, x:x+w]
-        cv2.imshow("roi", roi)
         cv2.waitKey(1)
 
         # Paste the ROI into the destination image at the same location

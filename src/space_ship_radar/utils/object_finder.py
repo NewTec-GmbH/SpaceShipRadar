@@ -27,8 +27,8 @@ class ObjectFinder:
         cv2.namedWindow("Background: ", cv2.WINDOW_NORMAL)
         cv2.imshow("Background: ", background)
         dframe = cv2.absdiff(background, gray_image)
-        cv2.namedWindow("Dframe: ", cv2.WINDOW_NORMAL)
-        cv2.imshow("Dframe: ", dframe)
+        # cv2.namedWindow("Dframe: ", cv2.WINDOW_NORMAL)
+        # cv2.imshow("Dframe: ", dframe)
         # blurred number has to be uneven
         blurred = cv2.GaussianBlur(dframe, (41, 41), 0)
         cv2.namedWindow("GaussianBlur: ", cv2.WINDOW_NORMAL)

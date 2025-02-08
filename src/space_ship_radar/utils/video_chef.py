@@ -10,6 +10,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # Imports **********************************************************************
 
 import cv2
+from utils.path_governor import PathGovernor
 
 # Variables ********************************************************************
 
@@ -18,7 +19,7 @@ import cv2
 
 class VideoChef:
     """manages a test video"""
-    path = "path/to/video.mp4"
+    path = PathGovernor.get_path() + "round_trip.mp4"
     video = cv2.VideoCapture(path)
 
     @staticmethod

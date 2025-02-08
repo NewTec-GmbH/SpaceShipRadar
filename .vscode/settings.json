@@ -1,6 +1,7 @@
 {
     "editor.defaultFormatter": "ms-python.autopep8",
     "editor.formatOnSave": true,
+    "cSpell.language": "en,de-de",
     "cSpell.customDictionaries": {
         "custom-dictionary-workspace": {
             "name": "custom-dictionary-workspace",
