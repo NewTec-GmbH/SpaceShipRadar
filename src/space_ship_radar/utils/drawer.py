@@ -34,9 +34,13 @@ def draw_objects(found_object_list, frame):
         found_speed = found["speed"]
         found_color = found["color"]
         x, y, w, h = found["position"]
+        found_identifier_number = found["identifier_number"]
 
         cv2.rectangle(frame, (x, y),
                       (x+w, y+h), found_color, 2)
+
+        # draws the id above the rectangle
+        draw_text(frame, str(found_identifier_number), (x, y), found_color)
 
         display_text = f"X: {int(x+w/2)} ; Y: {int(y+h/2)}; Speed {found_speed}"
 

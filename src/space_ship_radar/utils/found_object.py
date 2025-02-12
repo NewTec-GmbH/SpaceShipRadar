@@ -21,14 +21,19 @@ from utils import helper
 class FoundObject:
     """Found Object"""
 
-    def __init__(self, num: int, start_point: tuple[int, int]):
+    def __init__(self, identifier_number: int, start_point: tuple[int, int]):
         self.color = helper.random_color()
         self.previous_points = []  # format middle_point
-        self.num = num  # unused
+        self._identifier_number: int = identifier_number
         self.current_position = (0, 0, 0, 0)  # format (x, y, w, h)
 
         if start_point is not None:
             self.previous_points.append(start_point)
+
+    @property
+    def identifier_number(self) -> int:
+        """getter for identifier number"""
+        return self._identifier_number
 
     def get_newest_point(self) -> tuple[int, int]:
         """returns the newest point of this Found Object"""
