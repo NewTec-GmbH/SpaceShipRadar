@@ -6,6 +6,8 @@ state Tracking
 
 [*] --> Setup
 Setup -> Tracking
+Setup --> [*]
 Tracking -> Tracking
+Tracking --> [*]
 
 @enduml
