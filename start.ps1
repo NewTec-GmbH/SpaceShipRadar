@@ -31,5 +31,9 @@ if ($SpaceShipRadarfilePathLine) {
 # .\venv\Scripts\activate
 
 Start-Process powershell "& '${env:WEBOTS_HOME}\msys64\mingw64\bin\webots-controller.exe' --robot-name=Zumo2 --stdout-redirect $RadonUlzerFilePath;"
+Start-Process powershell "& '${env:WEBOTS_HOME}\msys64\mingw64\bin\webots-controller.exe' --robot-name=Zumo3 --stdout-redirect $RadonUlzerFilePath;"
+Start-Process powershell "& '${env:WEBOTS_HOME}\msys64\mingw64\bin\webots-controller.exe' --robot-name=Zumo4 --stdout-redirect $RadonUlzerFilePath;"
+Start-Process powershell "& '${env:WEBOTS_HOME}\msys64\mingw64\bin\webots-controller.exe' --robot-name=Zumo5 --stdout-redirect $RadonUlzerFilePath;"
+Start-Process powershell "& '${env:WEBOTS_HOME}\msys64\mingw64\bin\webots-controller.exe' --robot-name=Zumo6 --stdout-redirect $RadonUlzerFilePath;"
 
 Start-Process powershell "& '${env:WEBOTS_HOME}\msys64\mingw64\bin\webots-controller.exe' --robot-name=MyBot --stdout-redirect $SpaceShipRadarFilePath;"
