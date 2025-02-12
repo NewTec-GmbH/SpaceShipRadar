@@ -8,12 +8,15 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # *******************************************************************************
 
 # Imports **********************************************************************
+
 from __future__ import annotations
 from abc import ABC, abstractmethod
 
 # Variables ********************************************************************
 
 # Classes **********************************************************************
+
+# example from: https://refactoring.guru/design-patterns/state/python/example
 
 
 class Context:
