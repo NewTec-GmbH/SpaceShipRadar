@@ -14,9 +14,9 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 import numpy as np
 import cv2
-import keyboard
-from utils.video_chef import VideoChef
+
 import controller  # type: ignore # pylint: disable=import-error
+from utils.video_chef import VideoChef
 
 # Variables ********************************************************************
 
@@ -68,9 +68,6 @@ class ImageGetter():
             frame = ImageGetter.get_image(camera)
 
             video_out.write(frame)
-
-            if keyboard.is_pressed('q'):
-                break
 
         video_out.release()
 

@@ -10,6 +10,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # Imports **********************************************************************
 
 from dataclasses import dataclass
+
 from utils.found_object_master import FoundObjectMaster
 from utils.background_manager import BackgroundManager
 

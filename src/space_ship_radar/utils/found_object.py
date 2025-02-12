@@ -10,6 +10,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # Imports **********************************************************************
 
 import numpy as np
+
 from utils import helper
 
 # Variables ********************************************************************

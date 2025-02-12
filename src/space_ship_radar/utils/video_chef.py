@@ -10,6 +10,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # Imports **********************************************************************
 
 import cv2
+
 from utils.path_governor import PathGovernor
 
 # Variables ********************************************************************

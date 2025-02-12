@@ -10,6 +10,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # Imports **********************************************************************
 
 import cv2
+
 from utils.histogram_star import HistogramStar
 from utils.found_object import FoundObject
 

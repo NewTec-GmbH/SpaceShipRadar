@@ -11,6 +11,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 import cv2
 import numpy as np
+
 from utils.path_governor import PathGovernor
 
 # Variables ********************************************************************
