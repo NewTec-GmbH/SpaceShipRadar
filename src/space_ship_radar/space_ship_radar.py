@@ -15,6 +15,7 @@ import sys
 import logging
 import cv2
 import keyboard
+
 from controller import Robot  # type: ignore # pylint: disable=import-error
 from utils.image_getter import ImageGetter
 from utils.state import Context
@@ -44,8 +45,8 @@ class Controller(Robot):
     def __init__(self):
         super().__init__()
         # time_step defines the smallest update time
-        # (1000ms / 40fps = 25)
-        self.time_step = 25  # ms
+        # (1000ms / 20fps = 50)
+        self.time_step = 50  # ms
         self.camera = self.getDevice('camera')
 
         if self.camera is None:

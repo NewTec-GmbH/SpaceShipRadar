@@ -11,6 +11,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 import keyboard
 import cv2
+
 from utils.scene import Scene
 from utils.image_getter import ImageGetter
 from utils.object_finder import ObjectFinder
@@ -74,7 +75,7 @@ class Tracker:
         drawer.draw_objects(found_object_list, sample_frame)
         cv2.imshow('Webots Camera Image',
                    cv2.resize(sample_frame, (800, 600)))
-        cv2.waitKey(25)  # (1000ms / 40fps = 25)
+        cv2.waitKey(1)  # waits 1ms to display the image
 
     # Functions ********************************************************************
 
