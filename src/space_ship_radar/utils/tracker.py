@@ -16,6 +16,7 @@ from utils.scene import Scene
 from utils.image_getter import ImageGetter
 from utils.object_finder import ObjectFinder
 from utils import drawer
+from utils.transformer import Transformer
 
 # Variables ********************************************************************
 
@@ -30,8 +31,11 @@ class Tracker:
         """setup before the main loop"""
 
         image_bgr = ImageGetter.get_image(camera)
+        corners = Scene.ar_authority.calculate_corners(image_bgr)
+        image_bgr = Transformer.perspective_transform(image_bgr, corners)
 
         empty = Scene.background_manager.background
+
         contours = ObjectFinder.get_contours(image_bgr, empty)
         for found_object_index, cnt in enumerate(contours):
             x, y, w, h = cnt
@@ -56,6 +60,13 @@ class Tracker:
             Scene.save_index += 1
 
         image_bgr = ImageGetter.get_image(camera)
+
+        cv2.namedWindow("Original Video", cv2.WINDOW_NORMAL)
+        cv2.imshow("Original Video", image_bgr)
+
+        corners = Scene.ar_authority.corners
+        image_bgr = Transformer.perspective_transform(image_bgr, corners)
+
         contours = ObjectFinder.get_contours(
             image_bgr, Scene.background_manager.background)
         sample_frame = image_bgr.copy()
