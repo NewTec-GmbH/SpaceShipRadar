@@ -17,6 +17,8 @@ from utils.image_getter import ImageGetter
 from utils.object_finder import ObjectFinder
 from utils import drawer
 from utils.transformer import Transformer
+from utils.settings import start_settings
+from utils.rotation_director import RotationDirector
 
 # Variables ********************************************************************
 
@@ -30,7 +32,10 @@ class Tracker:
     def setup(camera):
         """setup before the main loop"""
 
+        start_settings()
+
         image_bgr = ImageGetter.get_image(camera)
+
         corners = Scene.ar_authority.calculate_corners(image_bgr)
         image_bgr = Transformer.perspective_transform(image_bgr, corners)
 
@@ -44,10 +49,13 @@ class Tracker:
             # check if the found object is a robot and should be tracked
             # or if it is 'noise' and can be added to the background and therefore
             # will not be considered for the tracking (does only work for static/non-moving obstacles)
+
             if Scene.found_object_master.is_found_object(image_bgr, (x, y, w, h)):
+                angle = RotationDirector.calc_angle(image_bgr, (x, y, w, h))
                 Scene.found_object_master.add_found_object(
-                    found_object_index, center_point)
+                    found_object_index, center_point, angle)
             else:
+                # copy the object into the background which will ignore it in the future
                 Scene.background_manager.copy_region(
                     image_bgr, (x, y, w, h))
 
@@ -73,7 +81,8 @@ class Tracker:
 
         for cnt in contours:
             x, y, w, h = cnt
-            Scene.found_object_master.update_found_object(x, y, w, h)
+            angle = RotationDirector.calc_angle(image_bgr, (x, y, w, h))
+            Scene.found_object_master.update_found_object(x, y, w, h, angle)
 
         # create list for drawer
         found_object_list = []
@@ -82,14 +91,15 @@ class Tracker:
             found_color = found.color
             x, y, w, h = found.current_position[:4]
             found_identifier_number = found.identifier_number
+            found_angle = found.angle
 
             found_object_list.append(
                 {"speed": speed, "color": found_color, "position": [x, y, w, h],
-                 "identifier_number": found_identifier_number})
+                 "identifier_number": found_identifier_number, "angle": found_angle})
 
         drawer.draw_objects(found_object_list, sample_frame)
-        cv2.imshow('Webots Camera Image',
-                   cv2.resize(sample_frame, (800, 600)))
+        cv2.namedWindow('Webots Camera Image', cv2.WINDOW_NORMAL)
+        cv2.imshow('Webots Camera Image', sample_frame)
         cv2.waitKey(1)  # waits 1ms to display the image
 
     # Functions ********************************************************************

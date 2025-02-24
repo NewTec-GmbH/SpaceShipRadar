@@ -21,11 +21,12 @@ from utils import helper
 class FoundObject:
     """Found Object"""
 
-    def __init__(self, identifier_number: int, start_point: tuple[int, int]):
+    def __init__(self, identifier_number: int, start_point: tuple[int, int], angle):
         self.color = helper.random_color()
         self.previous_points = []  # format middle_point
         self._identifier_number: int = identifier_number
         self.current_position = (0, 0, 0, 0)  # format (x, y, w, h)
+        self.angle = angle
 
         if start_point is not None:
             self.previous_points.append(start_point)

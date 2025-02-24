@@ -9,6 +9,8 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
+import logging
+import sys
 from dataclasses import dataclass
 import cv2
 import numpy as np
@@ -26,11 +28,20 @@ class ObjectFinder:
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         cv2.namedWindow("Background: ", cv2.WINDOW_NORMAL)
         cv2.imshow("Background: ", background)
-        dframe = cv2.absdiff(background, gray_image)
+        dframe = cv2.absdiff(background, cv2.resize(
+            gray_image, (background.shape[1], background.shape[0])))
         # cv2.namedWindow("Dframe: ", cv2.WINDOW_NORMAL)
         # cv2.imshow("Dframe: ", dframe)
         # blurred number has to be uneven
-        blurred = cv2.GaussianBlur(dframe, (41, 41), 0)
+
+        g1 = cv2.getTrackbarPos("Gaussian", "settings")
+        if g1 % 2 == 0:
+            logging.error(
+                "The Gaussian blur number needs to be uneven!")
+            cv2.destroyAllWindows()
+            sys.exit(1)
+
+        blurred = cv2.GaussianBlur(dframe, (g1, g1), 0)
         cv2.namedWindow("GaussianBlur: ", cv2.WINDOW_NORMAL)
         cv2.imshow("GaussianBlur: ", blurred)
         cv2.waitKey(1)
@@ -43,6 +54,22 @@ class ObjectFinder:
             object_location = []
             for cnt in contours:
                 x, y, w, h = cv2.boundingRect(cnt)
+                rotrect = cv2.minAreaRect(cnt)
+                angle = rotrect[-1]
+
+                # from https://www.pyimagesearch.com/2017/02/20/text-skew-correction-opencv-python/
+                # the `cv2.minAreaRect` function returns values in the
+                # range [-90, 0); as the rectangle rotates clockwise the
+                # returned angle trends to 0 -- in this special case we
+                # need to add 90 degrees to the angle
+                if angle < -45:
+                    angle = -(90 + angle)
+
+                # otherwise, just take the inverse of the angle to make
+                # it positive
+                else:
+                    angle = -angle
+
                 object_location.append([x, y, w, h])
 
             return np.array(object_location)
