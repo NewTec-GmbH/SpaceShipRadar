@@ -10,6 +10,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # Imports **********************************************************************
 
 import cv2
+import random
 
 from utils.path_governor import PathGovernor
 
@@ -25,6 +26,7 @@ class HistogramStar:
     @staticmethod
     def get_hist(image):
         """returns a histogram for an image"""
+        # cv2.imwrite(f"testing{random.randint(1,10000)}.png", image)
         bgr_planes = cv2.split(image)
         hist_size = 16
 
@@ -36,9 +38,9 @@ class HistogramStar:
         g_hist = cv2.calcHist(bgr_planes, [1], None, [
             hist_size], hist_range, accumulate=accumulate)
 
-        hist_h = 400
+        hist_height = 400
 
-        cv2.normalize(g_hist, g_hist, alpha=0, beta=hist_h,
+        cv2.normalize(g_hist, g_hist, alpha=0, beta=hist_height,
                       norm_type=cv2.NORM_MINMAX)
 
         return g_hist

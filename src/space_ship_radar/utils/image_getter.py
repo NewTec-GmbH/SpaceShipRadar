@@ -34,7 +34,7 @@ class ImageGetter():
             return ImageGetter.__get_image_webots_camera(device)
 
         if isinstance(device, cv2.VideoCapture):
-            return ImageGetter.__get_image_video()
+            return ImageGetter.__get_image_video(device)
 
         raise TypeError("Unsupported type")
 
@@ -51,8 +51,8 @@ class ImageGetter():
         return image_bgr
 
     @staticmethod
-    def __get_image_video() -> np.array:
-        ok, frame = VideoChef.get_video().read()
+    def __get_image_video(device) -> np.array:
+        ok, frame = device.read()
         if ok:
             return frame
         return None
