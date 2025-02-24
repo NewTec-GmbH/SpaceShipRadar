@@ -9,6 +9,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
+import random
 import cv2
 import numpy as np
 
@@ -44,8 +45,10 @@ class BackgroundManager:
 
         # Extract the region of interest (ROI) from the source image
         roi = source_image[y:y+h, x:x+w]
-        cv2.waitKey(1)
 
+        # For Testing
+        # cv2.waitKey(1)
+        # cv2.imwrite(f"testing{random.randint(1,10000)}.png", roi)
         # Paste the ROI into the destination image at the same location
         self._empty[y:y+h, x:x+w] = roi
 
