@@ -7,6 +7,8 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # Copyright (c) NewTec GmbH 2025   -   www.newtec.de
 # *******************************************************************************
 
+# inspired by: https://www.geeksforgeeks.org/filter-color-with-opencv/
+
 # Imports **********************************************************************
 
 import math
@@ -50,11 +52,11 @@ class RotationDirector():
         hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
 
         # Threshold of blue in HSV space
-        lower_blue = np.array([139, 0, 0])
-        upper_blue = np.array([170, 20, 100])
+        lower = np.array([139, 0, 0])
+        upper = np.array([170, 20, 100])
 
         # preparing the mask to overlay
-        mask = cv2.inRange(hsv, lower_blue, upper_blue)
+        mask = cv2.inRange(hsv, lower, upper)
 
         blurred = cv2.GaussianBlur(mask, (21, 21), 0)
 
@@ -64,6 +66,9 @@ class RotationDirector():
         # contours
         contours, _ = cv2.findContours(
             tframe, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+        if len(contours) < 1:
+            return -1
 
         # only biggest contour
         b_cnt = []
