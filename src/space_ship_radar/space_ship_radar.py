@@ -64,11 +64,13 @@ class Controller(Robot):
 
         context = Context(SetupState())
         # Main Loop
-        while self.step(self.time_step) != -1:
-            context.update(self.camera)
-            if keyboard.is_pressed('q'):  # quit
-                break
-        cv2.destroyAllWindows()
+        try:
+            while self.step(self.time_step) != -1:
+                context.update(self.camera)
+                if keyboard.is_pressed('q'):  # quit
+                    break
+        finally:
+            cv2.destroyAllWindows()
 
     def run_save(self) -> None:
         """Debug function to save an image"""
