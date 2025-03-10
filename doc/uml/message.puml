@@ -1,0 +1,16 @@
+@startjson message
+
+{
+  "positionX": "int : in mm or px (middle_point of object)",
+  "positionY": "int : in mm or px (middle_point of object)",
+  "speedX": "int : in mm/s or px/s",
+  "speedY": "int : in mm/s or px/s",
+  "angle": "int : in rad (should be mrad)",
+  "errorCode": {
+    "0": "data scaled in mm",
+    "1": "data scaled in px",
+    "2": null
+  }
+}
+
+@endjson
