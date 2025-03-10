@@ -20,7 +20,7 @@ from utils.path_governor import PathGovernor
 
 class VideoChef:
     """manages a test video"""
-    path = PathGovernor.get_path() + "round_trip.mp4"
+    path = PathGovernor.get_path() + "real_test_video.mp4"  # "round_trip.mp4"
     video = cv2.VideoCapture(path)
 
     @staticmethod
