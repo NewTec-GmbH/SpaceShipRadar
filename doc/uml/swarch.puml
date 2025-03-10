@@ -1,57 +1,105 @@
 @startuml swarch
+' !pragma layout smetanas
+
 title Dependencies
 
-
-
-class Scene
-class Helper
-
-class FoundObject
-class FoundObjectMaster
-
-class Drawer
-class BackgroundManager
-class PathGovernor
-
-class VideoChef
-class ImageGetter
-class ObjectFinder
-class Tracker
-class HistogramStar
-
-package States <<rectangle>>{
-    abstract State
-    class SetupState 
-    class TrackingState
-    
+package "Application Layer" as AL {
+    package States <<rectangle>>{
+        abstract State {
+            context : Context
+            void run()
+        }
+        class SetupState 
+        class TrackingState
+        class Context {
+            void transition_to(state: State)
+            void update(camera) # type can be a webots-camera or real-camera
+        }
+    }
+    class Scene
+    class FoundObject
+    class FoundObjectMaster
+    class Tracker
+    class "SpaceShipRadar" #PaleGreen
+    class HistogramStar
 }
 
-Scene -- FoundObjectMaster
-Scene -- BackgroundManager
+package "Service Layer" as SL {
 
-FoundObject -- Helper
+    class BackgroundManager
+    class Helper
+    class Drawer
+    class PathGovernor
+    class ImageGetter
+    class ObjectFinder
 
-FoundObjectMaster -- FoundObject
-FoundObjectMaster -- HistogramStar
+    class ArAuthority
+    class Transformer
+}
 
-BackgroundManager -- PathGovernor
+    class VideoChef
+    class Os #SkyBlue
+    class "Robot" #pink
+    class OpenCV #pink
 
-ImageGetter -- VideoChef
+Scene o-- FoundObjectMaster
+Scene o-- BackgroundManager
+Scene o-- ArAuthority
 
-VideoChef -- PathGovernor
+FoundObject ..> Helper
 
-SetupState -- Tracker
-SetupState -right- TrackingState
+FoundObjectMaster *-- "*" FoundObject
+FoundObjectMaster ..> HistogramStar
+FoundObjectMaster ..> OpenCV
+
+Drawer ..> OpenCV
+
+BackgroundManager ..> PathGovernor
+BackgroundManager ..> OpenCV
+
+ImageGetter ..> VideoChef
+ImageGetter ..> OpenCV
+ImageGetter ..> Robot
+
+ObjectFinder ..> OpenCV
+
+PathGovernor .> Os
+
+VideoChef ..> PathGovernor
+VideoChef ..> OpenCV
+
+"State" .> Context
+Context .> "State"
+
+SetupState ..> Tracker
+SetupState .r.> TrackingState
 "State" <|-- SetupState
 
-TrackingState -- Tracker
+TrackingState ..> Tracker
 "State" <|-- TrackingState
 
-Tracker -- Scene
-Tracker -- ImageGetter
-Tracker -- ObjectFinder
-Tracker -- Drawer
+Tracker ..> Scene
+Tracker ..> ImageGetter
+Tracker ..> ObjectFinder
+Tracker ..> Drawer
+Tracker ..> OpenCV
+Tracker ..> Transformer
 
-HistogramStar -- PathGovernor
+HistogramStar ..> PathGovernor
+HistogramStar ..> OpenCV
+
+SpaceShipRadar ..> OpenCV
+SpaceShipRadar ..> Robot
+' SpaceShipRadar ..> ImageGetter
+SpaceShipRadar .> Context
+SpaceShipRadar .u.> SetupState
+
+ArAuthority ..> OpenCV
+
+Transformer ..> OpenCV
+
+note right of Robot
+Class provided by Webots
+end note
 
 @enduml
