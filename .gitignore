@@ -203,3 +203,6 @@ latex/
 
 # docx and pdfs
 doc/world/
+
+# test video
+src/img/real_test_video.mp4
