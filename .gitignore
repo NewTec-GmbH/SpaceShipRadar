@@ -195,5 +195,11 @@ src/space_ship_radar/controller/*
 # quick test 
 src/space_ship_radar/quick_test.py
 
+# test for webcam
+src/space_ship_radar/real_test.py
+
 # latex
 latex/
+
+# docx and pdfs
+doc/world/
