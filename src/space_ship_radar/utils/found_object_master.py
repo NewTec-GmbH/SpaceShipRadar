@@ -9,6 +9,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
+import logging
 import cv2
 
 from utils.histogram_star import HistogramStar
@@ -43,7 +44,7 @@ class FoundObjectMaster:
 
         return True
 
-    def add_found_object(self, num: int, position: tuple[int, int], angle) -> None:
+    def add_found_object(self, num: int, position: tuple[int, int, int, int], angle) -> None:
         """adder for Found Objects"""
         self.found_objects.append(FoundObject(num, position, angle))
 
@@ -63,21 +64,34 @@ class FoundObjectMaster:
         smallest_number = min(result)
         return result.index(smallest_number)
 
-    def update_found_object(self, x: int, y: int, w: int, h: int, angle) -> int:
+    def update_found_object(self, a_list):
         """updates the position of the best match"""
 
-        center_point = (int(x+w/2), int(y+h/2))
+        for found in self.found_objects:
+            result = []
+            for item in a_list:
+                x, y, w, h = item["position"]
+                point = (x+w/2, y+h/2)
 
-        index = self.get_best_match(center_point)
-        if index == -1:
-            return -1
+                found_point = found.get_newest_point()
+                diff = abs(found_point[0] - point[0]) + \
+                    abs(found_point[1] - point[1])
+                result.append(diff)
 
-        # Update position of found objects
-        self.get_found_object(index).add_previous_point(center_point)
-        self.get_found_object(index).update_position(x, y, w, h)
-        self.get_found_object(index).angle = angle
+            if len(result) > 0:
+                smallest_number = min(result)
+                smallest_index = result.index(smallest_number)
 
-        return index
+                x, y, w, h = a_list[smallest_index]["position"]
+                angle = a_list[smallest_index]["angle"]
+                a_list.pop(smallest_index)
+                found.update(x, y, w, h, angle)
+            else:
+                logging.warning(
+                    "no match for found Object %s", found.identifier_number)
+
+        if len(a_list) > 0:
+            logging.warning("contours unused")
 
     def get_found_object(self, index: int) -> FoundObject:
         """getter for found object"""
