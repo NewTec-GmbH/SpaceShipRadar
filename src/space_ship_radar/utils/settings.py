@@ -1,0 +1,46 @@
+"""Enter short module description here
+
+Enter detailed module description here
+
+Author: Name (mail)
+"""
+
+# *******************************************************************************
+# Copyright (c) NewTec GmbH 2025   -   www.newtec.de
+# *******************************************************************************
+
+# Imports **********************************************************************
+
+import cv2
+
+# Variables ********************************************************************
+
+# Classes **********************************************************************
+
+# Functions ********************************************************************
+
+
+def nothing(*arg):
+    pass
+
+
+def start_settings():
+    """
+    Create a settings window with the following trackbars:
+        - Histogram
+        - Gaussian
+        - Ar-width
+    """
+
+    cv2.namedWindow("settings")
+    cv2.createTrackbar("Histogram", "settings", 50, 100, nothing)
+    cv2.createTrackbar("Gaussian", "settings", 41, 201, nothing)
+    cv2.createTrackbar("Ar-width", "settings", 100, 1000, nothing)
+
+    cv2.waitKey(0)
+
+# Main *************************************************************************
+
+
+if __name__ == "__main__":
+    pass
