@@ -14,6 +14,8 @@ from dataclasses import dataclass
 from utils.found_object_master import FoundObjectMaster
 from utils.background_manager import BackgroundManager
 from utils.ar_authority import ArAuthority
+from utils.lord_scaler import LordScaler
+from utils.publisher import Publisher
 
 # Variables ********************************************************************
 
@@ -28,6 +30,8 @@ class Scene():
     found_object_master = FoundObjectMaster()
     background_manager = BackgroundManager()
     ar_authority = ArAuthority()
+    lord_scaler = LordScaler()
+    publisher = Publisher()
 
     def __init__(self):
         self.save_index: int = 0
