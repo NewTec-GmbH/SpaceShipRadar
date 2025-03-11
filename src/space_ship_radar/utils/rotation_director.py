@@ -24,7 +24,7 @@ class RotationDirector():
     """Rotation Director"""
 
     @staticmethod
-    def __calc_angle(point1, point2):
+    def __calc_angle(point1, point2, offset=90):
 
         delta_x = point2[0] - point1[0]
         delta_y = point2[1] - point1[1]
@@ -36,8 +36,8 @@ class RotationDirector():
         angle_deg = math.degrees(angle_rad)
 
         # Return a positiv angle
-        # 0 Degrees points up
-        angle_deg = (angle_deg + 90) % 360
+        # 0 Degrees points up with default offset 90
+        angle_deg = (angle_deg + offset) % 360
 
         angle_deg = round(angle_deg, 2)
         return angle_deg
@@ -52,8 +52,13 @@ class RotationDirector():
         hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
 
         # Threshold of blue in HSV space
-        lower = np.array([139, 0, 0])
-        upper = np.array([170, 20, 100])
+        # webots
+        # lower = np.array([139, 0, 0])
+        # upper = np.array([170, 20, 100])
+
+        # real
+        lower = np.array([0, 60, 100])
+        upper = np.array([40, 255, 250])
 
         # preparing the mask to overlay
         mask = cv2.inRange(hsv, lower, upper)
