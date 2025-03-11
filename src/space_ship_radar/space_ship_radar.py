@@ -19,7 +19,7 @@ import keyboard
 from controller import Robot  # type: ignore # pylint: disable=import-error
 from utils.image_getter import ImageGetter
 from utils.state import Context
-from utils.state_setup import SetupState
+from utils.state_background import BackgroundState
 
 try:
     from space_ship_radar.version import __version__, __author__, __email__, __repository__, __license__
@@ -62,7 +62,7 @@ class Controller(Robot):
         # Setup
         self.step(self.time_step)  # step required
 
-        context = Context(SetupState())
+        context = Context(BackgroundState())
         # Main Loop
         try:
             while self.step(self.time_step) != -1:
