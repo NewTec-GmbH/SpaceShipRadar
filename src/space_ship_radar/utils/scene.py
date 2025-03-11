@@ -16,6 +16,7 @@ from utils.background_manager import BackgroundManager
 from utils.ar_authority import ArAuthority
 from utils.lord_scaler import LordScaler
 from utils.publisher import Publisher
+from utils.drawer import Drawer
 
 # Variables ********************************************************************
 
@@ -32,6 +33,7 @@ class Scene():
     ar_authority = ArAuthority()
     lord_scaler = LordScaler()
     publisher = Publisher()
+    drawer = Drawer()
 
     def __init__(self):
         self.save_index: int = 0
