@@ -9,7 +9,6 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
-import random
 import cv2
 import numpy as np
 
@@ -26,6 +25,7 @@ class BackgroundManager:
 
     def __init__(self):
         self._background_path: str = "./empty.png"
+        self._empty = None
         self.__load_background()
 
     def __load_background(self):
@@ -62,6 +62,10 @@ class BackgroundManager:
         """setter for the current background image and reload the background image"""
         self._background_path = path
         self.__load_background()
+
+    def set_background(self, image):
+        """set background"""
+        self._empty = image
 
 # Functions ********************************************************************
 
