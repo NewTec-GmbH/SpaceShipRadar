@@ -28,12 +28,23 @@ class ObjectFinder:
         gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         cv2.namedWindow("Background: ", cv2.WINDOW_NORMAL)
         cv2.imshow("Background: ", background)
-        dframe = cv2.absdiff(background, cv2.resize(
-            gray_image, (background.shape[1], background.shape[0])))
+        dframe = cv2.absdiff(background, gray_image)
         # cv2.namedWindow("Dframe: ", cv2.WINDOW_NORMAL)
         # cv2.imshow("Dframe: ", dframe)
-        # blurred number has to be uneven
 
+        # kernel = np.ones((16, 16), np.uint8)
+        # erosion = cv2.morphologyEx(
+        #     dframe, cv2.MORPH_OPEN, kernel, iterations=1)
+        # cv2.namedWindow("Morph: ", cv2.WINDOW_NORMAL)
+        # cv2.imshow("Morph: ", erosion)
+
+        # ret, tframe_morph = cv2.threshold(
+        #     erosion, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+
+        # cv2.namedWindow("Morph thresh: ", cv2.WINDOW_NORMAL)
+        # cv2.imshow("Morph thresh: ", tframe_morph)
+
+        # blurred number has to be uneven
         g1 = cv2.getTrackbarPos("Gaussian", "settings")
         if g1 % 2 == 0:
             logging.error(
@@ -42,12 +53,23 @@ class ObjectFinder:
             sys.exit(1)
 
         blurred = cv2.GaussianBlur(dframe, (g1, g1), 0)
-        cv2.namedWindow("GaussianBlur: ", cv2.WINDOW_NORMAL)
-        cv2.imshow("GaussianBlur: ", blurred)
-        cv2.waitKey(1)
+        # cv2.namedWindow("GaussianBlur: ", cv2.WINDOW_NORMAL)
+        # cv2.imshow("GaussianBlur: ", blurred)
+
         ret, tframe = cv2.threshold(
             blurred, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+
+        # ret, tframe = cv2.threshold(blurred, 100, 255, cv2.THRESH_BINARY)
+
+        cv2.namedWindow("tframe: ", cv2.WINDOW_NORMAL)
+        cv2.imshow("tframe: ", tframe)
+
         if ret:
+
+            # kernel = np.ones((5, 5), np.uint8)
+            # morphed = cv2.morphologyEx(tframe, cv2.MORPH_CLOSE, kernel)
+
+            # eroded = cv2.erode(morphed, kernel, iterations=1)
             (contours, _) = cv2.findContours(tframe.copy(),
                                              cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
