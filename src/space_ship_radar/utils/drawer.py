@@ -55,6 +55,7 @@ class Drawer:
         # converting the fps to string so that we can display it on frame
         # by using putText function
         fps = str(fps)
+        print(fps)
 
         # putting the FPS count on the frame
         self._draw_text(

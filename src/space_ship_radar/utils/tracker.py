@@ -86,13 +86,16 @@ class Tracker:
     @staticmethod
     def tracking(camera):
         """main loop"""
-        start = perf_counter()
         if keyboard.is_pressed('s'):  # save image
             cv2.imwrite("image_saved" + str(Scene.save_index) +
                         ".png", ImageGetter.get_image(camera))
             Scene.save_index += 1
 
+        start_image = perf_counter()
         image_bgr = ImageGetter.get_image(camera)
+        end_image = perf_counter()
+        print(f'Time to image: {end_image - start_image} seconds')
+        start = perf_counter()
 
         cv2.namedWindow("Original Video", cv2.WINDOW_NORMAL)
         cv2.imshow("Original Video", image_bgr)
@@ -119,6 +122,8 @@ class Tracker:
             found_list.append({"position": (x, y, w, h), "angle": angle})
 
         Scene.found_object_master.update_found_object(found_list)
+        end = perf_counter()
+        print(f'Time before list: {end - start} seconds')
 
         # create list for drawer
         found_object_list = []
@@ -139,7 +144,7 @@ class Tracker:
                  "identifier_number": found_identifier_number, "angle": found_angle,
                  "real_position": (r_x, r_y), "ratio": ratio})
 
-        # Scene.publisher.send(found_object_list)
+        Scene.publisher.send(found_object_list)
         Scene.drawer.draw_objects(found_object_list, sample_frame)
         cv2.namedWindow('Webots Camera Image', cv2.WINDOW_NORMAL)
         cv2.imshow('Webots Camera Image', sample_frame)
