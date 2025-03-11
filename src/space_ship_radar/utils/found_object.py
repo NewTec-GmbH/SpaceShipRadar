@@ -9,7 +9,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
-import numpy as np
+import time
 
 from utils import helper
 
@@ -21,15 +21,15 @@ from utils import helper
 class FoundObject:
     """Found Object"""
 
-    def __init__(self, identifier_number: int, start_point: tuple[int, int], angle):
+    def __init__(self, identifier_number: int, start_point: tuple[int, int, int, int], angle):
         self.color = helper.random_color()
-        self.previous_points = []  # format middle_point
         self._identifier_number: int = identifier_number
-        self.current_position = (0, 0, 0, 0)  # format (x, y, w, h)
+        self.current_position = start_point  # format (x, y, w, h)
         self.angle = angle
 
-        if start_point is not None:
-            self.previous_points.append(start_point)
+        self._previous_center_point = None  # used for speed calculation
+        self._previous_speed = (0, 0)
+        self._last_call_time = None
 
     @property
     def identifier_number(self) -> int:
@@ -38,30 +38,56 @@ class FoundObject:
 
     def get_newest_point(self) -> tuple[int, int]:
         """returns the newest point of this Found Object"""
-        if len(self.previous_points) < 1:
-            return (-1, -1)
-        return self.previous_points[len(self.previous_points) - 1]
-
-    def add_previous_point(self, point: tuple[int, int]) -> None:
-        """adds a new point. Until a maximum of 3 is reached. 
-        If there are more then the oldest point is remove from the list"""
-        if len(self.previous_points) >= 4:
-            self.previous_points.pop(0)
-
-        self.previous_points.append(point)
+        x, y, w, h = self.current_position
+        point = (x+w/2, y+h/2)
+        return point
 
     def get_speed(self) -> tuple[int, int]:
         """getter for current speed"""
         return self.__calculate_speed()
 
-    def update_position(self, x: int, y: int, w: int, h: int):
+    def _update_position(self, x: int, y: int, w: int, h: int):
         """updates the x, y, width, and height values"""
         self.current_position = (x, y, w, h)
 
     def __calculate_speed(self) -> tuple[int, int]:
         """calculates the speed based on the previous points"""
-        points = np.array(self.previous_points, dtype=np.int32)
-        return helper.calculate_speed(points)
+        # points = np.array(self.previous_points, dtype=np.int32)
+        if self._check_time():
+            self._previous_speed = self._speed()
+        return self._previous_speed
+
+    def _speed(self):  # TODO rename this func
+        if self._previous_center_point is None:
+            self._previous_center_point = self.get_newest_point()
+            return (0, 0)
+
+        last_x, last_y = self._previous_center_point
+        new_x, new_y = self.get_newest_point()
+        speed = (int(new_x-last_x), int(new_y-last_y))
+        self._previous_speed = speed
+        self._previous_center_point = (new_x, new_y)
+        return speed
+
+    def _check_time(self) -> bool:
+        current_time = time.time()
+
+        if self._last_call_time is None:
+            self._last_call_time = current_time
+            return False
+
+        elapsed_time = current_time - self._last_call_time
+
+        if elapsed_time >= 1:
+            self._last_call_time = current_time
+            return True
+        else:
+            return False
+
+    def update(self, x, y, w, h, angle):
+        self._update_position(x, y, w, h)
+        self.angle = angle
+
 
 # Functions ********************************************************************
 
