@@ -37,7 +37,7 @@ def start_settings():
     cv2.createTrackbar("Gaussian", "settings", 41, 201, nothing)
     cv2.createTrackbar("Ar-width", "settings", 100, 1000, nothing)
 
-    cv2.waitKey(0)
+    # cv2.waitKey(0)
 
 # Main *************************************************************************
 

@@ -9,13 +9,13 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
+from time import perf_counter
 import keyboard
 import cv2
 
 from utils.scene import Scene
 from utils.image_getter import ImageGetter
 from utils.object_finder import ObjectFinder
-from utils import drawer
 from utils.transformer import Transformer
 from utils.settings import start_settings
 from utils.rotation_director import RotationDirector
@@ -39,11 +39,11 @@ class Tracker:
             image_bgr)
         image_bgr = Transformer.perspective_transform(image_bgr, corners)
 
-        if cv2.waitKey(0) == ord('b'):
-            cv2.imwrite("transformed_one.png", image_bgr)
-            Scene.background_manager.set_background(
-                cv2.cvtColor(image_bgr, cv2.COLOR_BGR2GRAY))
-        cv2.waitKey(0)
+        # if cv2.waitKey(0) == ord('b'):
+        #     cv2.imwrite("transformed_one.png", image_bgr)
+        #     Scene.background_manager.set_background(
+        #         cv2.cvtColor(image_bgr, cv2.COLOR_BGR2GRAY))
+        # cv2.waitKey(0)
 
     @staticmethod
     def setup(camera):
@@ -86,6 +86,7 @@ class Tracker:
     @staticmethod
     def tracking(camera):
         """main loop"""
+        start = perf_counter()
         if keyboard.is_pressed('s'):  # save image
             cv2.imwrite("image_saved" + str(Scene.save_index) +
                         ".png", ImageGetter.get_image(camera))
@@ -96,8 +97,10 @@ class Tracker:
         cv2.namedWindow("Original Video", cv2.WINDOW_NORMAL)
         cv2.imshow("Original Video", image_bgr)
 
-        corners, _ = Scene.ar_authority.calculate_corners(image_bgr)
-        # corners = Scene.ar_authority.corners
+        if keyboard.is_pressed('r'):
+            corners, _ = Scene.ar_authority.calculate_corners(image_bgr)
+        else:
+            corners = Scene.ar_authority.corners
         image_bgr = Transformer.perspective_transform(image_bgr, corners)
         image_bgr = cv2.resize(
             image_bgr, (Scene.background_manager.background.shape[1], Scene.background_manager.background.shape[0]))
@@ -136,10 +139,14 @@ class Tracker:
                  "identifier_number": found_identifier_number, "angle": found_angle,
                  "real_position": (r_x, r_y), "ratio": ratio})
 
-        Scene.publisher.send(found_object_list)
-        drawer.draw_objects(found_object_list, sample_frame)
+        # Scene.publisher.send(found_object_list)
+        Scene.drawer.draw_objects(found_object_list, sample_frame)
         cv2.namedWindow('Webots Camera Image', cv2.WINDOW_NORMAL)
         cv2.imshow('Webots Camera Image', sample_frame)
+
+        end = perf_counter()
+        print(f"Main Time: {end - start} seconds")
+
         cv2.waitKey(1)  # waits 1ms to display the image
 
     # Functions ********************************************************************

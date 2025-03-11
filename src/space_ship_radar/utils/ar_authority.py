@@ -23,6 +23,7 @@ class ArAuthority:
 
     def __init__(self):
         self._corners = []
+        self.marker_perimeter = -1
 
     @property
     def corners(self) -> np.array:
