@@ -9,6 +9,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
+import logging
 import numpy as np
 import cv2
 
@@ -36,11 +37,41 @@ class ArAuthority:
 
         Returns:
             List[Tuple[int, int]]: corner-points of the 4 ar-markers (only the most outer points -> 4 points in total)
+            int : marker perimeter of first marker or -1 if None found
         """
-        marker_corners, _ = ArAuthority._get_corners_from_dict(image)
-        result = ArAuthority._get_bounding_rect_sorted(marker_corners)
-        self._corners = result
-        return result
+        marker_corners, marker_ids = ArAuthority._get_corners_from_dict(image)
+        if marker_ids is None or len(marker_ids) < 4:
+            logging.error(marker_ids)
+
+        if marker_corners is None or marker_ids is None or len(marker_ids) < 4:
+            logging.warning("AR corners not found")
+
+            corners = self._return_default(image)
+            self._corners = corners
+            return corners, -1
+
+        marker_perimeter = int(cv2.arcLength(marker_corners[0], True))
+        ok, result = ArAuthority._get_bounding_rect_unsorted(
+            marker_corners, marker_ids)
+
+        if ok:
+            self._corners = result
+            return result, marker_perimeter
+
+        else:
+            corners = self._return_default(image)
+            self._corners = corners
+            return corners, -1
+
+    @staticmethod
+    def _return_default(image):
+        top_l = (0, 0)
+        top_r = (image.shape[1], 0)
+        bottom_r = (image.shape[1], image.shape[0])
+        bottom_l = (0, image.shape[0])
+
+        corners = [top_l, top_r, bottom_r, bottom_l]
+        return corners
 
     @staticmethod
     def _get_corners_from_dict(image: np.array):
@@ -54,7 +85,7 @@ class ArAuthority:
             List[int]: marker_ids
         """
         dictionary = cv2.aruco.getPredefinedDictionary(
-            cv2.aruco.DICT_ARUCO_ORIGINAL)
+            cv2.aruco.DICT_5X5_50)
         parameters = cv2.aruco.DetectorParameters()
         detector = cv2.aruco.ArucoDetector(dictionary, parameters)
 
@@ -81,8 +112,12 @@ class ArAuthority:
 
         return result
 
+    # (923, 1001, 241, 1007) original
+    # (923, 431, 1007, 316) mirrored
+    # (1007, 316, 923, 431) works
+    # (6, 13, 35, 49) new dict
     @staticmethod
-    def _get_bounding_rect_unsorted(marker_corners, marker_ids, sequence=(923, 1001, 241, 1007)):
+    def _get_bounding_rect_unsorted(marker_corners, marker_ids, sequence=(6, 13, 35, 49)):
         """returns the 4 most outer points from marker_corners assumed the markers are NOT already in the order:
             top_left, top_right, bottom_right then bottom_left
 
@@ -100,11 +135,15 @@ class ArAuthority:
                             for i in range(len(marker_ids))}
 
         r_bounding_corners = []
-        # top_l, top_r, bottom_r, bottom_l
 
-        for i, position in enumerate(sequence):
-            r_bounding_corners.append(bounding_corners[position][0][i])
-
+        # logging.warning("bounding corners: %s", bounding_corners)
+        try:
+            for i, position in enumerate(sequence):
+                r_bounding_corners.append(bounding_corners[position][0][i])
+            return True, r_bounding_corners
+        except KeyError as error:
+            logging.error(error)
+            return False, -1
 
 # Functions ********************************************************************
 
