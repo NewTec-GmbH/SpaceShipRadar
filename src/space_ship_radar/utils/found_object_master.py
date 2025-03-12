@@ -97,6 +97,9 @@ class FoundObjectMaster:
         """getter for found object"""
         return self.found_objects[index]
 
+    def reset(self):
+        self.found_objects = []
+
 # Functions ********************************************************************
 
 # Main *************************************************************************

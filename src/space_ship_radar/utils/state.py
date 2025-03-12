@@ -12,6 +12,8 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 from __future__ import annotations
 from abc import ABC, abstractmethod
 
+import cv2
+
 # Variables ********************************************************************
 
 # Classes **********************************************************************
@@ -26,6 +28,11 @@ class Context:
 
     def __init__(self, state: State) -> None:
         self.transition_to(state)
+        self._name = "State"
+
+    @property
+    def name(self) -> str:
+        return self._name
 
     def transition_to(self, state: State):
         """
@@ -33,6 +40,7 @@ class Context:
         """
         self._state = state
         self._state.context = self
+        print(state.name)
 
     def update(self, camera):
         """

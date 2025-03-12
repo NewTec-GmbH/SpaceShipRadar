@@ -29,20 +29,6 @@ class ObjectFinder:
         cv2.namedWindow("Background: ", cv2.WINDOW_NORMAL)
         cv2.imshow("Background: ", background)
         dframe = cv2.absdiff(background, gray_image)
-        # cv2.namedWindow("Dframe: ", cv2.WINDOW_NORMAL)
-        # cv2.imshow("Dframe: ", dframe)
-
-        # kernel = np.ones((16, 16), np.uint8)
-        # erosion = cv2.morphologyEx(
-        #     dframe, cv2.MORPH_OPEN, kernel, iterations=1)
-        # cv2.namedWindow("Morph: ", cv2.WINDOW_NORMAL)
-        # cv2.imshow("Morph: ", erosion)
-
-        # ret, tframe_morph = cv2.threshold(
-        #     erosion, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
-
-        # cv2.namedWindow("Morph thresh: ", cv2.WINDOW_NORMAL)
-        # cv2.imshow("Morph thresh: ", tframe_morph)
 
         # blurred number has to be uneven
         g1 = cv2.getTrackbarPos("Gaussian", "settings")
@@ -56,10 +42,10 @@ class ObjectFinder:
         # cv2.namedWindow("GaussianBlur: ", cv2.WINDOW_NORMAL)
         # cv2.imshow("GaussianBlur: ", blurred)
 
-        ret, tframe = cv2.threshold(
-            blurred, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+        # ret, tframe = cv2.threshold(
+        #     blurred, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 
-        # ret, tframe = cv2.threshold(blurred, 100, 255, cv2.THRESH_BINARY)
+        ret, tframe = cv2.threshold(blurred, 100, 255, cv2.THRESH_BINARY)
 
         cv2.namedWindow("tframe: ", cv2.WINDOW_NORMAL)
         cv2.imshow("tframe: ", tframe)

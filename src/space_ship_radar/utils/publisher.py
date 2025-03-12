@@ -58,7 +58,8 @@ class Publisher(metaclass=SingletonMeta):
         # result: [0, 1]
         status = result[0]
         if status == 0:
-            print(f"Send `{msg}` to topic `{self.topic}`")
+            # print(f"Send `{msg}` to topic `{self.topic}`")
+            pass
         else:
             print(f"Failed to send message to topic {self.topic}")
 
