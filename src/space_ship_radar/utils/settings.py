@@ -32,12 +32,12 @@ def start_settings():
         - Ar-width
     """
 
-    cv2.namedWindow("settings")
+    cv2.namedWindow("settings", cv2.WINDOW_NORMAL)
     cv2.createTrackbar("Histogram", "settings", 50, 100, nothing)
-    cv2.createTrackbar("Gaussian", "settings", 101, 201, nothing)
+    cv2.createTrackbar("Gaussian", "settings", 51, 201, nothing)
     cv2.createTrackbar("Ar-width", "settings", 100, 1000, nothing)
 
-    # cv2.waitKey(0)
+    cv2.waitKey(0)
 
 # Main *************************************************************************
 

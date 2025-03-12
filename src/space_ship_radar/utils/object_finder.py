@@ -45,7 +45,7 @@ class ObjectFinder:
         # ret, tframe = cv2.threshold(
         #     blurred, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 
-        ret, tframe = cv2.threshold(blurred, 100, 255, cv2.THRESH_BINARY)
+        ret, tframe = cv2.threshold(blurred, 30, 255, cv2.THRESH_BINARY)
 
         cv2.namedWindow("tframe: ", cv2.WINDOW_NORMAL)
         cv2.imshow("tframe: ", tframe)

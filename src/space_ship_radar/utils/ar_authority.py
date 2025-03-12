@@ -30,6 +30,26 @@ class ArAuthority:
         """getter for the corners"""
         return self._corners
 
+    @staticmethod
+    def _pre_process_image(image) -> np.array:
+        # webots
+        # lower_bound = np.array([205, 0, 205])
+        # upper_bound = np.array([255, 50, 255])
+
+        # real
+        lower_bound = np.array([105, 0, 105])
+        upper_bound = np.array([255, 150, 255])
+
+        mask = cv2.inRange(image, lower_bound, upper_bound)
+
+        output = np.ones_like(image) * 255
+        output[mask > 0] = [0, 0, 0]
+
+        cv2.namedWindow("Ar Pre: ", cv2.WINDOW_NORMAL)
+        cv2.imshow("Ar Pre: ", output)
+
+        return output
+
     def calculate_corners(self, image: np.array):
         """finds where the corners of the predefined ar-markers are in the image
 
@@ -40,6 +60,7 @@ class ArAuthority:
             List[Tuple[int, int]]: corner-points of the 4 ar-markers (only the most outer points -> 4 points in total)
             int : marker perimeter of first marker or -1 if None found
         """
+        image = self._pre_process_image(image)
         marker_corners, marker_ids = ArAuthority._get_corners_from_dict(image)
         if marker_ids is None or len(marker_ids) < 4:
             logging.error(marker_ids)
@@ -64,8 +85,11 @@ class ArAuthority:
             self._corners = corners
             return corners, -1
 
-    @staticmethod
-    def _return_default(image):
+    def _return_default(self, image):
+
+        if len(self.corners) > 3:
+            return self.corners
+
         top_l = (0, 0)
         top_r = (image.shape[1], 0)
         bottom_r = (image.shape[1], image.shape[0])

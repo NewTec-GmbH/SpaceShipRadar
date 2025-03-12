@@ -106,9 +106,6 @@ class TrackingState(State):
         cv2.namedWindow('Webots Camera Image', cv2.WINDOW_NORMAL)
         cv2.imshow('Webots Camera Image', sample_frame)
 
-        end = perf_counter()
-        # print(f"Main Time: {end - start} seconds")
-
         cv2.waitKey(1)  # waits 1ms to display the image
 
 # Functions ********************************************************************
