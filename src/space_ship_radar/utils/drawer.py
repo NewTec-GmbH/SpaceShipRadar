@@ -58,7 +58,7 @@ class Drawer:
 
         # putting the FPS count on the frame
         self._draw_text(
-            frame, fps, (frame.shape[1] - 20, frame.shape[0] - 25), (0, 255, 0))
+            frame, fps, (frame.shape[1] - 100, frame.shape[0] - 25), (0, 255, 0))
 
         for current_found_object_amount, found in enumerate(found_object_list, start=1):
 
