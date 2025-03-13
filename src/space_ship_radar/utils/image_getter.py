@@ -11,12 +11,14 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
-
+import pickle
 import keyboard
 import numpy as np
 import cv2
 
 import controller  # type: ignore # pylint: disable=import-error
+
+from utils.path_governor import PathGovernor
 
 # Variables ********************************************************************
 
@@ -25,6 +27,9 @@ import controller  # type: ignore # pylint: disable=import-error
 
 class ImageGetter():
     """Image Getter"""
+
+    with open(f"{PathGovernor.get_path()}/calibration.pkl", "rb") as file:
+        cameraMatrix, dist = pickle.load(file)
 
     @staticmethod
     def get_image(device) -> np.array:
@@ -52,9 +57,23 @@ class ImageGetter():
 
     @staticmethod
     def __get_image_video(device) -> np.array:
+
         ok, frame = device.read()
         if ok:
-            return frame
+            h,  w = frame.shape[:2]
+            newCameraMatrix, roi = cv2.getOptimalNewCameraMatrix(
+                ImageGetter.cameraMatrix, ImageGetter.dist, (w, h), 1, (w, h))
+
+            # Undistort with Remapping
+            mapx, mapy = cv2.initUndistortRectifyMap(
+                ImageGetter.cameraMatrix, ImageGetter.dist, None, newCameraMatrix, (w, h), 5)
+            dst = cv2.remap(frame, mapx, mapy, cv2.INTER_LINEAR)
+
+            # crop the image
+            x, y, w, h = roi
+            dst = dst[y:y+h, x:x+w]
+
+            return dst
         return None
 
     @staticmethod
@@ -76,6 +95,7 @@ class ImageGetter():
         video_out.release()
 
     # Functions ********************************************************************
+
 
     # Main *************************************************************************
 if __name__ == "__main__":
