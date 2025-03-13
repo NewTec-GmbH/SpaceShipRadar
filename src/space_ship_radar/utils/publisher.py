@@ -66,15 +66,16 @@ class Publisher(metaclass=SingletonMeta):
     def run(self, msg_json, topic_level: str) -> bool:
 
         # check if connection can be established
-        try:
-            self._client = self.connect_mqtt()
-        except ConnectionRefusedError as e:
-            #  socket.gaierror as e:
-            print(e)
-            return False
-
         if self._client is None:
-            return False
+            try:
+                self._client = self.connect_mqtt()
+            except ConnectionRefusedError as e:
+                #  socket.gaierror as e:
+                print(e)
+                return False
+
+            if self._client is None:
+                return False
 
         # send message
         self._client.loop_start()
