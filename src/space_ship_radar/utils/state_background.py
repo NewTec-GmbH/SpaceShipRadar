@@ -15,7 +15,6 @@ import cv2
 from utils.state import State
 from utils.state_setup import SetupState
 from utils.image_getter import ImageGetter
-from utils.settings import start_settings
 from utils.scene import Scene
 from utils.transformer import Transformer
 
@@ -32,7 +31,6 @@ class BackgroundState(State):
         self.name = "BackgroundState"
 
     def run(self, camera) -> None:
-        start_settings()
 
         image_bgr = ImageGetter.get_image(camera)
 
