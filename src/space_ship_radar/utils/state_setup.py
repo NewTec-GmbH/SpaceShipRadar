@@ -33,7 +33,6 @@ class SetupState(State):
 
     def run(self, camera) -> None:
         image_bgr = ImageGetter.get_image(camera)
-        print(image_bgr.shape)
 
         corners, marker_perimeter = Scene.ar_authority.calculate_corners(
             image_bgr)
