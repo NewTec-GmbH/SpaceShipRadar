@@ -19,7 +19,7 @@ import keyboard
 from controller import Robot  # type: ignore # pylint: disable=import-error
 from utils.image_getter import ImageGetter
 from utils.state import Context
-from utils.state_background import BackgroundState
+from utils.state_settings import SettingsState
 
 try:
     from space_ship_radar.version import __version__, __author__, __email__, __repository__, __license__
@@ -53,7 +53,7 @@ class Controller(Robot):
             logging.error("Camera init failed!")
             sys.exit(1)
 
-        # Currently unknown what enable does
+        # Currently unknown what enable does exactly
         self.camera.enable(self.time_step)
 
     def run(self) -> None:
@@ -62,7 +62,7 @@ class Controller(Robot):
         # Setup
         self.step(self.time_step)  # step required
 
-        context = Context(BackgroundState())
+        context = Context(SettingsState())
         # Main Loop
         try:
             while self.step(self.time_step) != -1:

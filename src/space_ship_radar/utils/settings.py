@@ -20,8 +20,8 @@ import cv2
 # Functions ********************************************************************
 
 
-def nothing(*arg):
-    pass
+def nothing(*_):
+    """does nothing"""
 
 
 def start_settings():
@@ -35,7 +35,7 @@ def start_settings():
     cv2.namedWindow("settings", cv2.WINDOW_NORMAL)
     cv2.createTrackbar("Histogram", "settings", 50, 100, nothing)
     cv2.createTrackbar("Gaussian", "settings", 51, 201, nothing)
-    cv2.createTrackbar("Ar-width", "settings", 100, 1000, nothing)
+    cv2.createTrackbar("Ar-width", "settings", 96, 1000, nothing)
 
     cv2.waitKey(0)
 

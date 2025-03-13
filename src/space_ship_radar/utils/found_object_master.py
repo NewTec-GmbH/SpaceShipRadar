@@ -67,6 +67,7 @@ class FoundObjectMaster:
     def update_found_object(self, a_list):
         """updates the position of the best match"""
 
+        # will assign each found object the closest contour
         for found in self.found_objects:
             result = []
             for item in a_list:
@@ -98,6 +99,7 @@ class FoundObjectMaster:
         return self.found_objects[index]
 
     def reset(self):
+        """removes all found objects"""
         self.found_objects = []
 
 # Functions ********************************************************************

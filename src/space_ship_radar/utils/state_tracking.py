@@ -16,7 +16,6 @@ from utils.object_finder import ObjectFinder
 from utils.image_getter import ImageGetter
 from utils.state import State
 from utils.scene import Scene
-from time import perf_counter
 
 import cv2
 import keyboard
@@ -50,6 +49,7 @@ class TrackingState(State):
         cv2.imshow("Original Video", image_bgr)
 
         if keyboard.is_pressed('b'):
+            # pylint: disable=import-outside-toplevel
             from utils.state_background import BackgroundState
             self.context.transition_to(BackgroundState())
             return
@@ -95,7 +95,7 @@ class TrackingState(State):
                  "identifier_number": found_identifier_number, "angle": found_angle,
                  "real_position": (r_x, r_y), "ratio": ratio})
 
-        # Scene.publisher.send(found_object_list.copy())
+        Scene.publisher.send(found_object_list.copy())
         Scene.drawer.draw_objects(found_object_list, sample_frame)
         cv2.namedWindow('Webots Camera Image', cv2.WINDOW_NORMAL)
         cv2.imshow('Webots Camera Image', sample_frame)

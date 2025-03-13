@@ -29,7 +29,7 @@ class ImageGetter():
     """Image Getter"""
 
     with open(f"{PathGovernor.get_path()}/calibration.pkl", "rb") as file:
-        cameraMatrix, dist = pickle.load(file)
+        camera_matrix, dist = pickle.load(file)
 
     @staticmethod
     def get_image(device) -> np.array:
@@ -61,13 +61,13 @@ class ImageGetter():
         ok, frame = device.read()
         if ok:
             h,  w = frame.shape[:2]
-            newCameraMatrix, roi = cv2.getOptimalNewCameraMatrix(
-                ImageGetter.cameraMatrix, ImageGetter.dist, (w, h), 1, (w, h))
+            new_camera_matrix, roi = cv2.getOptimalNewCameraMatrix(
+                ImageGetter.camera_matrix, ImageGetter.dist, (w, h), 1, (w, h))
 
             # Undistort with Remapping
-            mapx, mapy = cv2.initUndistortRectifyMap(
-                ImageGetter.cameraMatrix, ImageGetter.dist, None, newCameraMatrix, (w, h), 5)
-            dst = cv2.remap(frame, mapx, mapy, cv2.INTER_LINEAR)
+            map_x, map_y = cv2.initUndistortRectifyMap(
+                ImageGetter.camera_matrix, ImageGetter.dist, None, new_camera_matrix, (w, h), 5)
+            dst = cv2.remap(frame, map_x, map_y, cv2.INTER_LINEAR)
 
             # crop the image
             x, y, w, h = roi

@@ -39,8 +39,6 @@ class SetupState(State):
         image_bgr = Transformer.perspective_transform(image_bgr, corners)
         Scene.lord_scaler.init(marker_perimeter)
 
-        # cv2.imwrite("transformed_one.png", image_bgr)
-
         empty = Scene.background_manager.background
         image_bgr = cv2.resize(
             image_bgr, (empty.shape[1], empty.shape[0]))
@@ -52,8 +50,6 @@ class SetupState(State):
 
         for found_object_index, cnt in enumerate(boxes):
             x, y, w, h = cnt
-
-            # center_point = (int(x+w/2), int(y+h/2))
 
             # check if the found object is a robot and should be tracked
             # or if it is 'noise' and can be added to the background and therefore

@@ -23,3 +23,8 @@ aruco
 nathancy
 Trackbar
 trackbars
+opencv
+Undistort
+fourcc
+paho
+mqtt

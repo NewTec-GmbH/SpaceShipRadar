@@ -21,7 +21,10 @@ import cv2
 
 
 class Drawer:
+    """Drawer"""
+
     def __init__(self):
+        # used for fps calculation
         self.prev_frame_time = 0
         self.new_frame_time = 0
 
@@ -41,20 +44,14 @@ class Drawer:
         """Draws every object from an object master"""
         self.new_frame_time = time.time()
 
-        # Calculating the fps
+        # Calculating the fps from:
+        # (https://www.geeksforgeeks.org/
+        # python-displaying-real-time-fps-at-which-webcam-video-file-is-processed-using-opencv/)
 
-        # fps will be number of frame processed in given time frame
-        # since their will be most of time error of 0.001 second
-        # we will be subtracting it to get more accurate result
         fps = 1/(self.new_frame_time - self.prev_frame_time)
         self.prev_frame_time = self.new_frame_time
 
-        # converting the fps into integer
-        fps = int(fps)
-
-        # converting the fps to string so that we can display it on frame
-        # by using putText function
-        fps = str(fps)
+        fps = str(int(fps))
 
         # putting the FPS count on the frame
         self._draw_text(

@@ -57,7 +57,8 @@ class FoundObject:
             self._previous_speed = self._speed()
         return self._previous_speed
 
-    def _speed(self):  # TODO rename this func
+    def _speed(self):
+        """returns the position difference between last call"""
         if self._previous_center_point is None:
             self._previous_center_point = self.get_newest_point()
             return (0, 0)
@@ -70,6 +71,12 @@ class FoundObject:
         return speed
 
     def _check_time(self) -> bool:
+        """check if 1 second has passed
+
+        Returns:
+            bool: True if more than 1s has passed
+                    else: False 
+        """
         current_time = time.time()
 
         if self._last_call_time is None:
@@ -78,13 +85,22 @@ class FoundObject:
 
         elapsed_time = current_time - self._last_call_time
 
-        if elapsed_time >= 1:
+        if elapsed_time > 1:
             self._last_call_time = current_time
             return True
         else:
             return False
 
     def update(self, x, y, w, h, angle):
+        """updates the position and angle of this object
+
+        Args:
+            x (int): top left corner of object x position
+            y (int): top left corner of object y postion
+            w (int): width of object
+            h (int): height of object
+            angle (int): angle of the object
+        """
         self._update_position(x, y, w, h)
         self.angle = angle
 

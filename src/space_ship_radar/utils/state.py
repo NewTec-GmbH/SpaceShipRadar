@@ -12,8 +12,6 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 from __future__ import annotations
 from abc import ABC, abstractmethod
 
-import cv2
-
 # Variables ********************************************************************
 
 # Classes **********************************************************************
@@ -32,6 +30,7 @@ class Context:
 
     @property
     def name(self) -> str:
+        """getter for the state name"""
         return self._name
 
     def transition_to(self, state: State):

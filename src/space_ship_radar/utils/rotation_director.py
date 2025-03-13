@@ -44,6 +44,7 @@ class RotationDirector():
 
     @staticmethod
     def calc_angle(image, rectangle):
+        """calculates an angle based on a color mask"""
         x, y, w, h = rectangle
 
         # Extract the region of interest (ROI) from the source image
@@ -51,7 +52,6 @@ class RotationDirector():
 
         hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
 
-        # Threshold of blue in HSV space
         # webots
         # lower = np.array([139, 0, 0])
         # upper = np.array([170, 20, 100])

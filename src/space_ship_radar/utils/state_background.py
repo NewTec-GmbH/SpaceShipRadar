@@ -24,13 +24,14 @@ from utils.transformer import Transformer
 
 
 class BackgroundState(State):
-    """pre_main"""
+    """Background State"""
 
     def __init__(self):
         super().__init__()
         self.name = "BackgroundState"
 
     def run(self, camera) -> None:
+        """changes the background if the b-key is pressed"""
 
         image_bgr = ImageGetter.get_image(camera)
 

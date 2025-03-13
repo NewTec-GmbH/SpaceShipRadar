@@ -10,7 +10,6 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # Imports **********************************************************************
 
 import cv2
-import random
 
 from utils.path_governor import PathGovernor
 

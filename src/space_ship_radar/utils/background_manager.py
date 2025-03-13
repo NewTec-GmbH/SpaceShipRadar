@@ -1,4 +1,4 @@
-"""Manages what is considered to be background
+"""Manages what is considered to be the background
 
 Author: Marc Trosch (marc.trosch@newtec.de)
 """
@@ -46,10 +46,6 @@ class BackgroundManager:
         # Extract the region of interest (ROI) from the source image
         roi = source_image[y:y+h, x:x+w]
 
-        # For Testing
-        # cv2.waitKey(1)
-        # cv2.imwrite(f"testing{random.randint(1,10000)}.png", roi)
-        # Paste the ROI into the destination image at the same location
         self._empty[y:y+h, x:x+w] = roi
 
     @property

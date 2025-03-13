@@ -17,10 +17,13 @@ import cv2
 
 
 class LordScaler:
+    """Lord Scaler"""
+
     def __init__(self):
         self._ratio = 1
 
     def init(self, marker_perimeter: int):
+        """calculates a conversion ratio based on the found markers size"""
         if marker_perimeter == -1:
             return
 
@@ -37,6 +40,7 @@ class LordScaler:
 
     @property
     def ratio(self):
+        """getter for the conversion ratio"""
         return self._ratio
 
 # Functions ********************************************************************
