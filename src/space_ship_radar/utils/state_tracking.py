@@ -44,11 +44,7 @@ class TrackingState(State):
                         ".png", ImageGetter.get_image(camera))
             Scene.save_index += 1
 
-        # start_image = perf_counter()
         image_bgr = ImageGetter.get_image(camera)
-        # end_image = perf_counter()
-        # print(f'Time to image: {end_image - start_image} seconds')
-        # start = perf_counter()
 
         cv2.namedWindow("Original Video", cv2.WINDOW_NORMAL)
         cv2.imshow("Original Video", image_bgr)
@@ -58,8 +54,8 @@ class TrackingState(State):
             self.context.transition_to(BackgroundState())
             return
         else:
-            # corners = Scene.ar_authority.corners
-            corners, _ = Scene.ar_authority.calculate_corners(image_bgr)
+            corners = Scene.ar_authority.corners
+            # corners, _ = Scene.ar_authority.calculate_corners(image_bgr)
 
         image_bgr = Transformer.perspective_transform(image_bgr, corners)
         cv2.namedWindow("Transformed: ", cv2.WINDOW_NORMAL)
@@ -79,8 +75,6 @@ class TrackingState(State):
             found_list.append({"position": (x, y, w, h), "angle": angle})
 
         Scene.found_object_master.update_found_object(found_list)
-        # end = perf_counter()
-        # print(f'Time before list: {end - start} seconds')
 
         # create list for drawer
         found_object_list = []
