@@ -72,7 +72,9 @@ class ArAuthority:
             self._corners = corners
             return corners, -1
 
-        marker_perimeter = int(cv2.arcLength(marker_corners[0], True))
+        marker_perimeter = int(
+            np.mean([cv2.arcLength(corner, True) for corner in marker_corners]))
+
         ok, result = ArAuthority._get_bounding_rect_unsorted(
             marker_corners, marker_ids)
 
