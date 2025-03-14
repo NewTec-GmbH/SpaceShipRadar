@@ -9,19 +9,19 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
-import time
-
 from utils import helper
+from utils.time_checker import TimeChecker
 
 # Variables ********************************************************************
 
 # Classes **********************************************************************
 
 
-class FoundObject:
+class FoundObject(TimeChecker):
     """Found Object"""
 
     def __init__(self, identifier_number: int, start_point: tuple[int, int, int, int], angle):
+        super().__init__()
         self.color = helper.random_color()
         self._identifier_number: int = identifier_number
         self.current_position = start_point  # format (x, y, w, h)
@@ -29,7 +29,6 @@ class FoundObject:
 
         self._previous_center_point = None  # used for speed calculation
         self._previous_speed = (0, 0)
-        self._last_call_time = None
 
     @property
     def identifier_number(self) -> int:
@@ -70,28 +69,7 @@ class FoundObject:
         self._previous_center_point = (new_x, new_y)
         return speed
 
-    def _check_time(self) -> bool:
-        """check if 1 second has passed
-
-        Returns:
-            bool: True if more than 1s has passed
-                    else: False 
-        """
-        current_time = time.time()
-
-        if self._last_call_time is None:
-            self._last_call_time = current_time
-            return False
-
-        elapsed_time = current_time - self._last_call_time
-
-        if elapsed_time > 1:
-            self._last_call_time = current_time
-            return True
-        else:
-            return False
-
-    def update(self, x, y, w, h, angle):
+    def update(self, position, angle):
         """updates the position and angle of this object
 
         Args:
@@ -101,6 +79,7 @@ class FoundObject:
             h (int): height of object
             angle (int): angle of the object
         """
+        x, y, w, h = position
         self._update_position(x, y, w, h)
         self.angle = angle
 

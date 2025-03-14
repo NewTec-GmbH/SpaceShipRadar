@@ -29,7 +29,7 @@ class Drawer:
         self.new_frame_time = 0
 
     @staticmethod
-    def _draw_text(frame, txt: str, location: tuple[int, int], color=(100, 100, 100)):
+    def draw_text(frame, txt: str, location: tuple[int, int], color=(100, 100, 100)):
         """helper function to draw a text onto an image"""
         # scales text based on image size
         scaler = frame.shape[0] / 500
@@ -54,7 +54,7 @@ class Drawer:
         fps = str(int(fps))
 
         # putting the FPS count on the frame
-        self._draw_text(
+        self.draw_text(
             frame, fps, (frame.shape[1] - 100, frame.shape[0] - 25), (0, 255, 0))
 
         for current_found_object_amount, found in enumerate(found_object_list, start=1):
@@ -74,7 +74,7 @@ class Drawer:
                           (x+w, y+h), found_color, 2)
 
             # draws the id above the rectangle
-            Drawer._draw_text(frame, str(
+            Drawer.draw_text(frame, str(
                 found_identifier_number), (x, y), found_color)
 
             # write text
@@ -86,8 +86,8 @@ class Drawer:
 
             # scale text based on image size
             scaler = frame.shape[0] / 15
-            Drawer._draw_text(frame, display_text,
-                              (5, int(current_found_object_amount * scaler)), color=found_color)
+            Drawer.draw_text(frame, display_text,
+                             (5, int(current_found_object_amount * scaler)), color=found_color)
 
 
 # Main *************************************************************************

@@ -1,9 +1,7 @@
-"""Singleton Meta
+"""Time Checker
 
 Author: Marc Trosch (marc.trosch@newtec.de)
 """
-
-# source: https://refactoring.guru/design-patterns/singleton/python/example
 
 
 # *******************************************************************************
@@ -12,20 +10,40 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
+import time
+
 # Variables ********************************************************************
 
 # Classes **********************************************************************
 
 
-class SingletonMeta(type):
-    """Singleton Metaclass"""
-    _instances = {}
+class TimeChecker():
+    """Time Checker"""
 
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            instance = super().__call__(*args, **kwargs)
-            cls._instances[cls] = instance
-        return cls._instances[cls]
+    def __init__(self):
+        self._last_call_time = None
+
+    def _check_time(self) -> bool:
+        """check if 1 second has passed
+
+        Returns:
+            bool: True if more than 1s has passed
+                    else: False 
+        """
+        current_time = time.time()
+
+        if self._last_call_time is None:
+            self._last_call_time = current_time
+            return False
+
+        elapsed_time = current_time - self._last_call_time
+
+        if elapsed_time > 1:
+            self._last_call_time = current_time
+            return True
+
+        return False
+
 
 # Functions ********************************************************************
 

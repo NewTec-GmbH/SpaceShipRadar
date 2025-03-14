@@ -43,8 +43,21 @@ class RotationDirector():
         return angle_deg
 
     @staticmethod
-    def calc_angle(image, rectangle):
-        """calculates an angle based on a color mask"""
+    def get_biggest_contour(contours):
+        """returns the biggest contour by area"""
+        # only biggest contour
+        b_cnt = []
+        for cnt in contours:
+            _, _, c_width, c_height = cv2.boundingRect(cnt)
+            s_area = c_width * c_height
+            b_cnt.append({"contour": cnt, "area": s_area})
+        b_cnt_sorted = sorted(b_cnt, key=lambda x: x["area"], reverse=True)
+
+        selected_cnt = b_cnt_sorted[0]["contour"]
+        return selected_cnt
+
+    @staticmethod
+    def _get_contours(image, rectangle):
         x, y, w, h = rectangle
 
         # Extract the region of interest (ROI) from the source image
@@ -53,12 +66,12 @@ class RotationDirector():
         hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
 
         # webots
-        # lower = np.array([139, 0, 0])
-        # upper = np.array([170, 20, 100])
+        lower = np.array([139, 0, 0])
+        upper = np.array([170, 20, 100])
 
         # real
-        lower = np.array([0, 60, 100])
-        upper = np.array([40, 255, 250])
+        # lower = np.array([0, 60, 100])
+        # upper = np.array([40, 255, 250])
 
         # preparing the mask to overlay
         mask = cv2.inRange(hsv, lower, upper)
@@ -72,21 +85,21 @@ class RotationDirector():
         contours, _ = cv2.findContours(
             tframe, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
+        return contours
+
+    @staticmethod
+    def calc_angle(image, rectangle):
+        """calculates an angle based on a color mask"""
+        x, y, w, h = rectangle
+        contours = RotationDirector._get_contours(image, rectangle)
+
         if len(contours) < 1:
             return -1
 
-        # only biggest contour
-        b_cnt = []
-        for cnt in contours:
-            _, _, c_width, c_height = cv2.boundingRect(cnt)
-            s_area = c_width * c_height
-            b_cnt.append({"contour": cnt, "area": s_area})
-        b_cnt_sorted = sorted(b_cnt, key=lambda x: x["area"], reverse=True)
-
-        selected_cnt = b_cnt_sorted[0]["contour"]
+        selected_cnt = RotationDirector.get_biggest_contour(contours)
 
         # middle of picture
-        middle_of_picture = int(roi.shape[1]/2), int(roi.shape[0]/2)
+        middle_of_picture = int(w / 2), int(h / 2)
 
         # middle of contour
         x, y, w, h = cv2.boundingRect(selected_cnt)

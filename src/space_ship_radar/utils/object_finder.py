@@ -54,22 +54,6 @@ class ObjectFinder:
             object_location = []
             for cnt in contours:
                 x, y, w, h = cv2.boundingRect(cnt)
-                rect = cv2.minAreaRect(cnt)
-                angle = rect[-1]
-
-                # from https://www.pyimagesearch.com/2017/02/20/text-skew-correction-opencv-python/
-                # the `cv2.minAreaRect` function returns values in the
-                # range [-90, 0); as the rectangle rotates clockwise the
-                # returned angle trends to 0 -- in this special case we
-                # need to add 90 degrees to the angle
-                if angle < -45:
-                    angle = -(90 + angle)
-
-                # otherwise, just take the inverse of the angle to make
-                # it positive
-                else:
-                    angle = -angle
-
                 object_location.append([x, y, w, h])
 
             return np.array(object_location)

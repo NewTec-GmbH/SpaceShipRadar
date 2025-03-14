@@ -9,23 +9,24 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
-import time
 import json
 import random
 
 from paho.mqtt import client as mqtt_client
 
 from utils.singleton_meta import SingletonMeta
+from utils.time_checker import TimeChecker
 
 # Variables ********************************************************************
 
 # Classes **********************************************************************
 
 
-class Publisher(metaclass=SingletonMeta):
+class Publisher(TimeChecker, metaclass=SingletonMeta):
     """Publisher"""
 
     def __init__(self):
+        super().__init__()
         self.broker = '192.168.56.1'
         self.port = 1883
         self.topic = "ssr/"
@@ -85,8 +86,18 @@ class Publisher(metaclass=SingletonMeta):
         return True
 
     @staticmethod
-    def _json_builder(position_x: int, position_y: int,
-                      speed_x: int, speed_y: int, angle: int, error_code: int) -> str:
+    def json_builder(position, speed, angle: int, error_code: int) -> str:
+        """creates a json element with:
+            - positionX
+            - positionY
+            - speedX
+            - speedY
+            - angle
+            - errorCode
+        """
+        position_x, position_y = position
+        speed_x, speed_y = speed
+
         message_dict = {
             "positionX": position_x,
             "positionY": position_y,
@@ -125,7 +136,6 @@ class Publisher(metaclass=SingletonMeta):
 
             # position
             current_position = found["real_position"]
-            x, y = current_position
 
             # speed
             speed = found["speed"]
@@ -140,31 +150,10 @@ class Publisher(metaclass=SingletonMeta):
             else:
                 error_code = 0
 
-            msg_json_ = self._json_builder(
-                x, y, speed[0], speed[1], angle, error_code)
+            msg_json_ = self.json_builder(
+                current_position, speed, angle, error_code)
             self._connected = self._send_message(
                 msg_json_, str(identifier_number))
-
-    def _check_time(self) -> bool:
-        """check if 1 second has passed
-
-        Returns:
-            bool: True if more than 1s has passed
-                    else: False 
-        """
-        current_time = time.time()
-
-        if self._last_call_time is None:
-            self._last_call_time = current_time
-            return False
-
-        elapsed_time = current_time - self._last_call_time
-
-        if elapsed_time >= 1:
-            self._last_call_time = current_time
-            return True
-        else:
-            return False
 
 
 # Functions ********************************************************************

@@ -86,7 +86,7 @@ class FoundObjectMaster:
                 x, y, w, h = a_list[smallest_index]["position"]
                 angle = a_list[smallest_index]["angle"]
                 a_list.pop(smallest_index)
-                found.update(x, y, w, h, angle)
+                found.update([x, y, w, h], angle)
             else:
                 logging.warning(
                     "no match for found Object %s", found.identifier_number)
