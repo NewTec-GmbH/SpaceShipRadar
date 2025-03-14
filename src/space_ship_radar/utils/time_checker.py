@@ -11,12 +11,14 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # Imports **********************************************************************
 
 import time
+from dataclasses import dataclass
 
 # Variables ********************************************************************
 
 # Classes **********************************************************************
 
 
+@dataclass
 class TimeChecker():
     """Time Checker"""
 
