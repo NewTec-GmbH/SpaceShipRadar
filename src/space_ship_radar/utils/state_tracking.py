@@ -89,7 +89,7 @@ class TrackingState(State):
         cv2.namedWindow("Original Video", cv2.WINDOW_NORMAL)
         cv2.imshow("Original Video", image_bgr)
 
-        corners = Scene.ar_authority.corners
+        corners = Scene.ar_authority.marker_corners
         # corners, _ = Scene.ar_authority.calculate_corners(image_bgr)
 
         image_bgr = Transformer.perspective_transform(image_bgr, corners)

@@ -22,11 +22,11 @@ class ArAuthority:
     """ArAuthority"""
 
     def __init__(self):
-        self._marker_corners = []
+        self._marker_corners: np.array = np.array([])
         self.marker_perimeter = -1
 
     @property
-    def corners(self) -> np.array:
+    def marker_corners(self) -> np.array:
         """getter for the marker corners"""
         return self._marker_corners
 
@@ -107,8 +107,8 @@ class ArAuthority:
         """
 
         # if markers have already been found return those
-        if len(self.corners) > 3:
-            return self.corners
+        if len(self.marker_corners) > 3:
+            return self.marker_corners
 
         # else return the image corners (then the scaling will do nothing)
         top_l = (0, 0)
