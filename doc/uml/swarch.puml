@@ -1,110 +1,94 @@
 @startuml swarch
-!pragma layout smetanas
+' !pragma layout smetanas
 
 title Dependencies
 
 package "Application Layer" as AL {
-    package States <<rectangle>>{
-        abstract "State" {
-            context
-            {abstract}run(camera) -> None
+    package States {}
+
+    package Scenes {
+        class "Scene" {
+            ar_authority
+            background_manager
+            drawer
+            found_object_master
+            lord_scaler
+            publisher
+            save_index : int
+        }
+        class "FoundObject" {
+            angle
+            color
+            current_position : tuple[int, int, int, int]
+            identifier_number
+            get_newest_point() -> tuple[int, int]
+            get_speed() -> tuple[int, int]
+            update(position, angle)
         }
 
-        class "Context" {
-            name
-            transition_to(state: State)
-            update(camera) # type can be a webots-camera or real-camera
+        class "FoundObjectMaster" {
+            found_objects : list[FoundObject]
+            add_found_object(num: int, position: tuple[int, int, int, int], angle) -> None
+            get_best_match(point: tuple[int, int]) -> int
+            get_found_object(index: int) -> FoundObject
+            is_found_object(image, rectangle: tuple[int, int, int, int]) -> bool
+            reset()
+            update_found_object(a_list)
         }
 
-        class "TrackingState" {
-            name : str
-            run(camera) -> None
+        class "BackgroundManager" {
+            background
+            background_path
+            copy_region(image, rectangle: tuple[int, int, int, int])
+            set_background(image)
         }
 
-        class "SettingsState" {
-            name : str
-            run(camera) -> None
+        class "ArAuthority" {
+            marker_corners
+            marker_perimeter : int
+            calculate_corners(image: np.array)
         }
 
-        class "SetupState" {
-            name : str
-            run(camera) -> None
+        class "LordScaler" {
+            ratio
+            convert(num: int) -> int
+            init(marker_perimeter: int)
         }
 
-        class "BackgroundState" {
-            name : str
-            run(camera) -> None
+        class "Publisher" {
+            broker : str
+            client_id : str
+            port : int
+            topic : str
+            json_builder(position, speed, angle: int, error_code: int) -> str
+            send(found_object_list)
+        }
+
+        class "Drawer" {
+            new_frame_time : int
+            prev_frame_time : int
+            draw_objects(found_object_list, frame)
+            draw_text(frame, txt: str, location: tuple[int, int], color)
         }
     }
 
-    class "Scene" {
-        ar_authority
-        background_manager
-        drawer
-        found_object_master
-        lord_scaler
-        publisher
-        save_index : int
-    }
-
-    class "FoundObject" {
-        angle
-        color
-        current_position : tuple[int, int, int, int]
-        identifier_number
-        get_newest_point() -> tuple[int, int]
-        get_speed() -> tuple[int, int]
-        update(position, angle)
-    }
-
-    class "FoundObjectMaster" {
-        found_objects : list[FoundObject]
-        add_found_object(num: int, position: tuple[int, int, int, int], angle) -> None
-        get_best_match(point: tuple[int, int]) -> int
-        get_found_object(index: int) -> FoundObject
-        is_found_object(image, rectangle: tuple[int, int, int, int]) -> bool
-        reset()
-        update_found_object(a_list)
-    }
 
     class "SpaceShipRadar" #PaleGreen
-        class "HistogramStar" {
-        get_hist(image)
-        get_robo_hist()
-    }
-
-    class "LordScaler" {
-        ratio
-        convert(num: int) -> int
-        init(marker_perimeter: int)
-    }
 
     class "RotationDirector" {
         calc_angle(image, rectangle)
         get_biggest_contour(contours)
     }
+
+    class "ObjectFinder" {
+        get_contours(image: np.ndarray, background: np.ndarray) -> np.array
+    }
+
 }
 
 package "Service Layer" as SL {
 
-    class "BackgroundManager" {
-        background
-        background_path
-        copy_region(image, rectangle: tuple[int, int, int, int])
-        set_background(image)
-    }
-
     class Helper
-
-
-    class "Drawer" {
-        new_frame_time : int
-        prev_frame_time : int
-        draw_objects(found_object_list, frame)
-        draw_text(frame, txt: str, location: tuple[int, int], color)
-    }
-
-    class "SingletonMeta" {}
 
     class "PathGovernor" {
         image_folder_path : NoneType
@@ -119,16 +103,6 @@ package "Service Layer" as SL {
         record_video(camera, step, time_step, width, height)
     }
 
-    class "ObjectFinder" {
-        get_contours(image: np.ndarray, background: np.ndarray) -> np.array
-    }
-
-    class "ArAuthority" {
-        marker_corners
-        marker_perimeter : int
-        calculate_corners(image: np.array)
-    }
-
     class "Transformer" {
         perspective_transform(image: np.array, corners: List[Tuple[int, int]]) -> np.array
     }
@@ -139,63 +113,28 @@ package "Service Layer" as SL {
         get_video()
         get_video_path()
     }
-
-    class "TimeChecker" {}
-
-    class "Publisher" {
-        broker : str
-        client_id : str
-        port : int
-        topic : str
-        json_builder(position, speed, angle: int, error_code: int) -> str
-        send(found_object_list)
-    }
-
-    class "ColorGenerator" {
-        previous_colors : list
-        {abstract}foos()
-        random_color()
-    }
 }
 
 class Os #SkyBlue
 class "Robot" #pink
 ' class OpenCV #pink
 
-' ArAuthority ..> OpenCV
-
-' BackgroundManager ..> OpenCV
-BackgroundManager ..> PathGovernor
-
-' Drawer ..> OpenCV
-
-' FoundObjectMaster ..> OpenCV
-FoundObjectMaster ..> HistogramStar
-FoundObjectMaster *-- "*" FoundObject
-
-FoundObject ..> Helper
-FoundObject -|> TimeChecker
-
-' HistogramStar ..> OpenCV
-HistogramStar ..> PathGovernor
-
 ' ImageGetter ..> OpenCV
-ImageGetter ..> Robot
-ImageGetter ..> PathGovernor
-
-' LordScaler ..> OpenCV
+ImageGetter .> Robot
+ImageGetter .> PathGovernor
 
 ' ObjectFinder ..> OpenCV
 
 PathGovernor ..> Os
 
-PathGovernor --|> SingletonMeta
-PathGovernor -> TimeChecker
-
 ' RotationDirector ..> OpenCV
 
 Scene --o FoundObjectMaster
+' Scene ..> OpenCV
+Scene --* "*" FoundObject
+Scene ..> Helper
 Scene --o BackgroundManager
+Scene ..> PathGovernor
 Scene --o ArAuthority
 Scene --o LordScaler
 Scene --o Publisher
@@ -203,45 +142,22 @@ Scene --o Drawer
 
 ' Settings ..> OpenCV
 
-' BackgroundState ..> OpenCV
-BackgroundState --|> State
-BackgroundState .> SetupState
-BackgroundState ..> ImageGetter
-BackgroundState ..> Scene
-BackgroundState ..> Transformer
-
-SettingsState --|> State
-SettingsState .> BackgroundState
-
-SetupState --|> State
-SetupState .> TrackingState
-SetupState ..> ImageGetter
-SetupState ..> Scene
-SetupState ..> Transformer
-SetupState ..> ObjectFinder
-SetupState ..> RotationDirector
-
-TrackingState --|> State
-TrackingState .> RotationDirector
-TrackingState ..> Transformer
-TrackingState ..> ObjectFinderd
-TrackingState ..> ImageGetter
-TrackingState ..> Scene
+' States ..> OpenCV
+States .> ImageGetter
+States ..> Scene
+States .> Transformer
+States ..> ObjectFinder
+States ..> RotationDirector
 
 ' Transformer ..> OpenCV
 
 ' VideoChef ..> OpenCV
 VideoChef ..> PathGovernor
 
-
-Context ..> State : _context
-State ..> Context : _state
-
 ' SpaceShipRadar ..> OpenCV
 SpaceShipRadar ..> Robot
 SpaceShipRadar ..> ImageGetter
-SpaceShipRadar ..> Context
-SpaceShipRadar ..> SettingsState
+SpaceShipRadar ..> States
 
 
 note right of Robot
