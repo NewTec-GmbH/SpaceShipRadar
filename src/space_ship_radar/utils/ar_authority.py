@@ -172,7 +172,6 @@ class ArAuthority:
             List[Tuple[float, float]]: The most outer points of the marker_corners
         """
 
-        # bounding_corners = dict(zip(markerIds, markerCorners))
         bounding_corners = {int(marker_ids[i]): marker_corners[i]
                             for i in range(len(marker_ids))}
 
