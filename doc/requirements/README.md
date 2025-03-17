@@ -5,20 +5,32 @@ SSR = Space Ship Radar
 
 ---
 
-The system shall locate the position, rotation and speed of every robot in its designated field of view:
-- the position is measured in mm and the coordinate origin is defined by the ar-tracker (id=923)
-- the rotation is measured in degrees, with 0 degrees representing the angle pointing straight up (y-direction)
-- speed is measured in mm/s and is split into a x- and y-direction (based on the coordinates of the transformed image)
-- the designated are shall be defined by 4 ar-markers
+The system shall locate the position, rotation and speed of every robot in its designated field of view
 
 ---
 
-Before tracking:
-- a image empty.png exists under src/img
+The system shall measure the position in mm 
 
---- 
+---
 
-The Gui shall make an image if the "Create picture"-button is pressed
+The system shall define the coordinate origin by an ar-tracker (dict= cv2.aruco.DICT_5X5_50, id=6)
+
+---
+
+
+The system shall measure the rotation in mrad, with 0 representing the angle pointing straight up (y-direction)
+
+---
+
+The system shall measure speed in mm/s and is split into a x- and y-direction
+
+---
+
+The system can limit the visible area by 4 aruco-markers
+
+---
+
+The GUI may make an image if the "Create picture"-button is pressed
 
 ---
 
