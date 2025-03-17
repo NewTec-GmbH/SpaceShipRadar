@@ -48,7 +48,12 @@ class Drawer:
         # (https://www.geeksforgeeks.org/
         # python-displaying-real-time-fps-at-which-webcam-video-file-is-processed-using-opencv/)
 
-        fps = 1/(self.new_frame_time - self.prev_frame_time)
+        # just to be safe
+        try:
+            fps = 1/(self.new_frame_time - self.prev_frame_time)
+        except ZeroDivisionError:
+            fps = -1
+
         self.prev_frame_time = self.new_frame_time
 
         fps = str(int(fps))
@@ -64,16 +69,13 @@ class Drawer:
             if found["position"] is None:
                 return
 
-            # variables
             x, y, w, h = found["position"]
             found_identifier_number = found["identifier_number"]
             found_color = found["color"]
 
-            # draw rectangle
             cv2.rectangle(frame, (x, y),
                           (x+w, y+h), found_color, 2)
 
-            # draws the id above the rectangle
             Drawer.draw_text(frame, str(
                 found_identifier_number), (x, y), found_color)
 
