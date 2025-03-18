@@ -72,7 +72,7 @@ class ArAuthority:
         image = self._pre_process_image(image)
 
         # search the image for aruco markers
-        marker_corners, marker_ids = ArAuthority._get_corners_from_dict(image)
+        marker_corners, marker_ids = self._get_corners_from_dict(image)
 
         if (marker_corners is None) or (marker_ids is None) or (len(marker_ids) < 4):
             logging.warning("AR corners not found")
@@ -87,7 +87,7 @@ class ArAuthority:
             np.mean([self._my_arc_length(corner, True) for corner in marker_corners]))
 
         # sort the markers clock wise
-        ok, result = ArAuthority._get_bounding_rect_unsorted(
+        ok, result = self._get_bounding_rect_unsorted(
             marker_corners, marker_ids)
 
         if not ok:
