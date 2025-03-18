@@ -50,7 +50,7 @@ The ArUco-markers shall be the following from the dictionary DICT_ARUCO_ORIGINAL
 
 ---
 
-The designated field of view shall be restricted by the 4 ArUco-markers and is orientated to match the markers (the top-left markers needs to be in the top-left corner)
+The designated field of view shall be restricted by the 4 ArUco-markers and is orientated to match the markers (the top-left marker needs to be in the top-left corner)
 
 ---
 
