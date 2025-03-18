@@ -3,6 +3,7 @@
 Abbreviation | Meaning
 --- | ---
 ArUco | Augmented Reality University of Cordoba
+mm | millimeters
 
 # Requirements
 
