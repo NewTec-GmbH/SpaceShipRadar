@@ -67,7 +67,8 @@ class ArAuthority:
             image (np.array): target image which (can) contains 4 ArUco-markers
 
         Returns:
-            List[Tuple[int, int]]: corner-points of the 4 ArUco-markers (only the most outer points -> 4 points in total)
+            List[Tuple[int, int]]: corner-points of the 4 ArUco-markers 
+                (only the most outer points -> 4 points in total)
             int : marker perimeter of first marker or -1 if None found
         """
 

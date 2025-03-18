@@ -9,6 +9,8 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
+from dataclasses import dataclass
+
 import numpy as np
 
 # Variables ********************************************************************
@@ -16,6 +18,7 @@ import numpy as np
 # Classes **********************************************************************
 
 
+@dataclass
 class ColorGenerator:
     """Manages random colors"""
 
