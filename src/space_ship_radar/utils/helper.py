@@ -10,7 +10,6 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # Imports **********************************************************************
 
 import numpy as np
-from numba import jit
 
 # Variables ********************************************************************
 
