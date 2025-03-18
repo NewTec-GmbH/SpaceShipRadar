@@ -36,7 +36,6 @@ class ObjectFinder:
         if g1 % 2 == 0:
             logging.error(
                 "The Gaussian blur number needs to be uneven!")
-            cv2.destroyAllWindows()
             sys.exit(1)
 
         blurred = cv2.GaussianBlur(dframe, (g1, g1), 0)
