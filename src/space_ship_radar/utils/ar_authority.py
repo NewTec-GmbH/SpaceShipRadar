@@ -138,7 +138,7 @@ class ArAuthority:
 
         # pylint: disable=unpacking-non-sequence
         marker_corners, marker_ids, _ = detector.detectMarkers(
-            image)  # _ = rejectedCandidates
+            image)
         return marker_corners, marker_ids
 
     @staticmethod
