@@ -9,6 +9,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
+from typing import Tuple
 import logging
 import numpy as np
 import cv2
@@ -57,7 +58,7 @@ class ArAuthority:
         print(f"perimeter: {result}")
         return result
 
-    def calculate_corners(self, image: np.array):
+    def calculate_corners(self, image: np.array) -> Tuple[np.array, int]:
         """finds where the corners of predefined ArUco-markers are in the image
 
         Args:
