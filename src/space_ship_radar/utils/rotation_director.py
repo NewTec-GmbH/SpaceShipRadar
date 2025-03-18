@@ -57,11 +57,15 @@ class RotationDirector():
         return selected_cnt
 
     @staticmethod
-    def _get_contours(image, rectangle):
-        x, y, w, h = rectangle
+    def _get_contours_of_color_space(roi):
+        """finds the contours of a color space inside the region of interest
 
-        # Extract the region of interest (ROI) from the source image
-        roi = image[y:y+h, x:x+w]
+        Args:
+            roi (np.array): region of interest inside of an image
+
+        Returns:
+            np.array: found contours
+        """
 
         hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
 
@@ -91,7 +95,11 @@ class RotationDirector():
     def calc_angle(image, rectangle):
         """calculates an angle based on a color mask"""
         x, y, w, h = rectangle
-        contours = RotationDirector._get_contours(image, rectangle)
+
+        # Extract the region of interest (ROI) from the source image
+        roi = image[y:y+h, x:x+w]
+        contours = RotationDirector._get_contours_of_color_space(
+            roi)
 
         if len(contours) < 1:
             return -1
