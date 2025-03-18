@@ -9,8 +9,8 @@
 ## get_contours()
 ![get_contours](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/NewTec-GmbH/SpaceShipRadar/refs/heads/main/doc/uml/get_contours.puml)
 
-## state
+## State
 ![state](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/NewTec-GmbH/SpaceShipRadar/refs/heads/main/doc/uml/state.puml)
 
-## message
+## Message
 ![state](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/NewTec-GmbH/SpaceShipRadar/refs/heads/main/doc/uml/message.puml)
