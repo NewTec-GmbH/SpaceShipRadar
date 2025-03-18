@@ -37,7 +37,7 @@ class Drawer:
                     scaler, color, int(scaler))
 
     @staticmethod
-    def _append_if_not_none(key, value):
+    def _append_if_not_none(key, value) -> str:
         return f"{key}: {value} " if value is not None else ""
 
     def draw_objects(self, found_object_list, frame):
