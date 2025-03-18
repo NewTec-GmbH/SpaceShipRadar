@@ -44,7 +44,7 @@ Solid {
   children [
     TexturedBoxShape {
       textureUrl [
-        "../protos/pink_13.png"
+        "../protos/markers/pink_13.png"
       ]
     }
   ]
@@ -59,7 +59,7 @@ Solid {
   children [
     TexturedBoxShape {
       textureUrl [
-        "../protos/pink_35.png"
+        "../protos/markers/pink_35.png"
       ]
     }
   ]
@@ -74,7 +74,7 @@ Solid {
   children [
     TexturedBoxShape {
       textureUrl [
-        "../protos/pink_6.png"
+        "../protos/markers/pink_6.png"
       ]
     }
   ]
@@ -89,7 +89,7 @@ Solid {
   children [
     TexturedBoxShape {
       textureUrl [
-        "../protos/pink_49.png"
+        "../protos/markers/pink_49.png"
       ]
     }
   ]
