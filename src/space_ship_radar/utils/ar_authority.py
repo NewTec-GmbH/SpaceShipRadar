@@ -20,7 +20,9 @@ import cv2
 
 
 class ArAuthority:
-    """ArAuthority"""
+    """Ar Authority
+        - Responsible for finding Aruco Markers
+    """
 
     def __init__(self):
         self._marker_corners: np.array = np.array([])
