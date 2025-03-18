@@ -25,7 +25,7 @@ from utils.drawer import Drawer
 
 @dataclass
 class Scene():
-    """Defines the Setup (pre_main) and the Tracking (main_loop)"""
+    """Handles References to all class which belong to the Scene"""
     # save_index is used as a file suffix for saved images
     save_index = 0
     found_object_master = FoundObjectMaster()
