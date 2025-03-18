@@ -40,11 +40,11 @@ class SetupState(State):
         image_bgr = Transformer.perspective_transform(image_bgr, corners)
         Scene.lord_scaler.init(marker_perimeter)
 
-        empty = Scene.background_manager.background
+        background = Scene.background_manager.background
         image_bgr = cv2.resize(
-            image_bgr, (empty.shape[1], empty.shape[0]))
+            image_bgr, (background.shape[1], background.shape[0]))
 
-        boxes = ObjectFinder.get_contours(image_bgr, empty)
+        boxes = ObjectFinder.get_contours(image_bgr, background)
 
         # reset found object master
         Scene.found_object_master.reset()

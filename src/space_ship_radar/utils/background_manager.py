@@ -24,18 +24,18 @@ class BackgroundManager:
         and therefore what is ignored by the visual recognition. """
 
     def __init__(self):
-        self._background_path: str = "./empty.png"
-        self._empty = None
+        self._background_path: str = "./background.png"
+        self._background = None
         self.__load_background()
 
     def __load_background(self):
-        self._empty: np.array = cv2.imread(
+        self._background: np.array = cv2.imread(
             f"{PathGovernor.get_path()}{self.background_path}", cv2.IMREAD_GRAYSCALE)
 
     @property
     def background(self) -> np.array:
-        """getter for the empty background"""
-        return self._empty
+        """getter for the background"""
+        return self._background
 
     def copy_region(self, image, rectangle: tuple[int, int, int, int]):
         """copies a image into the background"""
@@ -46,7 +46,7 @@ class BackgroundManager:
         # Extract the region of interest (ROI) from the source image
         roi = source_image[y:y+h, x:x+w]
 
-        self._empty[y:y+h, x:x+w] = roi
+        self._background[y:y+h, x:x+w] = roi
 
     @property
     def background_path(self) -> str:
@@ -61,7 +61,7 @@ class BackgroundManager:
 
     def set_background(self, image):
         """set background"""
-        self._empty = image
+        self._background = image
 
 # Functions ********************************************************************
 
