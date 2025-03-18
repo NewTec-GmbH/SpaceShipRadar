@@ -1,5 +1,4 @@
 @startuml swarch
-' !pragma layout smetanas
 
 title Dependencies
 
@@ -7,15 +6,8 @@ package "Application Layer" as AL {
     package States {}
 
     package Scenes {
-        class "Scene" {
-            ar_authority
-            background_manager
-            drawer
-            found_object_master
-            lord_scaler
-            publisher
-            save_index : int
-        }
+        class "Scene" 
+
         class "FoundObject" {
             angle
             color
