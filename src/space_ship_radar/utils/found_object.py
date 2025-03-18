@@ -73,10 +73,10 @@ class FoundObject(TimeChecker):
         """updates the position and angle of this object
 
         Args:
-            x (int): top left corner of object x position
-            y (int): top left corner of object y postion
-            w (int): width of object
-            h (int): height of object
+            x (int): top left corner of object x position (pixel values)
+            y (int): top left corner of object y postion (pixel values)
+            w (int): width of object (pixel values)
+            h (int): height of object (pixel values)
             angle (int): angle of the object
         """
         x, y, w, h = position
