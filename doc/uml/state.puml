@@ -1,5 +1,4 @@
 @startuml state
-hide empty description
 
 state .{
 state Setup
