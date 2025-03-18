@@ -80,7 +80,7 @@ SSR shall send the position, rotation and speed with the MQTT-protocol to each r
 
 ---
 
-A picture of the tracked objects shall be provided under src/img [MISC-04]
+A picture of the tracked objects may be provided under src/img folder [MISC-04]
 
 ---
 
