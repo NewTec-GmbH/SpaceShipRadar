@@ -34,6 +34,8 @@ class FoundObjectMaster:
         roi = image[y:y+h, x:x+w]
 
         hist = HistogramStar.get_hist(roi)
+        # diff: describes a number between 0 and 1 represents how good the histograms match
+        # (1: is very good, and 0: is very bad)
         diff = cv2.compareHist(HistogramStar.get_robo_hist(),
                                hist, cv2.HISTCMP_CORREL)
 
@@ -42,6 +44,7 @@ class FoundObjectMaster:
         h1 = h1 / 100
 
         # if the difference is too big then it is not considered to be a found object and False is returned
+        # In this case h1 is the threshold of how "good" a result has to be to be considered to be a found_object
         if diff < h1:
             return False
 
@@ -67,13 +70,17 @@ class FoundObjectMaster:
         smallest_number = min(result)
         return result.index(smallest_number)
 
-    def update_found_object(self, a_list):
-        """updates the position of the best match"""
+    def update_found_object(self, object_properties):
+        """updates the position of the best match
+
+        Args:
+            object_properties: dict which holds 'position' in (x, y, w, h) and 'angle' in mrad for each found object
+        """
 
         # will assign each found object the closest contour
         for found in self.found_objects:
             result = []
-            for item in a_list:
+            for item in object_properties:
                 x, y, w, h = item["position"]
                 point = (x+w/2, y+h/2)
 
@@ -86,15 +93,15 @@ class FoundObjectMaster:
                 smallest_number = min(result)
                 smallest_index = result.index(smallest_number)
 
-                x, y, w, h = a_list[smallest_index]["position"]
-                angle = a_list[smallest_index]["angle"]
-                a_list.pop(smallest_index)
+                x, y, w, h = object_properties[smallest_index]["position"]
+                angle = object_properties[smallest_index]["angle"]
+                object_properties.pop(smallest_index)
                 found.update([x, y, w, h], angle)
             else:
                 logging.warning(
                     "no match for found Object %s", found.identifier_number)
 
-        if len(a_list) > 0:
+        if len(object_properties) > 0:
             logging.warning("contours unused")
 
     def get_found_object(self, index: int) -> FoundObject:
