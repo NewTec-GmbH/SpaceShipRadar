@@ -19,15 +19,15 @@ from utils.state_background import BackgroundState
 # Classes **********************************************************************
 
 
-class SettingsState(State):
-    """Settings State
+class ConfigurationState(State):
+    """Configuration State
         - Creates the 'settings'-window which contains trackbars, which 
             can be used to adjust different values in the code like
                 - The ArUco-marker-width or the Gaussian Blur (used in ObjectFinder)"""
 
     def __init__(self):
         super().__init__()
-        self.name = "SettingsState"
+        self.name = "ConfigurationState"
 
     @staticmethod
     def _nothing(*_):
@@ -44,16 +44,16 @@ class SettingsState(State):
 
         cv2.namedWindow("settings", cv2.WINDOW_NORMAL)
         cv2.createTrackbar("Histogram", "settings", 50,
-                           100, SettingsState._nothing)
+                           100, ConfigurationState._nothing)
         cv2.createTrackbar("Gaussian", "settings", 51,
-                           201, SettingsState._nothing)
+                           201, ConfigurationState._nothing)
         cv2.createTrackbar("ArUco-width", "settings", 96,
-                           1000, SettingsState._nothing)
+                           1000, ConfigurationState._nothing)
 
         cv2.waitKey(0)
 
     def run(self, camera) -> None:
-        SettingsState._start_settings()
+        ConfigurationState._start_settings()
 
         # pylint: disable=no-member
 
