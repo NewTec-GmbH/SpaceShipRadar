@@ -81,7 +81,8 @@ class ArAuthority:
             self._marker_corners = corners
             return corners, -1
 
-        # calculate marker perimeter (used for coordinate scaling later)
+        # calculate marker perimeter for each marker
+        # then takes the median value and assigns it to marker_perimeter
         marker_perimeter = int(
             np.mean([self._my_arc_length(corner, True) for corner in marker_corners]))
 
