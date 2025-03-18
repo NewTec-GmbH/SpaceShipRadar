@@ -30,7 +30,15 @@ class Drawer:
 
     @staticmethod
     def draw_text(frame, txt: str, location: tuple[int, int], color=(100, 100, 100)):
-        """helper function to draw a text onto an image"""
+        """helper function to draw a text onto an image
+
+        Args:
+            frame (np.array): image in which the text should be written
+            txt (str): new text which is added in the image
+            location (tuple[int, int]): location of new text
+            color (tuple, optional): color of text. Defaults to (100, 100, 100) [or Gray].
+        """
+
         # scales text based on image size
         scaler = frame.shape[0] / 500
         cv2.putText(frame, txt, location, cv2.FONT_HERSHEY_SIMPLEX, .5 *
@@ -59,6 +67,8 @@ class Drawer:
         fps = str(int(fps))
 
         # putting the FPS count on the frame
+        # put the text in the bottom right corner and slightly to the center
+        # slightly is in this case -100 in x-direction and -25 in the -y-direction
         self.draw_text(
             frame, fps, (frame.shape[1] - 100, frame.shape[0] - 25), (0, 255, 0))
 
