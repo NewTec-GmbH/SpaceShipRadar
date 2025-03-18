@@ -43,10 +43,14 @@ The GUI may make an image if the "Create picture"-button is pressed
 ## ArUco-Marker
 
 The ArUco-markers shall be the following from the dictionary DICT_ARUCO_ORIGINAL with the IDs:
-- 923 = top-left
-- 1001 = top-right
-- 241 = bottom-right
-- 1007 = bottom-left
+- 6 = top-left  
+![pink_6](../../webots/protos/pink_6.png)
+- 13 = top-right  
+![pink_13](../../webots/protos/pink_13.png)
+- 35 = bottom-right  
+![pink_35](../../webots/protos/pink_35.png)
+- 49 = bottom-left  
+![pink_49](../../webots/protos/pink_49.png)
 
 ---
 
