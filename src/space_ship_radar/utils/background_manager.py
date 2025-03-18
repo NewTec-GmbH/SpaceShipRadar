@@ -55,7 +55,7 @@ class BackgroundManager:
 
     @background_path.setter
     def background_path(self, path: str) -> None:
-        """setter for the current background image and reload the background image"""
+        """setter for the current background image path and reload the background image"""
         self._background_path = path
         self.__load_background()
 
