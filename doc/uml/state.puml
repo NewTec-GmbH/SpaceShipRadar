@@ -11,10 +11,10 @@ state Background
 Settings -> Background
 Background -> Setup
 Setup -> Tracking
-Tracking -> Tracking
-Tracking -> Background
+Tracking -> Tracking : nothing pressed
+Tracking -> Background : b pressed
 }
 
-. --> [*] : press q
+. --> [*] : q pressed
 
 @enduml
