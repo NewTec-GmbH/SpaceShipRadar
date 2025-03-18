@@ -25,7 +25,8 @@ from utils.rotation_director import RotationDirector
 
 
 class SetupState(State):
-    """pre_main"""
+    """Setup State
+        - Initializes the FoundObject Master with current FoundObjects found"""
 
     def __init__(self):
         super().__init__()

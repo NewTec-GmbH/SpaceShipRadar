@@ -20,7 +20,10 @@ from utils.state_background import BackgroundState
 
 
 class SettingsState(State):
-    """pre_main"""
+    """Settings State
+        - Creates the 'settings'-window which contains trackbars, which 
+            can be used to adjust different values in the code like
+                - The ArUco-marker-width or the Gaussian Blur (used in ObjectFinder)"""
 
     def __init__(self):
         super().__init__()
