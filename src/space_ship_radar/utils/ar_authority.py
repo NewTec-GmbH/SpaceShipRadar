@@ -51,9 +51,9 @@ class ArAuthority:
         return output
 
     @staticmethod
-    def _my_arc_length(corner, bo):
+    def _my_arc_length(curve: np.array, closed: bool) -> float:
 
-        result = cv2.arcLength(corner, bo)
+        result = cv2.arcLength(curve, closed)
         print(f"perimeter: {result}")
         return result
 
