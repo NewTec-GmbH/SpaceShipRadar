@@ -1,3 +1,8 @@
+# Glossary
+
+Abbreviation | Meaning
+--- | ---
+ArUco | Augmented Reality University of Cordoba
 
 # Requirements
 
@@ -49,7 +54,7 @@ The designated field of view shall be restricted by the 4 ArUco-markers and is o
 ---
 
 Pixel coordinates shall be translated to real world coordinates by using the size of the ArUco-markers or the distance between the markers
-- The resulting translation can have a deviation of 10% to the "real" size
+The resulting translation can have a deviation of 10% to the "real" size
 
 
 ## Miscellaneous
