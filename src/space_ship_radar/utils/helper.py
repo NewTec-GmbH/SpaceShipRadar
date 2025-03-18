@@ -56,25 +56,4 @@ def random_color() -> tuple[int, int, int]:
     return color_generator.random_color()
 
 
-@jit
-def calculate_speed(points: np.ndarray) -> tuple[int, int]:
-    """calculates the speed based on previous points"""
-    if len(points) < 2:
-        return (0, 0)  # Not enough points to calculate speed
-
-    # Calculate differences in x and y coordinates
-    dx = np.empty(len(points) - 1, dtype=np.int32)
-    dy = np.empty(len(points) - 1, dtype=np.int32)
-
-    for i in range(1, len(points)):
-        dx[i - 1] = points[i][0] - points[i - 1][0]
-        dy[i - 1] = points[i][1] - points[i - 1][1]
-
-    # Calculate median of differences using np.median
-    median_dx = int(np.median(dx))
-    median_dy = int(np.median(dy))
-
-    return (median_dx, median_dy)
-
-
 # Main *************************************************************************
