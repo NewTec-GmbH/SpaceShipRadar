@@ -69,7 +69,7 @@ SSR shall communicate with a real esp-32-cam
 
 ---
 
-SSR shall send the position, rotation and speed with the mqtt-protocol the each robot
+SSR shall send the position, rotation and speed with the MQTT-protocol the each robot
 
 ---
 

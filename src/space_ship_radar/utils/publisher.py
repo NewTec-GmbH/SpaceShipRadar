@@ -39,7 +39,7 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
         self._connected = True
 
     def _connect_mqtt(self):
-        """tries to connect to mqtt broker"""
+        """tries to connect to MQTT broker"""
         def on_connect(_client, _userdata, _flags, rc):
             if rc == 0:
                 print("Connected to MQTT Broker!")
@@ -110,7 +110,7 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
         return json.dumps(message_dict)
 
     def send(self, found_object_list):
-        """sends for each list entry of found_object_list a message to the mqtt broker
+        """sends for each list entry of found_object_list a message to the MQTT broker
 
         Args:
             found_object_list (dict): for each object stores information about:
