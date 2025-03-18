@@ -78,7 +78,7 @@ class ImageGetter():
 
     @staticmethod
     def record_video(camera, step, time_step, width=1920, height=1440):
-        """records a video for the webots camera"""
+        """records a video for the webots camera [debug class]"""
         fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
         video_output_file_name = 'video_output' + '.mp4'
         video_out = cv2.VideoWriter(
