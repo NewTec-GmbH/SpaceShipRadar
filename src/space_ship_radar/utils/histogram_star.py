@@ -25,7 +25,6 @@ class HistogramStar:
     @staticmethod
     def get_hist(image):
         """returns a histogram for an image"""
-        # cv2.imwrite(f"testing{random.randint(1,10000)}.png", image)
         bgr_planes = cv2.split(image)
         hist_size = 16
 
