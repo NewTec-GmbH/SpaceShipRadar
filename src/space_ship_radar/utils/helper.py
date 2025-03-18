@@ -45,9 +45,6 @@ class ColorGenerator:
 
         return new_color.tolist()
 
-    def foos(self):
-        """this function exists to make pylint happy"""
-
 # Functions ********************************************************************
 
 
