@@ -37,8 +37,11 @@ class FoundObjectMaster:
         diff = cv2.compareHist(HistogramStar.get_robo_hist(),
                                hist, cv2.HISTCMP_CORREL)
 
+        # get the value of settings-window of Histogram
         h1 = cv2.getTrackbarPos("Histogram", "settings")
         h1 = h1 / 100
+
+        # if the difference is too big then it is not considered to be a found object and False is returned
         if diff < h1:
             return False
 
