@@ -131,6 +131,7 @@ Scene --o ArAuthority
 Scene --o LordScaler
 Scene --o Publisher
 Scene --o Drawer
+FoundObjectMaster .> FoundObject
 
 ' Settings ..> OpenCV
 
