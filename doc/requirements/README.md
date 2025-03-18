@@ -13,7 +13,7 @@ The system shall measure the position in mm
 
 ---
 
-The system shall define the coordinate origin by an ar-tracker (dict= cv2.aruco.DICT_5X5_50, id=6)
+The system shall define the coordinate origin by an ArUco-tracker (dict= cv2.aruco.DICT_5X5_50, id=6)
 
 ---
 
@@ -26,7 +26,7 @@ The system shall measure speed in mm/s and is split into a x- and y-direction
 
 ---
 
-The system can limit the visible area by 4 aruco-markers
+The system can limit the visible area by 4 ArUco-markers
 
 ---
 
@@ -34,9 +34,9 @@ The GUI may make an image if the "Create picture"-button is pressed
 
 ---
 
-## Ar-Marker
+## ArUco-Marker
 
-The ar-markers shall be the following from the dictionary DICT_ARUCO_ORIGINAL with the ids:
+The ArUco-markers shall be the following from the dictionary DICT_ARUCO_ORIGINAL with the ids:
 - 923 = top-left
 - 1001 = top-right
 - 241 = bottom-right
@@ -44,11 +44,11 @@ The ar-markers shall be the following from the dictionary DICT_ARUCO_ORIGINAL wi
 
 ---
 
-The designated field of view shall be restricted by the 4 ar-markers and is orientated to match the markers (the top-left markers needs to be in the top-left corner)
+The designated field of view shall be restricted by the 4 ArUco-markers and is orientated to match the markers (the top-left markers needs to be in the top-left corner)
 
 ---
 
-Pixel coordinates shall be translated to real world coordinates by using the size of th ar-markers or the distance between the markers
+Pixel coordinates shall be translated to real world coordinates by using the size of the ArUco-markers or the distance between the markers
 - The resulting translation can have a deviation of 10% to the "real" size
 
 
@@ -69,14 +69,6 @@ SSR shall send the position, rotation and speed with the mqtt-protocol the each 
 ---
 
 A picture of the tracked objects shall be provided under src/img
-
----
-
-<!-- the coordinates could match the orientation of webots? -->
-
----
-
-<!-- SSR shall identify each robot -->
 
 ---
 

@@ -58,13 +58,13 @@ class ArAuthority:
         return result
 
     def calculate_corners(self, image: np.array):
-        """finds where the corners of predefined ar-markers are in the image
+        """finds where the corners of predefined ArUco-markers are in the image
 
         Args:
-            image (np.array): target image which (can) contains 4 ar-markers
+            image (np.array): target image which (can) contains 4 ArUco-markers
 
         Returns:
-            List[Tuple[int, int]]: corner-points of the 4 ar-markers (only the most outer points -> 4 points in total)
+            List[Tuple[int, int]]: corner-points of the 4 ArUco-markers (only the most outer points -> 4 points in total)
             int : marker perimeter of first marker or -1 if None found
         """
         # extract only magenta colors form the image (for magenta ar trackers)
@@ -124,7 +124,7 @@ class ArAuthority:
         """returns all marker_corners and the corresponding marker_ids found in the image
 
         Args:
-            image (np.array): target image with ar-markers
+            image (np.array): target image with ArUco-markers
 
         Returns:
             List[List[Tuple[float, float]]]: marker_corners

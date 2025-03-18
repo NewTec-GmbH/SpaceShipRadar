@@ -36,7 +36,7 @@ class SettingsState(State):
         Create a settings window with the following trackbars:
             - Histogram
             - Gaussian
-            - Ar-width
+            - ArUco-width
         """
 
         cv2.namedWindow("settings", cv2.WINDOW_NORMAL)
@@ -44,7 +44,7 @@ class SettingsState(State):
                            100, SettingsState._nothing)
         cv2.createTrackbar("Gaussian", "settings", 51,
                            201, SettingsState._nothing)
-        cv2.createTrackbar("Ar-width", "settings", 96,
+        cv2.createTrackbar("ArUco-width", "settings", 96,
                            1000, SettingsState._nothing)
 
         cv2.waitKey(0)

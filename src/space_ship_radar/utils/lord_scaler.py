@@ -27,8 +27,8 @@ class LordScaler:
         if marker_perimeter == -1:
             return
 
-        # Ar-width
-        real_ar_width = cv2.getTrackbarPos("Ar-width", "settings")
+        # ArUco-width
+        real_ar_width = cv2.getTrackbarPos("ArUco-width", "settings")
         real_ar_perimeter = real_ar_width * 4
 
         ratio = real_ar_perimeter / marker_perimeter
