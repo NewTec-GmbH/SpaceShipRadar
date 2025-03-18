@@ -53,7 +53,6 @@ class Controller(Robot):
             logging.error("Camera init failed!")
             sys.exit(1)
 
-        # Currently unknown what enable does exactly
         self.camera.enable(self.time_step)
 
     def run(self) -> None:
