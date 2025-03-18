@@ -42,7 +42,7 @@ The GUI may make an image if the "Create picture"-button is pressed
 
 ## ArUco-Marker
 
-The ArUco-markers shall be the following from the dictionary DICT_ARUCO_ORIGINAL with the ids:
+The ArUco-markers shall be the following from the dictionary DICT_ARUCO_ORIGINAL with the IDs:
 - 923 = top-left
 - 1001 = top-right
 - 241 = bottom-right
