@@ -20,11 +20,11 @@ from utils.time_checker import TimeChecker
 class FoundObject(TimeChecker):
     """Found Object"""
 
-    def __init__(self, identifier_number: int, start_point: tuple[int, int, int, int], angle):
+    def __init__(self, identifier_number: int, start_position: tuple[int, int, int, int], angle):
         super().__init__()
         self.color = helper.random_color()
         self._identifier_number: int = identifier_number
-        self.current_position = start_point  # format (x, y, w, h)
+        self.current_position = start_position  # format (x, y, w, h)
         self.angle = angle
 
         self._previous_center_point = None  # used for speed calculation
