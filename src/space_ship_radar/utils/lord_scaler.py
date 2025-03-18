@@ -17,7 +17,8 @@ import cv2
 
 
 class LordScaler:
-    """Lord Scaler"""
+    """Lord Scaler
+        - Responsible for converting pixel values into mm"""
 
     def __init__(self):
         self._ratio = 1
