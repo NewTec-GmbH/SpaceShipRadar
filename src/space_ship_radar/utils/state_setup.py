@@ -52,21 +52,9 @@ class SetupState(State):
         for found_object_index, cnt in enumerate(boxes):
             x, y, w, h = cnt
 
-            # check if the found object is a robot and should be tracked
-            # or if it is 'noise' and can be added to the background and therefore
-            # will not be considered for the tracking (does only work for static/non-moving obstacles)
-
-            # roi_object = image_bgr[y:y+h, x:x+w]
-
-            # if Scene.found_object_master.is_found_object(image_bgr, (x, y, w, h)):
             angle = RotationDirector.calc_angle(image_bgr, (x, y, w, h))
             Scene.found_object_master.add_found_object(
                 found_object_index, (x, y, w, h), angle)
-            # else:
-            #     # copy the object into the background which will ignore it in the future
-            #     Scene.background_manager.copy_region(
-            #         image_bgr, (x, y, w, h))
-            #     # pas
         # pylint: disable=no-member
 
         self.context.transition_to(TrackingState())
