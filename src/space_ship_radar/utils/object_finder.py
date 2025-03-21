@@ -20,7 +20,7 @@ import numpy as np
 
 @dataclass
 class ObjectFinder:
-    """Object Finder"""
+    """Responsible for finding Objects in Images"""
 
     @staticmethod
     def get_contours(image: np.ndarray, background: np.ndarray) -> np.array:
@@ -32,16 +32,16 @@ class ObjectFinder:
 
         # blurred number has to be uneven
         # this is only temporary and will be changed later
-        g1 = cv2.getTrackbarPos("Gaussian", "settings")
-        if g1 % 2 == 0:
+        gaussian_value = cv2.getTrackbarPos("Gaussian", "settings")
+        if gaussian_value % 2 == 0:
             logging.error(
                 "The Gaussian blur number needs to be uneven!")
             sys.exit(1)
 
-        blurred = cv2.GaussianBlur(dframe, (g1, g1), 0)
+        blurred = cv2.GaussianBlur(dframe, (gaussian_value, gaussian_value), 0)
 
         ret, tframe = cv2.threshold(
-            blurred, 30, 255, cv2.THRESH_BINARY)  # +cv2.THRESH_OTSU
+            blurred, 30, 255, cv2.THRESH_BINARY)
 
         cv2.namedWindow("tframe: ", cv2.WINDOW_NORMAL)
         cv2.imshow("tframe: ", tframe)
