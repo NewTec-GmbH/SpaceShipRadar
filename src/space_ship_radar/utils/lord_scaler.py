@@ -32,7 +32,10 @@ class LordScaler:
         real_ar_width = cv2.getTrackbarPos("ArUco-width", "settings")
         real_ar_perimeter = real_ar_width * 4
 
-        ratio = real_ar_perimeter / marker_perimeter
+        try:
+            ratio = real_ar_perimeter / marker_perimeter
+        except ZeroDivisionError:
+            ratio = 1
         self._ratio = ratio
 
     def convert(self, num: int) -> int:
@@ -40,7 +43,7 @@ class LordScaler:
         return int(round(self._ratio * num, 1))
 
     @property
-    def ratio(self):
+    def ratio(self) -> float:
         """getter for the conversion ratio"""
         return self._ratio
 
