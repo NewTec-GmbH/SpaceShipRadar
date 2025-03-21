@@ -10,6 +10,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # Imports **********************************************************************
 
 import cv2
+import numpy as np
 
 from utils.path_governor import PathGovernor
 
@@ -23,7 +24,7 @@ class HistogramStar:
 
     # from: https://docs.opencv.org/3.4/d8/dbc/tutorial_histogram_calculation.html
     @staticmethod
-    def get_hist(image):
+    def get_hist(image: np.array) -> np.array:
         """returns a histogram for an image"""
         bgr_planes = cv2.split(image)
         hist_size = 16
@@ -44,7 +45,7 @@ class HistogramStar:
         return g_hist
 
     @staticmethod
-    def get_robo_hist():
+    def get_robo_hist() -> np.array:
         """returns a histogram from a picture of the robot"""
         image = cv2.imread(PathGovernor.get_path() + "just_robo.png")
 
