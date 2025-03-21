@@ -29,10 +29,8 @@ class RotationDirector():
         delta_x = point2[0] - point1[0]
         delta_y = point2[1] - point1[1]
 
-        # Radians
         angle_rad = math.atan2(delta_y, delta_x)
 
-        # Degrees
         angle_deg = math.degrees(angle_rad)
 
         # Return a positiv angle
@@ -43,7 +41,7 @@ class RotationDirector():
         return angle_deg
 
     @staticmethod
-    def get_biggest_contour(contours):
+    def get_biggest_contour(contours: np.array) -> np.array:
         """returns the biggest contour by area"""
         # only biggest contour
         b_cnt = []
@@ -70,10 +68,12 @@ class RotationDirector():
         hsv = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
 
         # webots
+        # color-mask for front of robot in webots
         lower = np.array([139, 0, 0])
         upper = np.array([170, 20, 100])
 
         # real
+        # color-mask for front of robot in real life
         # lower = np.array([0, 60, 100])
         # upper = np.array([40, 255, 250])
 
@@ -85,14 +85,13 @@ class RotationDirector():
         _, tframe = cv2.threshold(
             blurred, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
 
-        # contours
         contours, _ = cv2.findContours(
             tframe, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
         return contours
 
     @staticmethod
-    def calc_angle(image, rectangle):
+    def calc_angle(image: np.array, rectangle: tuple[int, int, int, int]):
         """calculates an angle based on a color mask"""
         x, y, w, h = rectangle
 
@@ -106,14 +105,11 @@ class RotationDirector():
 
         selected_cnt = RotationDirector.get_biggest_contour(contours)
 
-        # middle of picture
         middle_of_picture = int(w / 2), int(h / 2)
 
-        # middle of contour
         x, y, w, h = cv2.boundingRect(selected_cnt)
         middle_of_contour = int(x+w/2), int(y+h/2)
 
-        # calculate angle
         angle = RotationDirector.__calc_angle(
             middle_of_picture, middle_of_contour)
         return angle
