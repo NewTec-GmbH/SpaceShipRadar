@@ -72,16 +72,16 @@ class Drawer:
         self.draw_text(
             frame, fps, (frame.shape[1] - 100, frame.shape[0] - 25), (0, 255, 0))
 
-        for current_found_object_amount, found in enumerate(found_object_list, start=1):
+        for current_found_object_amount, found_object in enumerate(found_object_list, start=1):
 
             display_text = ""
 
-            if found["position"] is None:
+            if found_object["position"] is None:
                 return
 
-            x, y, w, h = found["position"]
-            found_identifier_number = found["identifier_number"]
-            found_color = found["color"]
+            x, y, w, h = found_object["position"]
+            found_identifier_number = found_object["identifier_number"]
+            found_color = found_object["color"]
 
             cv2.rectangle(frame, (x, y),
                           (x+w, y+h), found_color, 2)
@@ -91,12 +91,16 @@ class Drawer:
 
             # write text
             display_text += Drawer._append_if_not_none("P",
-                                                       found.get("real_position"))
-            display_text += Drawer._append_if_not_none("S", found.get("speed"))
-            display_text += Drawer._append_if_not_none("A", found.get("angle"))
-            display_text += Drawer._append_if_not_none("T", found.get("type"))
+                                                       found_object.get("real_position"))
+            display_text += Drawer._append_if_not_none(
+                "S", found_object.get("speed"))
+            display_text += Drawer._append_if_not_none(
+                "A", found_object.get("angle"))
+            display_text += Drawer._append_if_not_none(
+                "T", found_object.get("type"))
 
             # scale text based on image size
+            # scaler is the image height divided by 15 to acount for at least 5 objects
             scaler = frame.shape[0] / 15
             Drawer.draw_text(frame, display_text,
                              (5, int(current_found_object_amount * scaler)), color=found_color)
