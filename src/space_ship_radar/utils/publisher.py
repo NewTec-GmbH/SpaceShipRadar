@@ -38,7 +38,7 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
 
         self._connected = True
 
-    def _connect_mqtt(self):
+    def _connect_mqtt(self) -> mqtt_client:
         """tries to connect to MQTT broker"""
         def on_connect(_client, _userdata, _flags, rc):
             if rc == 0:
@@ -53,7 +53,7 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
         client.connect(self.broker, self.port)
         return client
 
-    def _publish(self, client, msg_content, topic_level="42"):
+    def _publish(self, client: mqtt_client, msg_content, topic_level: int = "42"):
         """sends the message to the client with the topic level"""
 
         msg = f"{msg_content}"
@@ -61,12 +61,16 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
 
         status = result[0]
         if status == 0:
-            # print(f"Send `{msg}` to topic `{self.topic}`")
             pass
         else:
             print(f"Failed to send message to topic {self.topic}")
 
     def _send_message(self, msg_json, topic_level: str) -> bool:
+        """connects to mqtt broker and sends message 
+
+        Returns:
+            bool: returns True if successful otherwise False
+        """
 
         # check if connection can be established
         if self._client is None:
@@ -128,22 +132,16 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
             return
 
         for found in found_object_list:
-            # variables
-            # identifier_number
             identifier_number = found.get("identifier_number")
             if identifier_number is None:
                 return
 
-            # position
             current_position = found["real_position"]
 
-            # speed
             speed = found["speed"]
 
-            # angle
             angle = found["angle"]
 
-            # error code
             ratio = found["ratio"]
             if ratio == 1:
                 error_code = 1
