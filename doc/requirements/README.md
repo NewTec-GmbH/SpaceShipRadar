@@ -9,7 +9,7 @@ The text inside the square bracket ([]) describes the requirement-ID
 
 # Requirements
 
-SSR = Space Ship Radar [GEN-01]
+SSR = Space Ship Radar
 
 ---
 
