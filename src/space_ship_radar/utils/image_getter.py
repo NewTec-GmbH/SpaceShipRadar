@@ -45,6 +45,14 @@ class ImageGetter():
 
     @staticmethod
     def __get_image_webots_camera(device: controller.camera.Camera) -> np.array:
+        """return the current image form a webots camera
+
+        Args:
+            device (controller.camera.Camera): Webots Camera
+
+        Returns:
+            np.array: current image
+        """
         image = device.getImage()
         width = device.getWidth()
         height = device.getHeight()
@@ -57,6 +65,14 @@ class ImageGetter():
 
     @staticmethod
     def __get_image_video(device) -> np.array:
+        """return the current image from a video/webcam
+
+        Args:
+            device (cv2.VideoCapture): ether a Video-file or a Webcam
+
+        Returns:
+            np.array: current/next image
+        """
 
         ok, frame = device.read()
         if ok:
