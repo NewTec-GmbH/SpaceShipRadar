@@ -51,7 +51,6 @@ class FoundObject(TimeChecker):
 
     def __calculate_speed(self) -> tuple[int, int]:
         """calculates the speed based on the previous points"""
-        # points = np.array(self.previous_points, dtype=np.int32)
         if self._check_time():
             self._previous_speed = self._speed()
         return self._previous_speed
