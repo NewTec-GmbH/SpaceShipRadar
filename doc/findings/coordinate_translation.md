@@ -69,3 +69,9 @@ my_system | real_coordinates | deviation
 ---|---|---
 (512, 213) | (0, 0) | 0, 0 
 (867, 436) | (297, 210) | 58, 13
+
+## middle paper (fixed arm)
+my_system | real_coordinates | deviation 
+---|---|---
+(405, 224) | (0, 0) | 0, 0 
+(715, 443) | (297, 210) | 13, 9
