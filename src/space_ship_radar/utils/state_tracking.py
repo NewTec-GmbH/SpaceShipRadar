@@ -18,11 +18,8 @@ from utils.state import State
 from utils.scene import Scene
 
 import cv2
+import numpy as np
 import keyboard
-
-# import sys
-# BackgroundState = sys.modules[__package__ + ".state_background"]
-
 
 # Variables ********************************************************************
 
@@ -37,7 +34,7 @@ class TrackingState(State):
         self.name = "TrackingState"
 
     @staticmethod
-    def _update_objects(image, boxes):
+    def _update_objects(image: np.array, boxes: list[tuple[int, int, int, int]]):
         """update found objects"""
         found_list = []
         for cnt in boxes:
@@ -69,7 +66,10 @@ class TrackingState(State):
         return found_object_list
 
     def run(self, camera) -> None:
-        """tracking ..."""
+        """update the position of all found_objects
+            Also:
+                - the user can create a screenshot with the s-key
+                - or reset the background and search for objects again with the b-key"""
         # save image
         if keyboard.is_pressed('s'):  # save image
             cv2.imwrite("image_saved" + str(Scene.save_index) +
@@ -83,14 +83,12 @@ class TrackingState(State):
             self.context.transition_to(BackgroundState())
             return
 
-        # get image
         image_bgr = ImageGetter.get_image(camera)
 
         cv2.namedWindow("Original Video", cv2.WINDOW_NORMAL)
         cv2.imshow("Original Video", image_bgr)
 
         corners = Scene.ar_authority.marker_corners
-        # corners, _ = Scene.ar_authority.calculate_corners(image_bgr)
 
         image_bgr = Transformer.perspective_transform(image_bgr, corners)
         cv2.namedWindow("Transformed: ", cv2.WINDOW_NORMAL)
