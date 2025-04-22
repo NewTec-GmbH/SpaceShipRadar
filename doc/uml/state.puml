@@ -1,19 +1,20 @@
 @startuml state
+' skinparam monochrome true
 
 state .{
-state Setup
-state Tracking
-state Settings
+state Configuration
 state Background
+state Setup
+state Localization
 
-[*] --> Settings
-Settings -> Background
-Background -> Setup
-Setup -> Tracking
-Tracking -> Tracking : nothing pressed
-Tracking -> Background : b pressed
+[*] --> Configuration
+Configuration -> Background
+Background --> Setup
+Setup -> Localization
+Localization -> Background : B-key pressed
+Localization -> Localization : no key pressed
 }
 
-. --> [*] : q pressed
+. --> [*] : y-key pressed
 
 @enduml
