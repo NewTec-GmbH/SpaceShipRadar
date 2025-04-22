@@ -34,26 +34,6 @@ class ArAuthority:
         return self._marker_corners
 
     @staticmethod
-    def _pre_process_image(image) -> np.array:
-        # upper and lower bound for magenta ar trackers
-        lower_bound = np.array([105, 0, 105])
-        upper_bound = np.array([255, 150, 255])
-
-        mask = cv2.inRange(image, lower_bound, upper_bound)
-
-        # create a white image
-        output = np.ones_like(image) * 255
-
-        # only the parts of the mask are colored black
-        output[mask > 0] = [0, 0, 0]
-
-        # visualize the result for debugging
-        cv2.namedWindow("Ar Pre: ", cv2.WINDOW_NORMAL)
-        cv2.imshow("Ar Pre: ", output)
-
-        return output
-
-    @staticmethod
     def _my_arc_length(curve: np.array, closed: bool) -> float:
 
         result = cv2.arcLength(curve, closed)
@@ -73,7 +53,6 @@ class ArAuthority:
         """
 
         # extract only magenta colors form the image (for magenta ar trackers)
-        image = self._pre_process_image(image)
 
         # search the image for aruco markers
         marker_corners, marker_ids = self._get_corners_from_dict(image)
