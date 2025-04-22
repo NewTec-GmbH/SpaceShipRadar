@@ -4,14 +4,11 @@ Abbreviation | Meaning
 --- | ---
 ArUco | Augmented Reality University of Cordoba
 mm | millimeters
+SSR | Space Ship Radar
 
 The text inside the square bracket ([]) describes the requirement-ID
 
 # Requirements
-
-SSR = Space Ship Radar
-
----
 
 The system shall locate the position, rotation and speed of every robot in its designated field of view [GEN-02]
 
