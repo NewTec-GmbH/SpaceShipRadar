@@ -58,7 +58,7 @@ class ArAuthority:
         marker_corners, marker_ids = self._get_corners_from_dict(image)
 
         if (marker_corners is None) or (marker_ids is None) or (len(marker_ids) < 4):
-            logging.warning("AR corners not found")
+            logging.warning("ArUco corners not found")
 
             corners = self._return_default(image)
             self._marker_corners = corners
