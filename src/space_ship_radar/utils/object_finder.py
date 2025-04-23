@@ -32,11 +32,9 @@ class ObjectFinder:
 
         # blurred number has to be uneven
         # this is only temporary and will be changed later
-        gaussian_value = cv2.getTrackbarPos("Gaussian", "settings")
-        if gaussian_value % 2 == 0:
-            logging.error(
-                "The Gaussian blur number needs to be uneven!")
-            sys.exit(1)
+        gaussian_value = (cv2.getTrackbarPos("Gaussian", "settings") * 2) - 1
+        if gaussian_value < 1:
+            gaussian_value = 1
 
         blurred = cv2.GaussianBlur(dframe, (gaussian_value, gaussian_value), 0)
 
