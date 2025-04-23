@@ -23,7 +23,7 @@ class LordScaler:
     def __init__(self):
         self._ratio = 1
 
-    def init(self, marker_perimeter: int):
+    def init(self, marker_perimeter: int) -> None:
         """calculates a conversion ratio based on the found markers size"""
         if marker_perimeter == -1:
             return
