@@ -36,7 +36,7 @@ class Drawer:
             frame (np.array): image in which the text should be written
             txt (str): new text which is added in the image
             location (tuple[int, int]): location of new text
-            color (tuple, optional): color of text. Defaults to (100, 100, 100) [or Gray].
+            color (tuple, optional): color of text. Defaults to (100, 100, 100) [Gray].
         """
 
         # scales text based on image size
@@ -100,8 +100,10 @@ class Drawer:
                 "T", found_object.get("type"))
 
             # scale text based on image size
-            # scaler is the image height divided by 15 to acount for at least 5 objects
-            scaler = frame.shape[0] / 15
+            # scaler determines the y-position of the text
+            # currently only the top half of the screen
+            #   should be used therefore the / 2
+            scaler = frame.shape[0] / len(found_object_list) / 2
             Drawer.draw_text(frame, display_text,
                              (5, int(current_found_object_amount * scaler)), color=found_color)
 
