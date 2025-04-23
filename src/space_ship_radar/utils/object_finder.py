@@ -29,7 +29,7 @@ class ObjectFinder:
         dframe = cv2.absdiff(background, gray_image)
 
         gaussian_value = (cv2.getTrackbarPos("Gaussian", "settings") * 2) - 1
-        max(gaussian_value, 1)
+        gaussian_value = max(gaussian_value, 1)
 
         blurred = cv2.GaussianBlur(dframe, (gaussian_value, gaussian_value), 0)
 
