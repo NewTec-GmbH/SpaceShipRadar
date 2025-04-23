@@ -30,8 +30,6 @@ class ObjectFinder:
         cv2.imshow("Background: ", background)
         dframe = cv2.absdiff(background, gray_image)
 
-        # blurred number has to be uneven
-        # this is only temporary and will be changed later
         gaussian_value = (cv2.getTrackbarPos("Gaussian", "settings") * 2) - 1
         if gaussian_value < 1:
             gaussian_value = 1
