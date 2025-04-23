@@ -9,8 +9,6 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
-import logging
-import sys
 from dataclasses import dataclass
 import cv2
 import numpy as np
