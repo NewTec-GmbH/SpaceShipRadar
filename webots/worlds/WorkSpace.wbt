@@ -25,8 +25,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation -0.4775481135593011 0.558771068551505 0.6780285334598847 2.079308693168913
-  position 1.0640763769426058 -1.1212785097055904 5.2878363281022835
+  orientation -0.502506544300678 0.4454612869883917 0.7409800366606625 1.8958382834242742
+  position -0.033400058423647225 -3.888465539818597 8.41307375104252
 }
 Pose {
   translation 0 0 0.84
@@ -38,13 +38,19 @@ TexturedBackgroundLight {
 LineFollowerTrack {
   contactMaterial "cardboard"
 }
+LineFollowerTrack {
+  contactMaterial "cardboard"
+}
+LineFollowerTrack {
+  contactMaterial "cardboard"
+}
 Solid {
-  translation 0.92 0.92 -0.0399983
+  translation 0.92 0.92 -0.049
   rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
   children [
     TexturedBoxShape {
       textureUrl [
-        "../protos/markers/pink_13.png"
+        "../protos/markers/13.png"
       ]
     }
   ]
@@ -54,12 +60,12 @@ Solid {
   }
 }
 Solid {
-  translation 0.92 -0.92 -0.0399984
+  translation 0.92 -0.92 -0.049
   rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
   children [
     TexturedBoxShape {
       textureUrl [
-        "../protos/markers/pink_35.png"
+        "../protos/markers/35.png"
       ]
     }
   ]
@@ -69,12 +75,12 @@ Solid {
   }
 }
 Solid {
-  translation -0.92 0.92 -0.0399955
+  translation -0.92 0.92 -0.049
   rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
   children [
     TexturedBoxShape {
       textureUrl [
-        "../protos/markers/pink_6.png"
+        "../protos/markers/6.png"
       ]
     }
   ]
@@ -84,12 +90,12 @@ Solid {
   }
 }
 Solid {
-  translation -0.92 -0.92 -0.0399957
+  translation -0.92 -0.92 -0.049
   rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
   children [
     TexturedBoxShape {
       textureUrl [
-        "../protos/markers/pink_49.png"
+        "../protos/markers/49.png"
       ]
     }
   ]
@@ -98,43 +104,204 @@ Solid {
     size 0.1 0.1 0.1
   }
 }
+Solid {
+  translation -1.56 0.46 -0.0399936
+  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
+  children [
+    TexturedBoxShape {
+      size 0.1 0.05 0.05
+      textureUrl [
+        "../protos/markers/7.png"
+      ]
+    }
+  ]
+  name "solid_bl(1)"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+}
+Solid {
+  translation -0.435 0.435 -0.049
+  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
+  children [
+    TexturedBoxShape {
+      textureUrl [
+        "../protos/markers/3.png"
+      ]
+    }
+  ]
+  name "solid_bl(2)"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+}
+Solid {
+  translation 0.06 0.435 -0.049
+  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
+  children [
+    TexturedBoxShape {
+      textureUrl [
+        "../protos/markers/3.png"
+      ]
+    }
+  ]
+  name "solid_bl(3)"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+}
+Solid {
+  translation 0.555 0.435 -0.049
+  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
+  children [
+    TexturedBoxShape {
+      textureUrl [
+        "../protos/markers/3.png"
+      ]
+    }
+  ]
+  name "solid_bl(4)"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+}
+Solid {
+  translation 0.555 -0.06 -0.049
+  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
+  children [
+    TexturedBoxShape {
+      textureUrl [
+        "../protos/markers/3.png"
+      ]
+    }
+  ]
+  name "solid_bl(5)"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+}
+Solid {
+  translation 0.06 -0.065 -0.0489997
+  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
+  children [
+    TexturedBoxShape {
+      textureUrl [
+        "../protos/markers/3.png"
+      ]
+    }
+  ]
+  name "solid_bl(6)"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+}
+Solid {
+  translation -0.435 -0.0649996 -0.0489995
+  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
+  children [
+    TexturedBoxShape {
+      textureUrl [
+        "../protos/markers/3.png"
+      ]
+    }
+  ]
+  name "solid_bl(7)"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+}
+Solid {
+  translation -0.435 -0.56 -0.0489995
+  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
+  children [
+    TexturedBoxShape {
+      textureUrl [
+        "../protos/markers/3.png"
+      ]
+    }
+  ]
+  name "solid_bl(8)"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+}
+Solid {
+  translation 0.06 -0.56 -0.0489995
+  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
+  children [
+    TexturedBoxShape {
+      textureUrl [
+        "../protos/markers/3.png"
+      ]
+    }
+  ]
+  name "solid_bl(9)"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+}
+Solid {
+  translation 0.555 -0.56 -0.0489997
+  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
+  children [
+    TexturedBoxShape {
+      textureUrl [
+        "../protos/markers/3.png"
+      ]
+    }
+  ]
+  name "solid_bl(10)"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+}
 DEF ROBOT Zumo32U4 {
-  translation 0.2309081566826153 0.5225755405452785 0.013993817028896188
-  rotation -4.5730091564375656e-07 1.6126981507552856e-07 0.9999999999998824 2.060252094685992
+  hidden linearVelocity_0 -1.6207131217826009e-18 1.6172847842169051e-18 2.7743345515222382e-17
+  hidden angularVelocity_0 3.55073771558058e-18 -2.2629590195004305e-17 3.3519109933342077e-18
+  translation -1.9631718438527515 0.5649065425825706 0.013997979009560468
+  rotation -1.8384147624802855e-06 3.6452866896223243e-07 0.9999999999982435 2.7080906757358187
   name "Zumo5"
   contactMaterial "rubber"
 }
 DEF ROBOT Zumo32U4 {
-  translation 0.5490397812957423 -0.322534206776671 0.013993817028896188
-  rotation -1.1355856822187487e-06 3.4795406852041985e-06 0.9999999999933016 0.2276614803332444
+  hidden linearVelocity_0 2.5887404788888778e-14 1.933703687428591e-13 5.093332525378582e-13
+  hidden angularVelocity_0 -1.280487785892073e-11 1.714127442086794e-12 4.089289446991311e-17
+  translation -1.8090540006336466 -0.7435994988740009 0.013997979009544172
+  rotation -3.2678254871189007e-06 6.840344675689744e-05 0.9999999976551448 0.05346178467908282
   name "Zumo0"
   contactMaterial "rubber"
 }
 DEF ROBOT Zumo32U4 {
-  translation -0.2052846749522177 0.45236468313106404 0.013993817028896184
-  rotation -6.184476789877867e-07 9.496239651249804e-07 0.999999999999358 0.7512514803363561
+  hidden linearVelocity_0 1.9199319946865887e-19 -3.52367063155889e-18 2.864424701736907e-17
+  hidden angularVelocity_0 1.4380715280672232e-16 -1.0257425936072589e-16 1.4279367989409772e-17
+  translation -1.539470709052584 -0.8715221352000615 0.013997979009560464
+  rotation -1.923262195354641e-06 4.403183683379643e-06 0.9999999999884565 0.7816155352292337
   name "Zumo4"
   contactMaterial "rubber"
 }
 Cat {
-  translation 0.546557 0.16971 0
+  translation 1.85423 -0.585289 0
   rotation 0 0 -1 -2.6179953071795863
 }
 DEF ROBOT Zumo32U4 {
-  translation -0.26674289893061226 -0.08502166273411738 0.013993817028896184
-  rotation -4.3115670575248355e-07 3.33684167466424e-08 0.9999999999999064 2.583852094693724
+  hidden linearVelocity_0 -1.5141991099313163e-09 -1.6076923339712946e-09 5.790948882217583e-09
+  hidden angularVelocity_0 1.0646114389198168e-07 -1.0026813922942291e-07 4.106427077082452e-13
+  translation -1.4481927310609022 0.32604269840561273 0.013997978824296625
+  rotation -1.840275614775909e-06 5.075359010066643e-07 0.9999999999981778 2.563880641208984
   name "Zumo2"
   contactMaterial "rubber"
 }
 DEF ROBOT Zumo32U4 {
-  translation -0.7912760133858913 0.8339971915747769 0.013993817028896184
-  rotation -0.1995344906945622 0.9761528509749595 -0.0855078859329369 8.345351727384299e-07
+  hidden linearVelocity_0 8.548209150573116e-18 1.6708083729986645e-18 -1.5104492651930623e-18
+  hidden angularVelocity_0 -3.0104261746598696e-17 5.77135138411305e-16 -2.4480713163307305e-18
+  translation -0.4732611943826862 1.5223199287658564 0.013997979009560466
+  rotation -4.3672460247992065e-06 0.00012073442975789519 0.9999999927020623 0.030301650660792816
   name "Zumo1"
   contactMaterial "rubber"
 }
 Robot {
   translation 0 0 3.15
-  rotation 0.5862258396317882 0.5591808470302289 -0.5862218396328824 2.12186
+  rotation -0.5773509358554485 0.5773489358556708 0.5773509358554485 2.0944
   children [
     Pose {
       translation 0 0 0.0415
@@ -176,7 +343,6 @@ Robot {
       fieldOfView 1
       width 1920
       height 1440
-      antiAliasing TRUE
     }
   ]
   name "MyBot"

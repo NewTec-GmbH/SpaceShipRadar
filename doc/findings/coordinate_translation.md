@@ -75,3 +75,21 @@ my_system | real_coordinates | deviation
 ---|---|---
 (405, 224) | (0, 0) | 0, 0 
 (715, 443) | (297, 210) | 13, 9
+
+## middle paper (fixed arm 4x3)
+my_system | real_coordinates | deviation 
+---|---|---
+(360, 233) | (0, 0) | 0, 0 
+(683, 460) | (297, 210) | 26, 17
+
+## middle paper (fixed arm and scaled perimeter 4x3)
+my_system | real_coordinates | deviation 
+---|---|---
+(429, 166) | (0, 0) | 0, 0 
+(748, 398) | (297, 210) | 22, 22
+
+## middle paper (fixed arm and scaled perimeter REMOVED 4x3)
+my_system | real_coordinates | deviation 
+---|---|---
+(384, 284) | (0, 0) | 0, 0 
+(691, 501) | (297, 210) | 10, 7

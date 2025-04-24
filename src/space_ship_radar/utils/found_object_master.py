@@ -101,8 +101,8 @@ class FoundObjectMaster:
                 logging.warning(
                     "no match for found Object %s", found.identifier_number)
 
-        if len(object_properties) > 0:
-            logging.warning("contours unused")
+        # if len(object_properties) > 0:
+        #     logging.warning("contours unused")
 
     def get_found_object(self, index: int) -> FoundObject:
         """getter for found object"""
@@ -111,6 +111,65 @@ class FoundObjectMaster:
     def reset(self):
         """removes all found objects"""
         self.found_objects = []
+
+    def get_color_of_closest_object(self, point):
+
+        color = (128, 128, 128)
+
+        result = []
+        for found in self.found_objects:
+
+            found_point = found.get_newest_point()
+            diff = abs(found_point[0] - point[0]) + \
+                abs(found_point[1] - point[1])
+            result.append(diff)
+
+        if len(result) > 0:
+            smallest_number = min(result)
+            smallest_index = result.index(smallest_number)
+
+            return self.found_objects[smallest_index].color.copy()
+
+            # x, y, w, h = object_properties[smallest_index]["position"]
+            # angle = object_properties[smallest_index]["angle"]
+            # # object_properties.pop(smallest_index)
+            # found.update([x, y, w, h], angle)
+        else:
+            logging.warning(
+                "no match for Ar :(")
+
+        return color
+
+    # TODO not used
+    def update_ar(self, object_properties, ar_properties):
+        """checks what is the closest contour to an ArUco-marker"""
+
+        # will assign each ArUco the closest contour
+        for i, ar in enumerate(ar_properties):
+            result = []
+            for item in object_properties:
+                x, y, w, h = item["position"]
+                point = (x+w/2, y+h/2)
+
+                ax, ay, aw, ah = ar["position"]
+                found_point = (ax+aw/2, ay+ah/2)
+
+                diff = abs(found_point[0] - point[0]) + \
+                    abs(found_point[1] - point[1])
+                result.append(diff)
+
+            if len(result) > 0:
+                smallest_number = min(result)
+                smallest_index = result.index(smallest_number)
+
+                # TODO add width and height of contour
+                # x, y, w, h = object_properties[smallest_index]["position"]
+                # angle = object_properties[smallest_index]["angle"]
+                # found.update([x, y, w, h], angle)
+                ar_properties[i].update(
+                    {"conti_color": object_properties[smallest_index]["color"]})
+            else:
+                logging.warning("no match for Ar ;(")
 
 # Functions ********************************************************************
 

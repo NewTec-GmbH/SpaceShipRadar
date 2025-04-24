@@ -54,6 +54,8 @@ class TrackingState(State):
             x, y, w, h = found.current_position[:4]
             r_x = Scene.lord_scaler.convert(x)
             r_y = Scene.lord_scaler.convert(y)
+            r_w = Scene.lord_scaler.convert(w)
+            r_h = Scene.lord_scaler.convert(h)
             ratio = Scene.lord_scaler.ratio
             found_identifier_number = found.identifier_number
             found_angle = found.angle
@@ -61,7 +63,7 @@ class TrackingState(State):
             found_object_list.append(
                 {"speed": speed, "color": found_color, "position": [x, y, w, h],
                  "identifier_number": found_identifier_number, "angle": found_angle,
-                 "real_position": (r_x, r_y), "ratio": ratio})
+                 "real_position": (r_x, r_y), "ratio": ratio, "real_box": (r_w, r_h)})
 
         return found_object_list
 
@@ -87,12 +89,43 @@ class TrackingState(State):
 
         cv2.namedWindow("Original Video", cv2.WINDOW_NORMAL)
         cv2.imshow("Original Video", image_bgr)
+        cv2.imwrite("new_original.png", image_bgr)
 
         corners = Scene.ar_authority.marker_corners
 
         image_bgr = Transformer.perspective_transform(image_bgr, corners)
         cv2.namedWindow("Transformed: ", cv2.WINDOW_NORMAL)
         cv2.imshow("Transformed: ", image_bgr)
+        cv2.imwrite("new_transformation.png", image_bgr)
+
+        aruco_list = ObjectFinder.get_ar(image_bgr)
+
+        for i, ar in enumerate(aruco_list):
+            x, y, _, _ = ar["position"]
+            # print(f'befoer convert x {x}')
+            r_x = Scene.lord_scaler.convert(x)
+            r_y = Scene.lord_scaler.convert(y)
+            # print(f'after convert x {r_x}')
+            # aruco_list = np.insert(
+            #     aruco_list, i, {"real_position": [r_x, r_y]})
+            aruco_list[i].update({"real_position": [r_x, r_y]})
+
+        if keyboard.is_pressed('d'):
+            print("------")
+            for entry in aruco_list:
+                print(f"{entry['real_position']} & {round(entry['angle'],2)}")
+            print("------")
+
+        for i, ar in enumerate(aruco_list):
+            x, y, w, h = ar["position"]
+            point = (x+w/2, y+h/2)
+            f_color = Scene.found_object_master.get_color_of_closest_object(
+                point)
+            # aruco_list = np.insert(
+            #     aruco_list, i, {"real_position": [r_x, r_y]})
+            aruco_list[i].update({"conti_color": f_color})
+
+        # print(aruco_list)
 
         # find and update objects
         image_bgr = cv2.resize(
@@ -104,10 +137,12 @@ class TrackingState(State):
 
         # display results
         found_object_list = self._create_list()
-        Scene.publisher.send(found_object_list.copy())
+        # Scene.publisher.send(found_object_list.copy())
         Scene.drawer.draw_objects(found_object_list, sample_frame)
+        Scene.drawer.draw_ar(aruco_list, sample_frame)
         cv2.namedWindow('Webots Camera Image', cv2.WINDOW_NORMAL)
         cv2.imshow('Webots Camera Image', sample_frame)
+        cv2.imwrite("new_out.png", sample_frame)
         cv2.waitKey(1)  # waits 1ms to display the image
 
 # Functions ********************************************************************
