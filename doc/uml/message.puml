@@ -1,0 +1,12 @@
+@startjson message
+
+{
+  "positionX": "int : in mm",
+  "positionY": "int : in mm",
+  "speedX": "int : in mm/s",
+  "speedY": "int : in mm/s",
+  "angle": "int : in mrad",
+  "nearestObject" : "int : in mrad"
+}
+
+@endjson

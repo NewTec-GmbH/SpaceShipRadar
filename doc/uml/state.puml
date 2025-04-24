@@ -1,0 +1,24 @@
+@startuml state
+' skinparam monochrome true
+
+state .{
+state Configuration
+Configuration : create settings-window
+state Background
+Background : update background
+state Setup
+Setup : save corner marker position
+state Localization
+Localization : update and show object position
+
+[*] --> Configuration
+Configuration -> Background
+Background --> Setup
+Setup -> Localization
+Localization -> Background : B-key pressed
+Localization -> Localization : no key pressed
+}
+
+. --> [*] : y-key pressed
+
+@enduml

@@ -15,9 +15,11 @@ import sys
 import logging
 import cv2
 import keyboard
+
 from controller import Robot  # type: ignore # pylint: disable=import-error
-from utils import helper
-from utils.core import SpaceShipRadar
+from utils.image_getter import ImageGetter
+from utils.state import Context
+from utils.state_configuration import ConfigurationState
 
 try:
     from space_ship_radar.version import __version__, __author__, __email__, __repository__, __license__
@@ -42,14 +44,15 @@ class Controller(Robot):
 
     def __init__(self):
         super().__init__()
-        self.time_step = 32
+        # time_step defines the smallest update time
+        # (1000ms / 20fps = 50)
+        self.time_step = 50  # ms
         self.camera = self.getDevice('camera')
 
         if self.camera is None:
-            print("Camera init failed!")
+            logging.error("Camera init failed!")
             sys.exit(1)
 
-        # Currently unknown what enable does
         self.camera.enable(self.time_step)
 
     def run(self) -> None:
@@ -57,19 +60,21 @@ class Controller(Robot):
 
         # Setup
         self.step(self.time_step)  # step required
-        SpaceShipRadar.pre_main(self.camera)
 
+        context = Context(ConfigurationState())
         # Main Loop
-        while self.step(self.time_step) != -1:
-            SpaceShipRadar.main_loop(self.camera)
-            if keyboard.is_pressed('q'):  # quit
-                break
-        cv2.destroyAllWindows()
+        try:
+            while self.step(self.time_step) != -1:
+                context.update(self.camera)
+                if keyboard.is_pressed('q'):  # quit
+                    break
+        finally:
+            cv2.destroyAllWindows()
 
     def run_save(self) -> None:
         """Debug function to save an image"""
         self.step(self.time_step)
-        image = helper.get_image(self.camera)
+        image = ImageGetter.get_image(self.camera)
         cv2.imwrite("new_not_empty.png", image)
 
     def run_record(self) -> None:
@@ -79,7 +84,8 @@ class Controller(Robot):
                 break
 
             if keyboard.is_pressed('s'):
-                helper.record_video(self.camera, self.step, self.time_step)
+                ImageGetter.record_video(
+                    self.camera, self.step, self.time_step)
 
 # Functions ********************************************************************
 
@@ -95,10 +101,12 @@ def main() -> int:
     Returns:
         int: System exit status.
     """
+    logging.basicConfig(level=logging.INFO,
+                        format="%(asctime)s - %(levelname)s - %(message)s")
+    LOG.debug("Logger displays Debug Info!")
+
     controller = Controller()
     controller.run()
-    logging.basicConfig(level=logging.INFO)
-    LOG.info("Hello World!")
     return 0  # return without errors
 
 # Main *************************************************************************

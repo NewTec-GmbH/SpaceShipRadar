@@ -6,6 +6,7 @@ EXTERNPROTO "../protos/Zumo32U4.proto"
 EXTERNPROTO "../protos/LineFollowerTrack.proto"
 IMPORTABLE EXTERNPROTO "../protos/Supervisor.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/animals/protos/Cat.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/shapes/protos/TexturedBoxShape.proto"
 
 WorldInfo {
   info [
@@ -24,8 +25,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation 0.3293483770738452 0.42033919288701255 -0.8454848369083381 1.6267290138457793
-  position -0.8730075656198307 7.8117549840380915 8.50184483510956
+  orientation -0.4775481135593011 0.558771068551505 0.6780285334598847 2.079308693168913
+  position 1.0640763769426058 -1.1212785097055904 5.2878363281022835
 }
 Pose {
   translation 0 0 0.84
@@ -37,20 +38,102 @@ TexturedBackgroundLight {
 LineFollowerTrack {
   contactMaterial "cardboard"
 }
+Solid {
+  translation 0.92 0.92 -0.0399983
+  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
+  children [
+    TexturedBoxShape {
+      textureUrl [
+        "../protos/markers/pink_13.png"
+      ]
+    }
+  ]
+  name "solid_tr"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+}
+Solid {
+  translation 0.92 -0.92 -0.0399984
+  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
+  children [
+    TexturedBoxShape {
+      textureUrl [
+        "../protos/markers/pink_35.png"
+      ]
+    }
+  ]
+  name "solid_br"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+}
+Solid {
+  translation -0.92 0.92 -0.0399955
+  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
+  children [
+    TexturedBoxShape {
+      textureUrl [
+        "../protos/markers/pink_6.png"
+      ]
+    }
+  ]
+  name "solid_tl"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+}
+Solid {
+  translation -0.92 -0.92 -0.0399957
+  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
+  children [
+    TexturedBoxShape {
+      textureUrl [
+        "../protos/markers/pink_49.png"
+      ]
+    }
+  ]
+  name "solid_bl"
+  boundingObject Box {
+    size 0.1 0.1 0.1
+  }
+}
+DEF ROBOT Zumo32U4 {
+  translation 0.2309081566826153 0.5225755405452785 0.013993817028896188
+  rotation -4.5730091564375656e-07 1.6126981507552856e-07 0.9999999999998824 2.060252094685992
+  name "Zumo5"
+  contactMaterial "rubber"
+}
+DEF ROBOT Zumo32U4 {
+  translation 0.5490397812957423 -0.322534206776671 0.013993817028896188
+  rotation -1.1355856822187487e-06 3.4795406852041985e-06 0.9999999999933016 0.2276614803332444
+  name "Zumo0"
+  contactMaterial "rubber"
+}
+DEF ROBOT Zumo32U4 {
+  translation -0.2052846749522177 0.45236468313106404 0.013993817028896184
+  rotation -6.184476789877867e-07 9.496239651249804e-07 0.999999999999358 0.7512514803363561
+  name "Zumo4"
+  contactMaterial "rubber"
+}
 Cat {
   translation 0.546557 0.16971 0
   rotation 0 0 -1 -2.6179953071795863
 }
 DEF ROBOT Zumo32U4 {
-  hidden linearVelocity_0 1.8150414883956024e-18 -1.4466735876781163e-17 -1.395654446586282e-17
-  hidden angularVelocity_0 9.520700470124835e-16 -4.47805984772331e-17 1.2380051588181697e-17
-  translation -0.24893048408354218 -0.026251886210478734 0.013993817028896181
-  rotation -4.791468081859199e-07 2.6814319978384374e-07 0.9999999999998492 1.7179220035730205
+  translation -0.26674289893061226 -0.08502166273411738 0.013993817028896184
+  rotation -4.3115670575248355e-07 3.33684167466424e-08 0.9999999999999064 2.583852094693724
   name "Zumo2"
   contactMaterial "rubber"
 }
+DEF ROBOT Zumo32U4 {
+  translation -0.7912760133858913 0.8339971915747769 0.013993817028896184
+  rotation -0.1995344906945622 0.9761528509749595 -0.0855078859329369 8.345351727384299e-07
+  name "Zumo1"
+  contactMaterial "rubber"
+}
 Robot {
-  translation 0.0441266 0.025843 3.15
+  translation 0 0 3.15
   rotation 0.5862258396317882 0.5591808470302289 -0.5862218396328824 2.12186
   children [
     Pose {

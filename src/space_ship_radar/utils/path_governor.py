@@ -1,4 +1,4 @@
-"""Video Chef Currently not used
+"""Path Governor
 
 Author: Marc Trosch (marc.trosch@newtec.de)
 """
@@ -9,30 +9,31 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
-import cv2
-
-from utils.path_governor import PathGovernor
+import os
+from dataclasses import dataclass
+from dotenv import load_dotenv
 
 # Variables ********************************************************************
 
 # Classes **********************************************************************
 
 
-class VideoChef:
-    """manages a test video"""
-    path = PathGovernor.get_path() + "real_test_video.mp4"  # "round_trip.mp4"
-    video = cv2.VideoCapture(path)
+@dataclass
+class PathGovernor:
+    """Path Governor"""
+
+    load_dotenv()
+    image_folder_path = os.getenv('ImageFolder_PATH')
 
     @staticmethod
-    def get_video():
-        """returns a test video"""
-        return VideoChef.video
+    def get_path() -> str:
+        """returns the path to the img folder of this repo"""
+        return PathGovernor.image_folder_path
 
-    @staticmethod
-    def get_video_path():
-        """returns the path of the video"""
-        return VideoChef.path
 
 # Functions ********************************************************************
 
 # Main *************************************************************************
+
+if __name__ == "__main__":
+    print(PathGovernor.get_path())

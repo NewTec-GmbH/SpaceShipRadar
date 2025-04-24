@@ -1,4 +1,30 @@
 {
     "editor.defaultFormatter": "ms-python.autopep8",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "cSpell.language": "en,de-de",
+    "cSpell.customDictionaries": {
+        "custom-dictionary-workspace": {
+            "name": "custom-dictionary-workspace",
+            "path": "${workspaceFolder:SpaceShipRadar}/.cspell/custom-dictionary-workspace.txt",
+            "addWords": true,
+            "scope": "workspace"
+        }
+    },
+    "latex-workshop.latex.tools": [
+
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-shell-escape",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        }
+    ]
 }

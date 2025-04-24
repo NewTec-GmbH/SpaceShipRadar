@@ -1,14 +1,15 @@
 @startuml deployment
 title Simulation View: SpaceShipRadar, RadonUlzer and the World
 
-agent RadonUlzer
-agent "Space Ship Radar"
 
 node "PC \n (Windows/Linux)" {
     node "<<executable>> \n Webots " as Webots {
         node "Zumo Robot"
         node "Camera"
     }
+    
+    agent RadonUlzer
+    agent "Space Ship Radar"
 }
 
 

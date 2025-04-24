@@ -1,7 +1,10 @@
-"""Path Gouverneur
+"""Singleton Meta
 
 Author: Marc Trosch (marc.trosch@newtec.de)
 """
+
+# source: https://refactoring.guru/design-patterns/singleton/python/example
+
 
 # *******************************************************************************
 # Copyright (c) NewTec GmbH 2025   -   www.newtec.de
@@ -9,31 +12,21 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
-import os
-from dataclasses import dataclass
-from dotenv import load_dotenv
-
 # Variables ********************************************************************
 
 # Classes **********************************************************************
 
 
-@dataclass
-class PathGouverneur:
-    """Path Gouverneur"""
+class SingletonMeta(type):
+    """Singleton Metaclass"""
+    _instances = {}
 
-    load_dotenv()
-    image_folder_path = os.getenv('ImageFolder_PATH')
-
-    @staticmethod
-    def get_path() -> str:
-        """returns the path to the img folder of this repo"""
-        return PathGouverneur.image_folder_path
-
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            instance = super().__call__(*args, **kwargs)
+            cls._instances[cls] = instance
+        return cls._instances[cls]
 
 # Functions ********************************************************************
 
 # Main *************************************************************************
-
-if __name__ == "__main__":
-    print(PathGouverneur.get_path())
