@@ -170,13 +170,15 @@ class Drawer:
 
             # np.random.randint(50, 200, (1, 3))
 
-            if found_object["conti_color"] is None:
-                found_color = self._color_list[found_identifier_number]
-            else:
-                found_color = found_object["conti_color"]
+            # if found_object["conti_color"] is None:
+            #     found_color = self._color_list[found_identifier_number]
+            # else:
+            #     found_color = found_object["conti_color"]
 
             # cv2.rectangle(frame, (x, y),
             #               (x+w, y+h), found_color, 2)
+
+            found_color = self._color_list[found_identifier_number]
 
             Drawer.draw_text(frame, str(
                 found_identifier_number), (int(round(x, 1)), int(round(y, 1))), found_color)

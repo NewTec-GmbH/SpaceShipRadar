@@ -11,8 +11,6 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 import numpy as np
 
-import cv2
-
 # Variables ********************************************************************
 
 # Classes **********************************************************************

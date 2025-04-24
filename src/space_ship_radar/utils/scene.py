@@ -11,8 +11,8 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 from dataclasses import dataclass
 
-from utils.found_object_master import FoundObjectMaster
-from utils.background_manager import BackgroundManager
+# from utils.found_object_master import FoundObjectMaster
+# from utils.background_manager import BackgroundManager
 from utils.ar_authority import ArAuthority
 from utils.lord_scaler import LordScaler
 from utils.publisher import Publisher
@@ -28,8 +28,6 @@ class Scene():
     """Handles References to all class which belong to the Scene"""
     # save_index is used as a file suffix for saved images
     save_index = 0
-    found_object_master = FoundObjectMaster()
-    background_manager = BackgroundManager()
     ar_authority = ArAuthority()
     lord_scaler = LordScaler()
     publisher = Publisher()

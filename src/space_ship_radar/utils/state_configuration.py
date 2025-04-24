@@ -12,7 +12,8 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 import cv2
 
 from utils.state import State
-from utils.state_background import BackgroundState
+# from utils.state_background import BackgroundState
+from utils.state_setup import SetupState
 
 # Variables ********************************************************************
 
@@ -60,7 +61,7 @@ class ConfigurationState(State):
 
         # pylint: disable=no-member
 
-        self.context.transition_to(BackgroundState())
+        self.context.transition_to(SetupState())
 
 # Functions ********************************************************************
 
