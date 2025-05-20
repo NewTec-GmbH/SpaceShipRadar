@@ -85,7 +85,7 @@ class ObjectFinder:
 
             x, y = [np.float64(x), np.float64(y)]
 
-            my_object = FoundObject(x, y, 0, 0, rotation)
+            my_object = FoundObject((x, y), (0, 0), rotation)
             object_location[int(identifier.item())] = my_object
 
         return object_location

@@ -33,13 +33,6 @@ class ArAuthority:
         """getter for the marker corners"""
         return self._marker_corners
 
-    @staticmethod
-    # TODO remove my arc length
-    def _my_arc_length(curve: np.array, closed: bool) -> float:
-
-        result = cv2.arcLength(curve, closed)
-        return result
-
     def calculate_corners(self, image: np.array) -> Tuple[np.array, int]:
         """Finds where the corners of predefined ArUco-markers are in the image
 
@@ -67,7 +60,7 @@ class ArAuthority:
         # calculate marker perimeter for each marker
         # then takes the median value and assigns it to marker_perimeter
         marker_perimeter = int(
-            np.mean([self._my_arc_length(corner, True) for corner in marker_corners]))
+            np.mean([cv2.arcLength(corner, True) for corner in marker_corners]))
 
         # sort the markers clock wise
         ok, result = self._get_bounding_rect_unsorted(

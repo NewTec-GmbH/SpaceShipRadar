@@ -10,9 +10,9 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # Imports **********************************************************************
 
 from __future__ import annotations
+from time import perf_counter
 import cv2
 import keyboard
-from time import perf_counter
 
 from utils.transformer import Transformer
 from utils.object_finder import ObjectFinder
@@ -53,17 +53,13 @@ class TrackingState(State):
         image_bgr = Transformer.perspective_transform(image_bgr, corners)
         cv2.namedWindow("Transformed: ", cv2.WINDOW_NORMAL)
         cv2.imshow("Transformed: ", image_bgr)
-        cv2.imwrite("transformed_one_final.png", image_bgr)
-        print(image_bgr)
 
         aruco_list = ObjectFinder.get_ar(image_bgr)
 
         # scale coordinates
         for identifier, found_object in aruco_list.items():
-            x = found_object.position_x
-            y = found_object.position_y
-            r_x = Scene.lord_scaler.convert(x)
-            r_y = Scene.lord_scaler.convert(y)
+            r_x = Scene.lord_scaler.convert(found_object.position_x)
+            r_y = Scene.lord_scaler.convert(found_object.position_y)
 
             found_object.position_x = r_x
             found_object.position_y = r_y

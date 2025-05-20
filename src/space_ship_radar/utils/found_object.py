@@ -20,7 +20,9 @@ from dataclasses import dataclass
 class FoundObject:
     """Dataclass used to represent a Found Object"""
 
-    def __init__(self, position_x, position_y, speed_x, speed_y, angle):
+    def __init__(self, position, speed, angle):
+        position_x, position_y = position
+        speed_x, speed_y = speed
         self.position_x = position_x
         self.position_y = position_y
         self.speed_x = speed_x

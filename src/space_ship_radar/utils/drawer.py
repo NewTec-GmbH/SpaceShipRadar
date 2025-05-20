@@ -53,9 +53,7 @@ class Drawer:
     def _append_if_not_none(key, value) -> str:
         return f"{key}: {value} " if value is not None else ""
 
-    def draw_ar(self, found_object_list, frame, ratio):
-        """Draws every object from an object master"""
-
+    def _draw_fps(self, frame):
         self.new_frame_time = time.time()
 
         # Calculating the fps from:
@@ -78,6 +76,11 @@ class Drawer:
         self.draw_text(
             frame, fps, (frame.shape[1] - 100, frame.shape[0] - 25), (0, 255, 0))
 
+    def draw_ar(self, found_object_list, frame, ratio):
+        """Draws every object from an object master"""
+
+        self._draw_fps(frame)
+
         for current_found_object_amount, (identifier, found_object) in enumerate(found_object_list.items(), start=1):
 
             display_text = ""
@@ -88,6 +91,7 @@ class Drawer:
             # x, y, _, _ = found_object["position"]
             x = found_object.position_x
             y = found_object.position_y
+
             # found_identifier_number = found_object["identifier"][0]
             found_identifier_number = identifier
 
