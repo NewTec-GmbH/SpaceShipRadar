@@ -10,15 +10,15 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # Imports **********************************************************************
 
 from __future__ import annotations
-# from utils.rotation_director import RotationDirector
+import cv2
+import keyboard
+from time import perf_counter
+
 from utils.transformer import Transformer
 from utils.object_finder import ObjectFinder
 from utils.image_getter import ImageGetter
 from utils.state import State
 from utils.scene import Scene
-
-import cv2
-import keyboard
 
 # Variables ********************************************************************
 
@@ -31,40 +31,6 @@ class TrackingState(State):
     def __init__(self):
         super().__init__()
         self.name = "TrackingState"
-
-    # @staticmethod
-    # def _update_objects(image: np.array, boxes: list[tuple[int, int, int, int]]):
-    #     """update found objects"""
-    #     found_list = []
-    #     for cnt in boxes:
-    #         x, y, w, h = cnt
-    #         angle = RotationDirector.calc_angle(image, (x, y, w, h))
-    #         found_list.append({"position": (x, y, w, h), "angle": angle})
-    #     Scene.found_object_master.update_found_object(found_list)
-
-    # @staticmethod
-    # def _create_list():
-    #     """create list for drawer"""
-    #     found_object_list = []
-    #     for found in Scene.found_object_master.found_objects:
-    #         speed = found.get_speed()
-    #         speed = tuple(map(Scene.lord_scaler.convert, speed))
-    #         found_color = found.color
-    #         x, y, w, h = found.current_position[:4]
-    #         r_x = Scene.lord_scaler.convert(x)
-    #         r_y = Scene.lord_scaler.convert(y)
-    #         r_w = Scene.lord_scaler.convert(w)
-    #         r_h = Scene.lord_scaler.convert(h)
-    #         ratio = Scene.lord_scaler.ratio
-    #         found_identifier_number = found.identifier_number
-    #         found_angle = found.angle
-
-    #         found_object_list.append(
-    #             {"speed": speed, "color": found_color, "position": [x, y, w, h],
-    #              "identifier_number": found_identifier_number, "angle": found_angle,
-    #              "real_position": (r_x, r_y), "ratio": ratio, "real_box": (r_w, r_h)})
-
-    #     return found_object_list
 
     def run(self, camera) -> None:
         """update the position of all found_objects
@@ -87,18 +53,34 @@ class TrackingState(State):
         image_bgr = Transformer.perspective_transform(image_bgr, corners)
         cv2.namedWindow("Transformed: ", cv2.WINDOW_NORMAL)
         cv2.imshow("Transformed: ", image_bgr)
+        cv2.imwrite("transformed_one_final.png", image_bgr)
+        print(image_bgr)
 
         aruco_list = ObjectFinder.get_ar(image_bgr)
 
-        for i, ar in enumerate(aruco_list):
-            x, y, _, _ = ar["position"]
-            # print(f'befoer convert x {x}')
+        # scale coordinates
+        for identifier, found_object in aruco_list.items():
+            x = found_object.position_x
+            y = found_object.position_y
             r_x = Scene.lord_scaler.convert(x)
             r_y = Scene.lord_scaler.convert(y)
-            # print(f'after convert x {r_x}')
-            # aruco_list = np.insert(
-            #     aruco_list, i, {"real_position": [r_x, r_y]})
-            aruco_list[i].update({"real_position": [r_x, r_y]})
+
+            found_object.position_x = r_x
+            found_object.position_y = r_y
+
+            if (Scene.previous_aruco_list is not None) and identifier in Scene.previous_aruco_list:
+                x_diff = found_object.position_x - \
+                    Scene.previous_aruco_list[identifier].position_x
+                y_diff = found_object.position_y - \
+                    Scene.previous_aruco_list[identifier].position_y
+
+                time_diff = perf_counter() - Scene.last_speed_calculation_time
+
+                found_object.speed_x = round(x_diff / time_diff, 2)
+                found_object.speed_y = round(y_diff / time_diff, 2)
+
+        Scene.previous_aruco_list = aruco_list
+        Scene.last_speed_calculation_time = perf_counter()
 
         if keyboard.is_pressed('d'):
             print("------")
@@ -106,17 +88,12 @@ class TrackingState(State):
                 print(f"{entry['real_position']} & {round(entry['angle'],2)}")
             print("------")
 
-        # # find and update objects
-        # image_bgr = cv2.resize(
-        #     image_bgr, (Scene.background_manager.background.shape[1], Scene.background_manager.background.shape[0]))
-        # boxes = ObjectFinder.get_contours(
-        #     image_bgr, Scene.background_manager.background)
-        # self._update_objects(image_bgr, boxes)
         sample_frame = image_bgr.copy()
 
         # display results
-        # Scene.publisher.send(found_object_list.copy())
-        Scene.drawer.draw_ar(aruco_list, sample_frame)
+        # Scene.publisher.send(aruco_list.copy())
+        ratio = Scene.lord_scaler.ratio
+        Scene.drawer.draw_ar(aruco_list, sample_frame, ratio)
         cv2.namedWindow('Webots Camera Image', cv2.WINDOW_NORMAL)
         cv2.imshow('Webots Camera Image', sample_frame)
         cv2.waitKey(1)  # waits 1ms to display the image

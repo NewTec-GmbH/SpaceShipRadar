@@ -34,10 +34,10 @@ class ArAuthority:
         return self._marker_corners
 
     @staticmethod
+    # TODO remove my arc length
     def _my_arc_length(curve: np.array, closed: bool) -> float:
 
         result = cv2.arcLength(curve, closed)
-        print(f"perimeter: {result}")
         return result
 
     def calculate_corners(self, image: np.array) -> Tuple[np.array, int]:
@@ -157,12 +157,13 @@ class ArAuthority:
             List[Tuple[float, float]]: The most outer points of the marker_corners
         """
 
-        bounding_corners = {int(marker_ids[i]): marker_corners[i]
-                            for i in range(len(marker_ids))}
+        bounding_corners = {
+            int(marker_ids[i].item()): marker_corners[i]
+            for i in range(len(marker_ids))
+        }
 
         r_bounding_corners = []
 
-        # logging.warning("bounding corners: %s", bounding_corners)
         try:
             for i, position in enumerate(sequence):
                 r_bounding_corners.append(bounding_corners[position][0][i])

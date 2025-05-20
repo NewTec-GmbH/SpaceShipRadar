@@ -90,14 +90,13 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
         return True
 
     @staticmethod
-    def json_builder(position, speed, angle: int, error_code: int) -> str:
+    def json_builder(position, speed, angle: int) -> str:
         """creates a json element with:
             - positionX
             - positionY
             - speedX
             - speedY
             - angle
-            - errorCode
         """
         position_x, position_y = position
         speed_x, speed_y = speed
@@ -108,7 +107,6 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
             "speedX": speed_x,
             "speedY": speed_y,
             "angle": angle,
-            "errorCode": error_code
         }
 
         return json.dumps(message_dict)
@@ -131,27 +129,19 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
         if not self._check_time():
             return
 
-        for found in found_object_list:
-            identifier_number = found.get("identifier_number")
-            if identifier_number is None:
-                return
+        for identifier, found_object in found_object_list.items():
 
-            current_position = found["real_position"]
+            current_position = (found_object.position_x,
+                                found_object.position_y)
 
-            speed = found["speed"]
+            speed = (found_object.speed_x, found_object.speed_y)
 
-            angle = found["angle"]
-
-            ratio = found["ratio"]
-            if ratio == 1:
-                error_code = 1
-            else:
-                error_code = 0
+            angle = found_object.angle
 
             msg_json_ = self.json_builder(
-                current_position, speed, angle, error_code)
+                current_position, speed, angle)
             self._connected = self._send_message(
-                msg_json_, str(identifier_number))
+                msg_json_, str(identifier))
 
 
 # Functions ********************************************************************

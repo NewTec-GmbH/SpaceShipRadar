@@ -2,23 +2,14 @@
 ' skinparam monochrome true
 
 state .{
-state Configuration
-Configuration : create settings-window
-state Background
-Background : update background
 state Setup
-Setup : save corner marker position
-state Localization
-Localization : update and show object position
+state "Loop" as lp
 
-[*] --> Configuration
-Configuration -> Background
-Background --> Setup
-Setup -> Localization
-Localization -> Background : B-key pressed
-Localization -> Localization : no key pressed
+[*] --> Setup
+Setup -> lp
+lp -> lp: no key pressed
 }
 
-. --> [*] : y-key pressed
+. --> [*] : q-key pressed
 
 @enduml

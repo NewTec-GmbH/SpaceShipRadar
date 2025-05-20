@@ -582,6 +582,23 @@ PROTO Zumo32U4 [
             castShadows FALSE
           }
           %<}>%
+        Transform {
+          translation 0 0 40
+          rotation 0 0 -1 1.57
+          children[
+                  Shape {
+                appearance Appearance {
+                  texture ImageTexture {
+                    url "./markers/7_border.png" # Pfad zum Bild
+                  }
+                }
+                geometry Plane {
+                  size 50 50 # Größe des Bildes
+                }
+                castShadows FALSE
+              }
+          ]
+        }
           Shape {
             appearance PBRAppearance {
               baseColor 0.74902 0.737255 0.694118

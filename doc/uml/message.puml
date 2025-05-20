@@ -5,8 +5,7 @@
   "positionY": "int : in mm",
   "speedX": "int : in mm/s",
   "speedY": "int : in mm/s",
-  "angle": "int : in mrad",
-  "nearestObject" : "int : in mrad"
+  "angle": "int : in mrad"
 }
 
 @endjson

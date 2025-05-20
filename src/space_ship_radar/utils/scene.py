@@ -32,6 +32,8 @@ class Scene():
     lord_scaler = LordScaler()
     publisher = Publisher()
     drawer = Drawer()
+    previous_aruco_list = None
+    last_speed_calculation_time = None
 
     def __init__(self):
         self.save_index: int = 0

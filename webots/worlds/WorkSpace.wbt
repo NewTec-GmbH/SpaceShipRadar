@@ -25,8 +25,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation -0.502506544300678 0.4454612869883917 0.7409800366606625 1.8958382834242742
-  position 0.7904000290047547 -2.7875610015797987 6.349446812352445
+  orientation -0.5036655323811559 0.4553027603691984 0.7341801058945927 1.8865122247416357
+  position 0.6571389679834152 -4.351036466023041 10.073042766705843
 }
 Pose {
   translation 0 0 0.84
@@ -131,126 +131,6 @@ Solid {
     }
   ]
   name "solid_bl(2)"
-  boundingObject Box {
-    size 0.1 0.1 0.1
-  }
-}
-Solid {
-  translation 0.06 0.435 -0.049
-  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
-  children [
-    TexturedBoxShape {
-      textureUrl [
-        "../protos/markers/3.png"
-      ]
-    }
-  ]
-  name "solid_bl(3)"
-  boundingObject Box {
-    size 0.1 0.1 0.1
-  }
-}
-Solid {
-  translation 0.555 0.435 -0.049
-  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
-  children [
-    TexturedBoxShape {
-      textureUrl [
-        "../protos/markers/3.png"
-      ]
-    }
-  ]
-  name "solid_bl(4)"
-  boundingObject Box {
-    size 0.1 0.1 0.1
-  }
-}
-Solid {
-  translation 0.555 -0.06 -0.049
-  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
-  children [
-    TexturedBoxShape {
-      textureUrl [
-        "../protos/markers/3.png"
-      ]
-    }
-  ]
-  name "solid_bl(5)"
-  boundingObject Box {
-    size 0.1 0.1 0.1
-  }
-}
-Solid {
-  translation 0.06 -0.065 -0.0489997
-  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
-  children [
-    TexturedBoxShape {
-      textureUrl [
-        "../protos/markers/3.png"
-      ]
-    }
-  ]
-  name "solid_bl(6)"
-  boundingObject Box {
-    size 0.1 0.1 0.1
-  }
-}
-Solid {
-  translation -0.435 -0.0649996 -0.0489995
-  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
-  children [
-    TexturedBoxShape {
-      textureUrl [
-        "../protos/markers/3.png"
-      ]
-    }
-  ]
-  name "solid_bl(7)"
-  boundingObject Box {
-    size 0.1 0.1 0.1
-  }
-}
-Solid {
-  translation -0.435 -0.56 -0.0489995
-  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
-  children [
-    TexturedBoxShape {
-      textureUrl [
-        "../protos/markers/3.png"
-      ]
-    }
-  ]
-  name "solid_bl(8)"
-  boundingObject Box {
-    size 0.1 0.1 0.1
-  }
-}
-Solid {
-  translation 0.06 -0.56 -0.0489995
-  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
-  children [
-    TexturedBoxShape {
-      textureUrl [
-        "../protos/markers/3.png"
-      ]
-    }
-  ]
-  name "solid_bl(9)"
-  boundingObject Box {
-    size 0.1 0.1 0.1
-  }
-}
-Solid {
-  translation 0.555 -0.56 -0.0489997
-  rotation 0.5773512691895147 0.5773492691885823 0.5773502691890485 -2.094395307179586
-  children [
-    TexturedBoxShape {
-      textureUrl [
-        "../protos/markers/3.png"
-      ]
-    }
-  ]
-  name "solid_bl(10)"
   boundingObject Box {
     size 0.1 0.1 0.1
   }
