@@ -45,6 +45,7 @@ def find_chessboard(path: str) -> Tuple[List[np.ndarray], List[np.ndarray]]:
 
     # prepare object points, like (0,0,0), (1,0,0), (2,0,0) ....,(6,5,0)
     objp = np.zeros((chessboard_size[0] * chessboard_size[1], 3), np.float32)
+    # pylint: disable=no-member
     objp[:, :2] = np.mgrid[0:chessboard_size[0],
                            0: chessboard_size[1]].T.reshape(-1, 2)
 
@@ -86,7 +87,8 @@ def find_chessboard(path: str) -> Tuple[List[np.ndarray], List[np.ndarray]]:
 
 ############## CALIBRATION #######################################################
 
-def calibration(path: str, objpoints: List[np.ndarray], imgpoints: List[np.ndarray], frame_size: tuple[int, int]) -> None:
+def calibration(path: str, objpoints: List[np.ndarray],
+                imgpoints: List[np.ndarray], frame_size: tuple[int, int]) -> None:
     """saves a calibration2.pkl file at the specified path and prints the reprojection error
 
     Args:
@@ -100,15 +102,15 @@ def calibration(path: str, objpoints: List[np.ndarray], imgpoints: List[np.ndarr
 
     # Save the camera calibration result for later use
     if ret:
-        pickle.dump((camera_matrix, dist), open(
-            path + "/calibration2.pkl", "wb"))
+        with open(path + "/calibration2.pkl", "wb") as file:
+            pickle.dump((camera_matrix, dist), file)
 
     # Reprojection Error
     mean_error = 0
 
-    for i, _ in enumerate(objpoints):
+    for i, objpoint in enumerate(objpoints):
         imgpoints2, _ = cv2.projectPoints(
-            objpoints[i], rvecs[i], tvecs[i], camera_matrix, dist)
+            objpoint, rvecs[i], tvecs[i], camera_matrix, dist)
         error = cv2.norm(imgpoints[i], imgpoints2, cv2.NORM_L2)/len(imgpoints2)
         mean_error += error
 

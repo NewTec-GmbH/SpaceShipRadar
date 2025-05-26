@@ -32,13 +32,28 @@ class FoundObjectMaster:
         self.lord_scaler = LordScaler()
 
     @staticmethod
-    def _angle_difference(alpha, beta):
+    def angle_difference(alpha: float, beta: float) -> float:
+        """calculates the shortest difference between two angles
+
+        Args:
+            alpha (float): first angle in mrad
+            beta (float): second angle in mrad
+
+        Returns:
+            float: shortest difference (- clock-wise)
+        """
+
         diff = beta - alpha
         if abs(diff) > 1000*math.pi:
             diff = abs(diff) - 2000*math.pi
         return diff
 
-    def update_list(self, props):
+    def update_list(self, props: dict[int, FoundObject]) -> None:
+        """updates found_objects
+
+        Args:
+            props (dict[int, FoundObject]): new found objects
+        """
         # scale coordinates
         for identifier, found_object in props.items():
             r_x = self.lord_scaler.convert(found_object.position_x)
@@ -66,7 +81,7 @@ class FoundObjectMaster:
                 previous_angle = self.found_objects[identifier].angle
                 new_angle = found_object.angle
 
-                angle_difference = self._angle_difference(
+                angle_difference = self.angle_difference(
                     previous_angle, new_angle)
 
                 found_object.angle = previous_angle + angle_difference
