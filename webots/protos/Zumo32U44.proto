@@ -3,7 +3,7 @@
 
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/appearances/protos/Rubber.proto"
 
-PROTO Zumo32U43 [
+PROTO Zumo32U44 [
   field SFVec3f     translation       0 0 0
   field SFRotation  rotation          0 0 1 0
   field SFString    name              "Zumo"
@@ -589,7 +589,7 @@ PROTO Zumo32U43 [
                   Shape {
                 appearance Appearance {
                   texture ImageTexture {
-                    url "./markers/3_border.png" # Pfad zum Bild
+                    url "./markers/4_border.png" # Pfad zum Bild
                   }
                 }
                 geometry Plane {
