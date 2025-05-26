@@ -13,7 +13,7 @@ import cv2
 
 from utils.state import State
 # from utils.state_background import BackgroundState
-from utils.state_setup import SetupState
+from utils.state_tracking import TrackingState
 
 # Variables ********************************************************************
 
@@ -61,7 +61,7 @@ class ConfigurationState(State):
 
         # pylint: disable=no-member
 
-        self.context.transition_to(SetupState())
+        self.context.transition_to(TrackingState())
 
 # Functions ********************************************************************
 

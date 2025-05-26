@@ -45,8 +45,8 @@ class Controller(Robot):
     def __init__(self):
         super().__init__()
         # time_step defines the smallest update time
-        # (1000ms / 20fps = 50)
-        self.time_step = 50  # ms
+        # (1000ms / 100fps = 10)
+        self.time_step = 10  # ms
         self.camera = self.getDevice('camera')
 
         if self.camera is None:
@@ -95,6 +95,7 @@ def main() -> int:
 
     .. uml::
 
+        TODO
         Alice -> Bob: Hi!
         Alice <- Bob: How are you?
 

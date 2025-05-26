@@ -14,9 +14,9 @@ from dataclasses import dataclass
 # from utils.found_object_master import FoundObjectMaster
 # from utils.background_manager import BackgroundManager
 from utils.ar_authority import ArAuthority
-from utils.lord_scaler import LordScaler
 from utils.publisher import Publisher
 from utils.drawer import Drawer
+from utils.found_object_master import FoundObjectMaster
 
 # Variables ********************************************************************
 
@@ -29,11 +29,10 @@ class Scene():
     # save_index is used as a file suffix for saved images
     save_index = 0
     ar_authority = ArAuthority()
-    lord_scaler = LordScaler()
     publisher = Publisher()
     drawer = Drawer()
-    previous_aruco_list = None
-    last_speed_calculation_time = None
+    found_object_master = FoundObjectMaster()
+    show_debug_windows = False
 
     def __init__(self):
         self.save_index: int = 0

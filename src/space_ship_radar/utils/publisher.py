@@ -111,11 +111,11 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
 
         return json.dumps(message_dict)
 
-    def send(self, found_object_list):
-        """sends for each list entry of found_object_list a message to the MQTT broker
+    def send(self, found_objects):
+        """sends for each list entry of found_objects a message to the MQTT broker
 
         Args:
-            found_object_list (dict): for each object stores information about:
+            found_objects (dict): for each object stores information about:
                                         - identifier_number
                                         - real_postion
                                         - speed
@@ -129,7 +129,7 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
         if not self._check_time():
             return
 
-        for identifier, found_object in found_object_list.items():
+        for identifier, found_object in found_objects.items():
 
             current_position = (found_object.position_x,
                                 found_object.position_y)

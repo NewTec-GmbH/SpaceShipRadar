@@ -76,13 +76,12 @@ class Drawer:
         self.draw_text(
             frame, fps, (frame.shape[1] - 100, frame.shape[0] - 25), (0, 255, 0))
 
-    def draw_ar(self, found_object_list, frame, ratio):
+    def draw_ar(self, found_objects, frame, ratio):
         """Draws every object from an object master"""
 
         self._draw_fps(frame)
 
-        for current_found_object_amount, (identifier, found_object) in enumerate(found_object_list.items(), start=1):
-
+        for current_found_object_amount, (identifier, found_object) in enumerate(sorted(found_objects.items(), key=lambda item: item[0]), start=1):
             display_text = ""
 
             # if found_object["position"] is None:
@@ -124,7 +123,7 @@ class Drawer:
             # currently only the top half of the screen
             #   should be used therefore the / 2
             # the scaler should be max 100 (100 is a magic number)
-            scaler = min(frame.shape[0] / len(found_object_list) / 2, 100)
+            scaler = min(frame.shape[0] / len(found_objects) / 2, 100)
             Drawer.draw_text(frame, display_text,
                              (5, int(current_found_object_amount * scaler)), color=found_color)
 

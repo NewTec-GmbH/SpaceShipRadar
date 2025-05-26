@@ -10,8 +10,8 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 # Imports **********************************************************************
 
 from __future__ import annotations
-from time import perf_counter
 import cv2
+import numpy as np
 import keyboard
 
 from utils.transformer import Transformer
@@ -45,51 +45,40 @@ class TrackingState(State):
 
         image_bgr = ImageGetter.get_image(camera)
 
-        cv2.namedWindow("Original Video", cv2.WINDOW_NORMAL)
-        cv2.imshow("Original Video", image_bgr)
+        # setup
+        corners, marker_perimeter = Scene.ar_authority.calculate_corners(
+            image_bgr)
+        image_bgr = Transformer.perspective_transform(image_bgr, corners)
+
+        # ArUco-width
+        real_ar_width = cv2.getTrackbarPos("ArUco", "settings")
+        real_ar_perimeter = np.float64(real_ar_width) * 4
+
+        Scene.found_object_master.lord_scaler.init(
+            marker_perimeter, real_ar_perimeter)
+        # end setup
+
+        if Scene.show_debug_windows:
+            cv2.namedWindow("Original Video", cv2.WINDOW_NORMAL)
+            cv2.imshow("Original Video", image_bgr)
 
         corners = Scene.ar_authority.marker_corners
 
-        image_bgr = Transformer.perspective_transform(image_bgr, corners)
-        cv2.namedWindow("Transformed: ", cv2.WINDOW_NORMAL)
-        cv2.imshow("Transformed: ", image_bgr)
+        if Scene.show_debug_windows:
+            cv2.namedWindow("Transformed: ", cv2.WINDOW_NORMAL)
+            cv2.imshow("Transformed: ", image_bgr)
 
-        aruco_list = ObjectFinder.get_ar(image_bgr)
+        Scene.found_object_master.update_list(ObjectFinder.get_ar(image_bgr))
 
-        # scale coordinates
-        for identifier, found_object in aruco_list.items():
-            r_x = Scene.lord_scaler.convert(found_object.position_x)
-            r_y = Scene.lord_scaler.convert(found_object.position_y)
-
-            found_object.position_x = r_x
-            found_object.position_y = r_y
-
-            if (Scene.previous_aruco_list is not None) and identifier in Scene.previous_aruco_list:
-                x_diff = found_object.position_x - \
-                    Scene.previous_aruco_list[identifier].position_x
-                y_diff = found_object.position_y - \
-                    Scene.previous_aruco_list[identifier].position_y
-
-                time_diff = perf_counter() - Scene.last_speed_calculation_time
-
-                found_object.speed_x = round(x_diff / time_diff, 2)
-                found_object.speed_y = round(y_diff / time_diff, 2)
-
-        Scene.previous_aruco_list = aruco_list
-        Scene.last_speed_calculation_time = perf_counter()
-
-        if keyboard.is_pressed('d'):
-            print("------")
-            for entry in aruco_list:
-                print(f"{entry['real_position']} & {round(entry['angle'],2)}")
-            print("------")
+        # rotation
 
         sample_frame = image_bgr.copy()
 
         # display results
         # Scene.publisher.send(aruco_list.copy())
-        ratio = Scene.lord_scaler.ratio
-        Scene.drawer.draw_ar(aruco_list, sample_frame, ratio)
+        ratio = Scene.found_object_master.lord_scaler.ratio
+        Scene.drawer.draw_ar(
+            Scene.found_object_master.found_objects, sample_frame, ratio)
         cv2.namedWindow('Webots Camera Image', cv2.WINDOW_NORMAL)
         cv2.imshow('Webots Camera Image', sample_frame)
         cv2.waitKey(1)  # waits 1ms to display the image

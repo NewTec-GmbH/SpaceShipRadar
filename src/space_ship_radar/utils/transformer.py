@@ -26,18 +26,7 @@ class Transformer:
     """Transformer for images"""
 
     @staticmethod
-    def perspective_transform(image: np.array, corners: List[Tuple[int, int]]) -> np.array:
-        """Perspectively transforms an image based on the bounding corners
-
-        Args:
-            image (np.array): target image which should be transformed
-            corners (List[Tuple[int, int]]): bounding corners in the sequence:
-                top_left, top_right, bottom_right then bottom_left
-
-        Returns:
-            np.array: The resulting transformed image
-        """
-
+    def _calculate_matrix(corners):
         top_l, top_r, bottom_r, bottom_l = corners
 
         # Determine width of new image which is the max distance between
@@ -66,10 +55,23 @@ class Transformer:
 
         # Find perspective transform matrix
         matrix = cv2.getPerspectiveTransform(corners, dimensions)
+        return matrix, width, height
 
-        # Return the transformed image
-        result_i = cv2.warpPerspective(image, matrix, (width, height))
-        return result_i
+    @staticmethod
+    def perspective_transform(image: np.array, corners: List[Tuple[int, int]]) -> np.array:
+        """Perspectively transforms an image based on the bounding corners
+
+        Args:
+            image (np.array): target image which should be transformed
+            corners (List[Tuple[int, int]]): bounding corners in the sequence:
+                top_left, top_right, bottom_right then bottom_left
+
+        Returns:
+            np.array: The resulting transformed image
+        """
+
+        matrix, width, height = Transformer._calculate_matrix(corners)
+        return cv2.warpPerspective(image, matrix, (width, height))
 
 
 # Functions ********************************************************************
