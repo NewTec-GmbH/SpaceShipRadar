@@ -28,12 +28,6 @@ class FoundObject:
         self.speed_x = speed_x
         self.speed_y = speed_y
         self.angle = angle
-        # self.previous_x = previous_x
-        # self.previous_y = previous_y
-
-    def __hash__(self):
-        return hash((self.position_x, self.position_y))
-
 
 # Functions ********************************************************************
 

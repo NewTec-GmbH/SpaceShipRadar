@@ -1,5 +1,5 @@
 @startuml deployment
-' title Simulation View: SpaceShipRadar, RadonUlzer and the World
+title Simulation View: SpaceShipRadar, RadonUlzer and the World
 
 
 node "PC \n (Windows)" {
@@ -11,8 +11,6 @@ node "PC \n (Windows)" {
         node "<<virtual robot>> \n Zumo Robot" as ZumoRobot
         node "<<virtual robot>> \n Camera" as Camera
     }
-    
-  
 
     node "<<executable>> \n RadonUlzer" as RadonUlzer
     node "<<executable>> \n Space Ship Radar" as SSR
@@ -36,9 +34,9 @@ iZumoRobotSocket  )--  RadonUlzer : " Loads Controller"
 SSR -( iNetwork
 iNetwork -right- broker
 
-' note left of Webots 
-' The world is saved under: 
-' SpaceShipRadar/webots/worlds/WorkSpace.wbt
-' end note
+note left of Webots 
+The world is saved under: 
+SpaceShipRadar/webots/worlds/WorkSpace.wbt
+end note
 
 @enduml

@@ -1,15 +1,11 @@
 @startuml state
-' skinparam monochrome true
 
-state .{
-state Setup
-state "Loop" as lp
+state Configuration
+state "Tracking" as lp
 
-[*] --> Setup
-Setup -> lp
-lp -> lp: no key pressed
-}
-
-. --> [*] : q-key pressed
+[*] --> Configuration
+Configuration -> lp : any key pressed
+lp -> lp
+lp --> [*] : q-key pressed
 
 @enduml

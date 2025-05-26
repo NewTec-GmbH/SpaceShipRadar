@@ -85,18 +85,10 @@ class Drawer:
                 sorted(found_objects.items(), key=lambda item: item[0]), start=1):
             display_text = ""
 
-            # if found_object["position"] is None:
-            #     return
-
-            # x, y, _, _ = found_object["position"]
             x = found_object.position_x
             y = found_object.position_y
 
-            # found_identifier_number = found_object["identifier"][0]
             found_identifier_number = identifier
-
-            # np.random.randint(50, 200, (1, 3))
-
             found_color = self._color_list[found_identifier_number]
 
             pixel_x = x / ratio
@@ -105,9 +97,6 @@ class Drawer:
             Drawer.draw_text(frame, str(
                 found_identifier_number), (int(round(pixel_x, 1)), int(round(pixel_y, 1))), found_color)
 
-            # write text
-            # display_text += Drawer._append_if_not_none("P",
-            #                                            found_object.get("real_position"))
             display_text += Drawer._append_if_not_none("P",
                                                        (x, y))
             display_text += Drawer._append_if_not_none(
@@ -115,7 +104,7 @@ class Drawer:
             # display_text += Drawer._append_if_not_none(
             #     "A", round(found_object.get("angle"), 2))
             display_text += Drawer._append_if_not_none(
-                "A", round(found_object.angle, 2))
+                "A", round(found_object.angle, 1))
             display_text += Drawer._append_if_not_none(
                 "ID", found_identifier_number)
 

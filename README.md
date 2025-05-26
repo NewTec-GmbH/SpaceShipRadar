@@ -16,6 +16,8 @@
 
 The Space Ship Radar tracks different robots marked by ArUco-markers with a camera which is positioned above all robots.
 
+![Screenshot](./images/screenshot.png)
+
 ## Installation
 
 ```bash
@@ -52,12 +54,12 @@ Update it with the absolute path to space_ship_radar.py which is in this repo un
 
 SpaceShipRadar_PATH=C:\path\to\your\SpaceShipRadar\src\space_ship_radar\space_ship_radar.py
 
-#### 5. Set the Path for Image Folder:
+#### 5. Set the Path for Calibration Folder:
 
-Find the line that begins with ImageFolder_PATH=.
-Ensure this points to the folder containing images (found in this repo under `src\`), and make sure it ends with a backslash '\\'. For example:
+Find the line that begins with CalibrationFolder_PATH=.
+Ensure this points to the folder calibration (found in this repo under `src\`), and make sure it ends with a backslash '\\'. For example:
 
-ImageFolder_PATH=C:\path\to\your\src\img\
+CalibrationFolder_PATH=C:\path\to\your\src\calibration\
 
 #### 6. Save Your Changes:
 
@@ -76,6 +78,18 @@ If webots is open, you can use the start script:
 ```
 
 This will load the RadonUlzer Program specified .env and also load the SpaceShipRadar
+
+### Calibrate Camera
+
+```cmd
+python .\src\space_ship_radar\calibrate_camera.py
+```
+
+### Use a webcam
+
+```cmd
+python .\src\space_ship_radar\real_camera.py 
+```
 
 <!-- ```bash
 template_python [-h] [-v] {command} {command_options}
