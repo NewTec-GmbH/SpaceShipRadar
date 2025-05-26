@@ -81,7 +81,8 @@ class Drawer:
 
         self._draw_fps(frame)
 
-        for current_found_object_amount, (identifier, found_object) in enumerate(sorted(found_objects.items(), key=lambda item: item[0]), start=1):
+        for current_found_object_amount, (identifier, found_object) in enumerate(
+                sorted(found_objects.items(), key=lambda item: item[0]), start=1):
             display_text = ""
 
             # if found_object["position"] is None:
