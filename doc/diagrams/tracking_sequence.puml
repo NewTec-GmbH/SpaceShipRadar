@@ -1,0 +1,41 @@
+@startuml tracking_sequence
+
+TrackingState -> ImageGetter : get_image()
+activate ImageGetter
+return image
+
+|||
+
+TrackingState -> ArAuthority : calculate_corners(image)
+activate ArAuthority
+return corners, marker_perimeter
+
+|||
+
+TrackingState -> Transformer : perspective_transform(image, corners)
+activate Transformer
+return transformed_image
+
+|||
+
+TrackingState -> LordScaler : init(marker_perimeter, real_ar_perimeter)
+
+|||
+
+TrackingState -> ObjectFinder : get_ar(image)
+activate ObjectFinder
+return aruco_list
+
+|||
+
+TrackingState -> FoundObjectMaster : update_list(aruco_list)
+activate FoundObjectMaster
+FoundObjectMaster -> LordScaler : convert()
+return found_objects
+
+|||
+
+TrackingState -> Publisher : send(found_objects)
+TrackingState -> Drawer : draw_ar(found_objects)
+
+@enduml
