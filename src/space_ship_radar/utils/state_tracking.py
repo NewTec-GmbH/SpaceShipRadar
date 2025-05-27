@@ -62,20 +62,16 @@ class TrackingState(State):
             cv2.namedWindow("Original Video", cv2.WINDOW_NORMAL)
             cv2.imshow("Original Video", image_bgr)
 
-        corners = Scene.ar_authority.marker_corners
-
         if Scene.show_debug_windows:
             cv2.namedWindow("Transformed: ", cv2.WINDOW_NORMAL)
             cv2.imshow("Transformed: ", image_bgr)
 
         Scene.found_object_master.update_list(ObjectFinder.get_ar(image_bgr))
 
-        # rotation
-
         sample_frame = image_bgr.copy()
 
         # display results
-        # Scene.publisher.send(aruco_list.copy())
+        Scene.publisher.send(Scene.found_object_master.found_objects)
         ratio = Scene.found_object_master.lord_scaler.ratio
         Scene.drawer.draw_ar(
             Scene.found_object_master.found_objects, sample_frame, ratio)
