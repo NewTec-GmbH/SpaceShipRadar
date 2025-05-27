@@ -101,8 +101,6 @@ class Drawer:
                                                        (x, y))
             display_text += Drawer._append_if_not_none(
                 "S", (found_object.speed_x, found_object.speed_y))
-            # display_text += Drawer._append_if_not_none(
-            #     "A", round(found_object.get("angle"), 2))
             display_text += Drawer._append_if_not_none(
                 "A", round(found_object.angle, 1))
             display_text += Drawer._append_if_not_none(
@@ -112,7 +110,6 @@ class Drawer:
             # scaler determines the y-position of the text
             # currently only the top half of the screen
             #   should be used therefore the / 2
-            # the scaler should be max 100 (100 is a magic number)
             scaler = min(frame.shape[0] / len(found_objects) / 2, 100)
             Drawer.draw_text(frame, display_text,
                              (5, int(current_found_object_amount * scaler)), color=found_color)

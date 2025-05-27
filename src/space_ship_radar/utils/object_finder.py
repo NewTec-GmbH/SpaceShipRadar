@@ -24,17 +24,14 @@ class ObjectFinder:
     """Responsible for finding Objects in Images"""
 
     @staticmethod
-    def _ro_ro_helper(point, middle, offset=45) -> int:
+    def _calculate_rotational_offset(point, middle) -> float:
         point_x, point_y = point
         middle_x, middle_y = middle
 
         vector_x = point_x - middle_x
         vector_y = point_y - middle_y
 
-        rad = math.atan2(vector_x, vector_y)
-        deg = math.degrees(rad)
-        mrad = round((deg - offset) % 360, 0)
-        mrad = math.radians(mrad) * 1000
+        mrad = math.atan2(vector_x, vector_y) * 1000
         return mrad
 
     @staticmethod
@@ -49,16 +46,8 @@ class ObjectFinder:
         east_middle_x = (top_right[0] + bot_right[0]) / 2
         east_middle_y = (top_right[1] + bot_right[1]) / 2
 
-        ys = ObjectFinder._ro_ro_helper(
-            [east_middle_x, east_middle_y], [middle_x, middle_y], 0)
-
-        # R, _ = cv2.Rodrigues(marker)
-
-        # yaw = np.arctan2(R[1][0], R[0][0])  # Z-Achse (Yaw)
-        # pitch = np.arcsin(-R[2][0])         # Y-Achse (Pitch)
-        # roll = np.arctan2(R[2][1], R[2][2])  # X-Achse (Roll)
-
-        # print(f'Marker, Yaw: {yaw}, Pitch: {pitch}, Roll: {roll}')
+        ys = ObjectFinder._calculate_rotational_offset(
+            [east_middle_x, east_middle_y], [middle_x, middle_y])
 
         return round(ys, 2)  # mrad
 
@@ -79,12 +68,7 @@ class ObjectFinder:
             identifier = marker_ids[i]
             rotation = ObjectFinder._get_rotation_from_ar(marker[0])
 
-            # _, _, w, h = cv2.boundingRect(marker)
-
             x, y = marker[0][0]
-
-            x, y = [np.float64(x), np.float64(y)]
-
             my_object = FoundObject((x, y), (0, 0), rotation)
             object_location[int(identifier.item())] = my_object
 

@@ -130,7 +130,6 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
             return
 
         for identifier, found_object in found_objects.items():
-
             current_position = (found_object.position_x,
                                 found_object.position_y)
 

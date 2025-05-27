@@ -26,7 +26,6 @@ class FoundObjectMaster:
 
     def __init__(self):
         self.found_objects: Dict[int, FoundObject] = {}
-        # self.previous_aruco_list: list[FoundObject] = None
         self.last_speed_calculation_time = perf_counter()
 
         self.lord_scaler = LordScaler()

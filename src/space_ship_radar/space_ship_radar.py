@@ -93,12 +93,6 @@ class Controller(Robot):
 def main() -> int:
     """ The program entry point function.
 
-    .. uml::
-
-        TODO
-        Alice -> Bob: Hi!
-        Alice <- Bob: How are you?
-
     Returns:
         int: System exit status.
     """

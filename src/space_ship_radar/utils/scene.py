@@ -11,8 +11,6 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 from dataclasses import dataclass
 
-# from utils.found_object_master import FoundObjectMaster
-# from utils.background_manager import BackgroundManager
 from utils.ar_authority import ArAuthority
 from utils.publisher import Publisher
 from utils.drawer import Drawer
