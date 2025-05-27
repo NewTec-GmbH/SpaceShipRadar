@@ -14,9 +14,23 @@
 
 ## Overview
 
-The Space Ship Radar tracks different robots marked by ArUco-markers with a camera which is positioned above all robots.
+The Space Ship Radar is a Python script designed to initialize a Webots camera and track ArUco markers within its field of view. The system accurately determines the position (P) of the markers in millimeters. Additionally, it tracks the speed (S) of the markers and measures their orientation angle in milliradians (mrad).
+
 
 ![Screenshot](./images/screenshot.png)
+
+
+### States
+
+![state](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/NewTec-GmbH/SpaceShipRadar/refs/heads/main/doc/diagrams/state.puml)
+
+The System starts in the Configuration-State where the user can adjust certain values before the 
+tracking begins. At the moment the user can adjust the size of the edge-markers in mm.  
+
+Then if the configuration is complete any key can be pressed to proceed to the tracking-state.
+Here the objects will be tracked and displayed.  
+
+To quit the program you can press the q-key in the tracking-state.
 
 ## Installation
 
@@ -91,11 +105,15 @@ python .\src\space_ship_radar\calibrate_camera.py
 python .\src\space_ship_radar\real_camera.py 
 ```
 
-<!-- ```bash
-template_python [-h] [-v] {command} {command_options}
-``` -->
+### Docker
 
-<!-- Detailed descriptions of arguments -->
+In the `docker-folder` of this repository, you'll find a `docker-compose.yml` file that sets up an MQTT broker. 
+Additionally, there's a Python script (`mqtt_subscriber.py`) available that can listen to all messages published to the MQTT broker within the Docker container, 
+specifically for topics matching ssr/#.
+
+```cmd
+python .\docker\mqtt_subscriber.py 
+```
 
 ## Examples
 
