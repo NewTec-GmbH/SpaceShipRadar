@@ -17,7 +17,7 @@
 The Space Ship Radar is a Python script designed to initialize a Webots camera and track ArUco markers within its field of view. The system accurately determines the position (P) of the markers in millimeters. Additionally, it tracks the speed (S) of the markers and measures their orientation angle in milliradians (mrad).
 
 
-![Screenshot](./images/screenshot.png)
+![GUI_output](./images/gui_output.png)
 
 
 ### States
