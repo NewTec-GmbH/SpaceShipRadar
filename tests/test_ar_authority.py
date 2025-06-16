@@ -19,7 +19,7 @@ from ar_authority import ArAuthority
 # Functions ********************************************************************
 
 
-def test_aruco():
+def test_ar_authority():
     """tests if ArAuthority is able to find four ArUco Markers in a
         test image (edge_marker.png) and correctly identifies the position
         and the perimeter of the markers
