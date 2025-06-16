@@ -17,7 +17,7 @@ from lord_scaler import LordScaler
 # Functions ********************************************************************
 
 
-def test_lord():
+def test_lord_scaler():
     """tests if LordScaler returns the expected converted values 
         for different ratios between the pixel_perimeter and the mm_perimeter
     """

@@ -19,7 +19,7 @@ from object_finder import ObjectFinder
 # Functions ********************************************************************
 
 
-def test_finder():
+def test_object_finder():
     """tests if ObjectFinder is able to find three ArUco Markers from an 
         test image (object_marker.png) and determine the position, (speed) 
         and angle of the markers
