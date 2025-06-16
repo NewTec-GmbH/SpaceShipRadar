@@ -1,0 +1,11 @@
+@startuml state
+
+state Configuration
+state "Tracking"
+
+[*] --> Configuration
+Configuration -> Tracking : any key pressed
+Tracking -> Tracking
+Tracking --> [*] : q-key pressed
+
+@enduml

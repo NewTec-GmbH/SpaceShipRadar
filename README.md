@@ -14,7 +14,23 @@
 
 ## Overview
 
->TODO
+The Space Ship Radar is a Python script designed to initialize a Webots camera and track ArUco markers within its field of view. The system accurately determines the position (P) of the markers in millimeters. Additionally, it tracks the speed (S) of the markers and measures their orientation angle in milliradians (mrad).
+
+
+![GUI_output](./images/gui_output.png)
+
+
+### States
+
+![state](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/NewTec-GmbH/SpaceShipRadar/refs/heads/main/doc/diagrams/state.puml)
+
+The system starts in the Configuration-State where the user can adjust certain values before the 
+tracking begins. At the moment the user can adjust the size of the edge-markers in mm.  
+
+Then if the configuration is complete any key can be pressed to proceed to the tracking-state.
+Here the objects will be tracked and displayed.  
+
+To quit the program you can press the q-key in the Tracking-state.
 
 ## Installation
 
@@ -26,47 +42,48 @@ pip install .
 
 ## Usage
 
->TODO
-
 ### Setup .env
-1. Rename the File:
+
+#### 1. Rename the file:
 
 Locate the file named template.env in your project directory.
 Rename this file to .env. This is important as the application will look for this specific filename.
 
-2. Adjust the Paths:
+#### 2. Adjust the paths:
 
 Open the newly renamed .env file in a text editor.
 You will see several lines that specify paths. You need to update these paths to point to the correct locations on your system.
 
-3. Set the Path for RadonUlzer Executable:
+#### 3. Set the path for RadonUlzer executable:
 
 Find the line that starts with RadonUlzer_PATH=.
 Change it to reflect the absolute path where program.exe is located on your machine. For example:
 
 RadonUlzer_PATH=C:\path\to\your\LineFollowerSim\program.exe
 
-4. Set the Path for Space Ship Radar Script:
+#### 4. Set the path for Space Ship Radar script:
 
 Locate the line starting with SpaceShipRadar_PATH=.
 Update it with the absolute path to space_ship_radar.py which is in this repo under `src\space_ship_radar\`. For example:
 
 SpaceShipRadar_PATH=C:\path\to\your\SpaceShipRadar\src\space_ship_radar\space_ship_radar.py
 
+#### 5. Set the path for calibration folder:
 
-5. Set the Path for Image Folder:
+Find the line that begins with CalibrationFolder_PATH=.
+Ensure this points to the folder calibration (found in this repo under `src\`), and make sure it ends with a backslash '\\'. For example:
 
-Find the line that begins with ImageFolder_PATH=.
-Ensure this points to the folder containing images (found in this repo under `src\`), and make sure it ends with a backslash '\\'. For example:
+CalibrationFolder_PATH=C:\path\to\your\src\calibration\
 
-ImageFolder_PATH=C:\path\to\your\src\img\
-
-6. Save Your Changes:
+#### 6. Save your changes:
 
 After updating all necessary paths, save and close the .env file.
 
+### Webots world
 
-### Start Script
+To test this project in webots you can use the world under `webots\worlds\WorkSpace.wbt`.
+
+### Start script
 
 If webots is open, you can use the start script:
 
@@ -76,21 +93,33 @@ If webots is open, you can use the start script:
 
 This will load the RadonUlzer Program specified .env and also load the SpaceShipRadar
 
-<!-- ```bash
-template_python [-h] [-v] {command} {command_options}
-``` -->
+### Calibrate camera
 
-<!-- Detailed descriptions of arguments -->
+```cmd
+python .\src\space_ship_radar\calibrate_camera.py
+```
 
-## Examples
+### Use a webcam
 
-Check out the all the [Examples](./examples).
+```cmd
+python .\src\space_ship_radar\real_camera.py 
+```
 
-## SW Documentation
+### Docker
+
+In the `docker-folder` of this repository, you'll find a `docker-compose.yml` file that sets up an MQTT broker. 
+Additionally, there's a Python script (`mqtt_subscriber.py`) available that can listen to all messages published to the MQTT broker within the Docker container, 
+specifically for topics matching ssr/#.
+
+```cmd
+python .\docker\mqtt_subscriber.py 
+```
+
+## SW documentation
 
 More information on the deployment and architecture can be found in the [documentation](./doc/README.md)
 
-For Detailed Software Design run `$ /doc/detailed-design/make html` to generate the detailed design documentation that then can be found
+For detailed software design run `$ /doc/detailed-design/make html` to generate the detailed design documentation that then can be found
 in the folder `/doc/detailed-design/_build/html/index.html`
 
 ## Used Libraries
@@ -104,7 +133,7 @@ Used 3rd party libraries which are not part of the standard Python package:
 see also [requirements.txt](requirements.txt)
 
 ---
-Sections below, for Github only
+Sections below, for GitHub only
 
 ## Issues, Ideas And Bugs
 

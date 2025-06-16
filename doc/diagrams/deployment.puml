@@ -1,0 +1,42 @@
+@startuml deployment
+title Simulation View: SpaceShipRadar, RadonUlzer and the World
+
+
+node "PC \n (Windows)" {
+    node "<<container>> \n Docker" as Docker{
+        node "MQTT Broker" as broker
+    }
+
+    node "<<executable>> \n Webots " as Webots {
+        node "<<virtual robot>> \n Zumo Robot" as ZumoRobot
+        node "<<virtual robot>> \n Camera" as Camera
+    }
+
+    node "<<executable>> \n RadonUlzer" as RadonUlzer
+    node "<<executable>> \n Space Ship Radar" as SSR
+
+    interface "Socket" as iZumoRobotSocket
+    interface "Socket" as iZumoComSystemRobotSocket
+
+    interface "TCP/IP" as iNetwork
+
+}
+
+
+Camera -- iZumoComSystemRobotSocket
+iZumoComSystemRobotSocket )-- SSR : " Loads Controller"
+
+
+ZumoRobot -- iZumoRobotSocket
+iZumoRobotSocket  )--  RadonUlzer : " Loads Controller"
+
+
+SSR -( iNetwork
+iNetwork -right- broker
+
+note left of Webots 
+The world is saved under: 
+SpaceShipRadar/webots/worlds/WorkSpace.wbt
+end note
+
+@enduml

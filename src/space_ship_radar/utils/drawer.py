@@ -12,6 +12,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 import time
 
 import cv2
+import numpy as np
 
 # Variables ********************************************************************
 
@@ -27,6 +28,10 @@ class Drawer:
         # used for fps calculation
         self.prev_frame_time = 0
         self.new_frame_time = 0
+        self._color_list = []
+        for _ in range(50):
+            self._color_list.append(
+                np.random.randint(50, 200, (1, 3))[0].tolist())
 
     @staticmethod
     def draw_text(frame, txt: str, location: tuple[int, int], color=(100, 100, 100)):
@@ -41,15 +46,14 @@ class Drawer:
 
         # scales text based on image size
         scaler = frame.shape[0] / 500
-        cv2.putText(frame, txt, location, cv2.FONT_HERSHEY_SIMPLEX, .5 *
-                    scaler, color, int(scaler))
+        cv2.putText(frame, txt, location, cv2.FONT_HERSHEY_SIMPLEX, 0.7 *
+                    scaler, color, 1 * int(scaler))
 
     @staticmethod
     def _append_if_not_none(key, value) -> str:
         return f"{key}: {value} " if value is not None else ""
 
-    def draw_objects(self, found_object_list, frame):
-        """Draws every object from an object master"""
+    def _draw_fps(self, frame):
         self.new_frame_time = time.time()
 
         # Calculating the fps from:
@@ -72,38 +76,41 @@ class Drawer:
         self.draw_text(
             frame, fps, (frame.shape[1] - 100, frame.shape[0] - 25), (0, 255, 0))
 
-        for current_found_object_amount, found_object in enumerate(found_object_list, start=1):
+    def draw_ar(self, found_objects, frame, ratio):
+        """Draws every object from an object master"""
 
+        self._draw_fps(frame)
+
+        for current_found_object_amount, (identifier, found_object) in enumerate(
+                sorted(found_objects.items(), key=lambda item: item[0]), start=1):
             display_text = ""
 
-            if found_object["position"] is None:
-                return
+            x = found_object.position_x
+            y = found_object.position_y
 
-            x, y, w, h = found_object["position"]
-            found_identifier_number = found_object["identifier_number"]
-            found_color = found_object["color"]
+            found_identifier_number = identifier
+            found_color = self._color_list[found_identifier_number]
 
-            cv2.rectangle(frame, (x, y),
-                          (x+w, y+h), found_color, 2)
+            pixel_x = x / ratio
+            pixel_y = y / ratio
 
             Drawer.draw_text(frame, str(
-                found_identifier_number), (x, y), found_color)
+                found_identifier_number), (int(round(pixel_x, 1)), int(round(pixel_y, 1))), found_color)
 
-            # write text
             display_text += Drawer._append_if_not_none("P",
-                                                       found_object.get("real_position"))
+                                                       (x, y))
             display_text += Drawer._append_if_not_none(
-                "S", found_object.get("speed"))
+                "S", (found_object.speed_x, found_object.speed_y))
             display_text += Drawer._append_if_not_none(
-                "A", found_object.get("angle"))
+                "A", round(found_object.angle, 1))
             display_text += Drawer._append_if_not_none(
-                "T", found_object.get("type"))
+                "ID", found_identifier_number)
 
             # scale text based on image size
             # scaler determines the y-position of the text
             # currently only the top half of the screen
             #   should be used therefore the / 2
-            scaler = frame.shape[0] / len(found_object_list) / 2
+            scaler = min(frame.shape[0] / len(found_objects) / 2, 100)
             Drawer.draw_text(frame, display_text,
                              (5, int(current_found_object_amount * scaler)), color=found_color)
 

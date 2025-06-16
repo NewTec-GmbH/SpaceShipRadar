@@ -9,11 +9,12 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
-import logging
-import cv2
+import math
+from typing import Dict
+from time import perf_counter
 
-from utils.histogram_star import HistogramStar
 from utils.found_object import FoundObject
+from utils.lord_scaler import LordScaler
 
 # Variables ********************************************************************
 
@@ -24,94 +25,68 @@ class FoundObjectMaster:
     """Found Object Master manages multiple Found Objects"""
 
     def __init__(self):
-        self.found_objects: list[FoundObject] = []
+        self.found_objects: Dict[int, FoundObject] = {}
+        self.last_speed_calculation_time = perf_counter()
 
-    def is_found_object(self, image, rectangle: tuple[int, int, int, int]) -> bool:
-        """determines if the picture is a object which should be tracked"""
-        x, y, w, h = rectangle
+        self.lord_scaler = LordScaler()
 
-        # Extract the region of interest (ROI) from the source image
-        roi = image[y:y+h, x:x+w]
-
-        hist = HistogramStar.get_hist(roi)
-        # diff: describes a number between 0 and 1 represents how good the histograms match
-        # (1: is very good, and 0: is very bad)
-        diff = cv2.compareHist(HistogramStar.get_robo_hist(),
-                               hist, cv2.HISTCMP_CORREL)
-
-        # get the value of settings-window of Histogram
-        h1 = cv2.getTrackbarPos("Histogram", "settings")
-        h1 = h1 / 100
-
-        # if the difference is too big then it is not considered to be a found object and False is returned
-        # In this case h1 is the threshold of how "good" a result has to be to be considered to be a found_object
-        if diff < h1:
-            return False
-
-        return True
-
-    def add_found_object(self, num: int, position: tuple[int, int, int, int], angle) -> None:
-        """adder for Found Objects"""
-        self.found_objects.append(FoundObject(num, position, angle))
-
-    def get_best_match(self, point: tuple[int, int]) -> int:
-        """Return the index of the Found Objects which is closest to the point"""
-        result: list[int] = []
-
-        for found in self.found_objects:
-            found_point = found.get_newest_point()
-            diff = abs(found_point[0] - point[0]) + \
-                abs(found_point[1] - point[1])
-            result.append(diff)
-
-        if len(result) < 1:
-            return -1
-
-        smallest_number = min(result)
-        return result.index(smallest_number)
-
-    def update_found_object(self, object_properties):
-        """updates the position of the best match
+    @staticmethod
+    def angle_difference(alpha: float, beta: float) -> float:
+        """calculates the shortest difference between two angles
 
         Args:
-            object_properties: dict which holds 'position' in (x, y, w, h) and 'angle' in mrad for each found object
+            alpha (float): first angle in mrad
+            beta (float): second angle in mrad
+
+        Returns:
+            float: shortest difference (- clock-wise)
         """
 
-        # will assign each found object the closest contour
-        for found in self.found_objects:
-            result = []
-            for item in object_properties:
-                x, y, w, h = item["position"]
-                point = (x+w/2, y+h/2)
+        diff = beta - alpha
+        if abs(diff) > 1000*math.pi:
+            diff = abs(diff) - 2000*math.pi
+        return diff
 
-                found_point = found.get_newest_point()
-                diff = abs(found_point[0] - point[0]) + \
-                    abs(found_point[1] - point[1])
-                result.append(diff)
+    def update_list(self, props: dict[int, FoundObject]) -> None:
+        """updates found_objects
 
-            if len(result) > 0:
-                smallest_number = min(result)
-                smallest_index = result.index(smallest_number)
+        Args:
+            props (dict[int, FoundObject]): new found objects
+        """
+        # scale coordinates
+        for identifier, found_object in props.items():
+            r_x = self.lord_scaler.convert(found_object.position_x)
+            r_y = self.lord_scaler.convert(found_object.position_y)
 
-                x, y, w, h = object_properties[smallest_index]["position"]
-                angle = object_properties[smallest_index]["angle"]
-                object_properties.pop(smallest_index)
-                found.update([x, y, w, h], angle)
-            else:
-                logging.warning(
-                    "no match for found Object %s", found.identifier_number)
+            found_object.position_x = r_x
+            found_object.position_y = r_y
 
-        if len(object_properties) > 0:
-            logging.warning("contours unused")
+            # pylint: disable=unsubscriptable-object
+            # pylint: disable=unsupported-membership-test
+            if identifier in self.found_objects:
+                # speed
+                x_diff = found_object.position_x - \
+                    self.found_objects[identifier].position_x
+                y_diff = found_object.position_y - \
+                    self.found_objects[identifier].position_y
 
-    def get_found_object(self, index: int) -> FoundObject:
-        """getter for found object"""
-        return self.found_objects[index]
+                time_diff = perf_counter() - self.last_speed_calculation_time
 
-    def reset(self):
-        """removes all found objects"""
-        self.found_objects = []
+                found_object.speed_x = round(x_diff / time_diff, 2)
+                found_object.speed_y = round(y_diff / time_diff, 2)
+                self.last_speed_calculation_time = perf_counter()
 
-# Functions ********************************************************************
+                # rotation
+                previous_angle = self.found_objects[identifier].angle
+                new_angle = found_object.angle
 
-# Main *************************************************************************
+                angle_difference = self.angle_difference(
+                    previous_angle, new_angle)
+
+                found_object.angle = previous_angle + angle_difference
+
+            self.found_objects[identifier] = found_object
+
+            # Functions ********************************************************************
+
+            # Main *************************************************************************
