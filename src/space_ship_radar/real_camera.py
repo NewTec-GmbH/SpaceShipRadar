@@ -29,9 +29,7 @@ def run() -> None:
     # Setup
     context = Context(ConfigurationState())
     camera = cv2.VideoCapture(0)
-    # codec = 0x47504A4D  # MJPG
     camera.set(cv2.CAP_PROP_FPS, 30)
-    # camera.set(cv2.CAP_PROP_FOURCC, codec)
     camera.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
     camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
 
@@ -59,12 +57,11 @@ def run_record() -> None:
     height = 1440
     cam = cv2.VideoCapture(1)
 
-    # fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
-    video_output_file_name = 'real_video_output' + '.mp4'
+    video_output_file_name = 'real_video_output.mp4'
     video_out = cv2.VideoWriter(
         video_output_file_name, -1, 40, (width, height))
 
-    logging.error('vide recording starts ... 2')
+    logging.error('video recording starts ...')
 
     while True:
         logging.error("waiting...")

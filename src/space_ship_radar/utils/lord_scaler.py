@@ -24,7 +24,12 @@ class LordScaler:
         self._ratio = 1
 
     def init(self, marker_perimeter: float, real_ar_perimeter: float) -> None:
-        """calculates a conversion ratio based on the found markers size"""
+        """calculates a conversion ratio based on the found markers size
+
+        Args:
+            marker_perimeter (float): marker_perimeter size in pixel
+            real_ar_perimeter (float): marker_perimeter size in mm
+        """
         print(f"in init: {marker_perimeter}")
         if marker_perimeter == -1:
             return
@@ -37,7 +42,14 @@ class LordScaler:
         self._ratio = ratio
 
     def convert(self, num: float) -> int:
-        """converts pixel values into mm values"""
+        """converts pixel values into mm values
+
+        Args:
+            num (float): pixel number to convert to mm-value
+
+        Returns:
+            int: converted mm-value
+        """
 
         mm_value = round(self._ratio * num, 0)
         return int(mm_value)

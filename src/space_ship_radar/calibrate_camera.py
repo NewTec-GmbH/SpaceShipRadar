@@ -40,8 +40,8 @@ def find_chessboard(path: str) -> Tuple[List[np.ndarray], List[np.ndarray]]:
     """
     chessboard_size = (9, 6)
 
-    # termination criteria
-    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+    termination_criteria = (cv2.TERM_CRITERIA_EPS +
+                            cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
 
     # prepare object points, like (0,0,0), (1,0,0), (2,0,0) ....,(6,5,0)
     objp = np.zeros((chessboard_size[0] * chessboard_size[1], 3), np.float32)
@@ -65,14 +65,13 @@ def find_chessboard(path: str) -> Tuple[List[np.ndarray], List[np.ndarray]]:
         print(image)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-        # Find the chess board corners
         ret, corners = cv2.findChessboardCorners(gray, chessboard_size, None)
 
         # If found, add object points, image points (after refining them)
         if ret:
             objpoints.append(objp)
             corners2 = cv2.cornerSubPix(
-                gray, corners, (11, 11), (-1, -1), criteria)
+                gray, corners, (11, 11), (-1, -1), termination_criteria)
             imgpoints.append(corners)
 
             # Draw and display the corners

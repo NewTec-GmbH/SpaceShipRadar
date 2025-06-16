@@ -31,6 +31,7 @@ CLIENT_ID = f'subscribe-{random.randint(0, 100)}'
 
 
 def _connect_mqtt() -> mqtt_client:
+    """tries to connect to MQTT broker"""
     def on_connect(_client, _userdata, _flags, rc):
         if rc == 0:
             print("Connected to MQTT Broker!")

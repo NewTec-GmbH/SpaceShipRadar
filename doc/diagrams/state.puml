@@ -1,11 +1,11 @@
 @startuml state
 
 state Configuration
-state "Tracking" as lp
+state "Tracking"
 
 [*] --> Configuration
-Configuration -> lp : any key pressed
-lp -> lp
-lp --> [*] : q-key pressed
+Configuration -> Tracking : any key pressed
+Tracking -> Tracking
+Tracking --> [*] : q-key pressed
 
 @enduml

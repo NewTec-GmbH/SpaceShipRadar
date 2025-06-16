@@ -7,13 +7,13 @@
 ![state](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/NewTec-GmbH/SpaceShipRadar/refs/heads/main/doc/diagrams/state.puml)
 
 ## FoundObject
-![state](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/NewTec-GmbH/SpaceShipRadar/refs/heads/main/doc/diagrams/found_object.puml)
+![found_object](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/NewTec-GmbH/SpaceShipRadar/refs/heads/main/doc/diagrams/found_object.puml)
 
 ## Message
-![state](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/NewTec-GmbH/SpaceShipRadar/refs/heads/main/doc/diagrams/message.puml)
+![message](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/NewTec-GmbH/SpaceShipRadar/refs/heads/main/doc/diagrams/message.puml)
 
-## Message
-![state](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/NewTec-GmbH/SpaceShipRadar/refs/heads/main/doc/diagrams/tracking_sequence.puml)
+## Tracking sequence
+![tracking_sequence](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/NewTec-GmbH/SpaceShipRadar/refs/heads/main/doc/diagrams/tracking_sequence.puml)
 
 ## Overview
 ![Overview](./block.png)
