@@ -56,7 +56,7 @@ def find_chessboard(path: str) -> Tuple[List[np.ndarray], List[np.ndarray]]:
     objpoints = []  # 3d point in real world space
     imgpoints = []  # 2d points in image plane.
 
-    images = glob.glob(path + '/cali_img/*.png')
+    images = glob.glob(path + '/calibration_images/*.png')
 
     cv2.namedWindow("img", cv2.WINDOW_NORMAL)
     for image in images:
