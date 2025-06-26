@@ -12,7 +12,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 import cv2
 
 from utils.state import State
-from utils.state_background import BackgroundState
+from utils.state_tracking import TrackingState
 
 # Variables ********************************************************************
 
@@ -37,27 +37,24 @@ class ConfigurationState(State):
     def _start_settings():
         """
         Create a settings window with the following trackbars:
-            - Histogram
-            - Gaussian
-            - ArUco-width
+            - ArUco
         """
 
         cv2.namedWindow("settings", cv2.WINDOW_NORMAL)
-        cv2.createTrackbar("Histogram", "settings", 50,
-                           100, ConfigurationState._nothing)
-        cv2.createTrackbar("Gaussian", "settings", 51,
-                           201, ConfigurationState._nothing)
-        cv2.createTrackbar("ArUco-width", "settings", 96,
-                           1000, ConfigurationState._nothing)
+        width = 500
+        height = 200
+        cv2.resizeWindow("settings", width, height)
+        cv2.createTrackbar("ArUco", "settings", 100,
+                           500, ConfigurationState._nothing)
 
         cv2.waitKey(0)
 
-    def run(self, camera) -> None:
+    def run(self, _) -> None:
         ConfigurationState._start_settings()
 
         # pylint: disable=no-member
 
-        self.context.transition_to(BackgroundState())
+        self.context.transition_to(TrackingState())
 
 # Functions ********************************************************************
 

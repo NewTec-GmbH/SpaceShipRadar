@@ -9,7 +9,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 # Imports **********************************************************************
 
-import cv2
+import numpy as np
 
 # Variables ********************************************************************
 
@@ -23,24 +23,36 @@ class LordScaler:
     def __init__(self):
         self._ratio = 1
 
-    def init(self, marker_perimeter: int) -> None:
-        """calculates a conversion ratio based on the found markers size"""
+    def init(self, marker_perimeter: float, real_ar_perimeter: float) -> None:
+        """calculates a conversion ratio based on the found markers size
+
+        Args:
+            marker_perimeter (float): marker_perimeter size in pixel
+            real_ar_perimeter (float): marker_perimeter size in mm
+        """
+        print(f"in init: {marker_perimeter}")
         if marker_perimeter == -1:
             return
 
-        # ArUco-width
-        real_ar_width = cv2.getTrackbarPos("ArUco-width", "settings")
-        real_ar_perimeter = real_ar_width * 4
-
         try:
-            ratio = real_ar_perimeter / marker_perimeter
+            ratio = np.float64(real_ar_perimeter) / \
+                np.float64(marker_perimeter)
         except ZeroDivisionError:
             ratio = 1
         self._ratio = ratio
 
-    def convert(self, num: int) -> int:
-        """should convert pixel value into mm"""
-        return int(round(self._ratio * num, 1))
+    def convert(self, num: float) -> int:
+        """converts pixel values into mm values
+
+        Args:
+            num (float): pixel number to convert to mm-value
+
+        Returns:
+            int: converted mm-value
+        """
+
+        mm_value = round(self._ratio * num, 0)
+        return int(mm_value)
 
     @property
     def ratio(self) -> float:

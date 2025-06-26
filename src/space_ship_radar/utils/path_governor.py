@@ -23,11 +23,11 @@ class PathGovernor:
     """Path Governor"""
 
     load_dotenv()
-    image_folder_path = os.getenv('ImageFolder_PATH')
+    image_folder_path = os.getenv('CalibrationFolder_PATH')
 
     @staticmethod
     def get_path() -> str:
-        """returns the path to the img folder of this repo"""
+        """returns the path to the calibration folder of this repo (src/calibration)"""
         return PathGovernor.image_folder_path
 
 

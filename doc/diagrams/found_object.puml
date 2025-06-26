@@ -1,0 +1,12 @@
+@startuml found_object
+
+class "FoundObject" {
+    position_x : int
+    position_y : int
+    speed_x : int
+    speed_y : int
+    angle : int
+    identifier : int
+}
+
+@enduml
