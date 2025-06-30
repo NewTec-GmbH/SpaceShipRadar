@@ -35,6 +35,7 @@ def test_update_list_speed():
     time.sleep(0.1)
     my_master.update_list({0: my_objct_moved})
 
+    # 3. Assert
     target_value = 5000
     actual_value = my_master.found_objects[0].speed_x
     tolerance = 0.2 * target_value
@@ -43,7 +44,6 @@ def test_update_list_speed():
 
     # 4. Act
     time.sleep(0.1)
-
     my_master.update_list({0: my_objct_moved_again})
 
     # 5. Assert
