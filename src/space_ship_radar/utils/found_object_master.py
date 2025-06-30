@@ -11,7 +11,7 @@ Author: Marc Trosch (marc.trosch@newtec.de)
 
 import math
 from typing import Dict
-from time import perf_counter
+import time
 
 from utils.found_object import FoundObject
 from utils.lord_scaler import LordScaler
@@ -26,7 +26,7 @@ class FoundObjectMaster:
 
     def __init__(self):
         self.found_objects: Dict[int, FoundObject] = {}
-        self.last_speed_calculation_time = perf_counter()
+        self.last_speed_calculation_time = time.time()
 
         self.lord_scaler = LordScaler()
 
@@ -70,11 +70,12 @@ class FoundObjectMaster:
                 y_diff = found_object.position_y - \
                     self.found_objects[identifier].position_y
 
-                time_diff = perf_counter() - self.last_speed_calculation_time
+                time_diff = time.time() - self.last_speed_calculation_time
 
-                found_object.speed_x = round(x_diff / time_diff, 2)
-                found_object.speed_y = round(y_diff / time_diff, 2)
-                self.last_speed_calculation_time = perf_counter()
+                found_object.speed_x = 0 if time_diff == 0 else round(
+                    x_diff / time_diff, 2)
+                found_object.speed_y = 0 if time_diff == 0 else round(
+                    y_diff / time_diff, 2)
 
                 # rotation
                 previous_angle = self.found_objects[identifier].angle
@@ -86,7 +87,8 @@ class FoundObjectMaster:
                 found_object.angle = previous_angle + angle_difference
 
             self.found_objects[identifier] = found_object
+        self.last_speed_calculation_time = time.time()
 
-            # Functions ********************************************************************
+# Functions ********************************************************************
 
-            # Main *************************************************************************
+# Main *************************************************************************

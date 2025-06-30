@@ -30,7 +30,6 @@ class LordScaler:
             marker_perimeter (float): marker_perimeter size in pixel
             real_ar_perimeter (float): marker_perimeter size in mm
         """
-        print(f"in init: {marker_perimeter}")
         if marker_perimeter == -1:
             return
 
