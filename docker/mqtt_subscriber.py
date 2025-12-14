@@ -20,7 +20,7 @@ from paho.mqtt import client as mqtt_client
 
 # Variables ********************************************************************
 
-BROKER = '192.168.56.1'
+BROKER = '127.0.0.1'
 PORT = 1883
 TOPIC = "ssr/#"
 CLIENT_ID = f'subscribe-{random.randint(0, 100)}'

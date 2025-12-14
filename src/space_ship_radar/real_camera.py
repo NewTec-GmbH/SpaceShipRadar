@@ -15,6 +15,8 @@ import keyboard
 from utils.state import Context
 from utils.state_configuration import ConfigurationState
 from utils.image_getter import ImageGetter
+from utils.scene import Scene
+from utils.time_sync_responder import HostTimeSyncResponder, auto_time_source
 
 # Variables ********************************************************************
 
@@ -27,6 +29,14 @@ def run() -> None:
     """run SSR for a real camera"""
 
     # Setup
+    Scene.publisher.set_time_source(auto_time_source())
+    time_sync_responder = HostTimeSyncResponder(
+        time_source=auto_time_source(),
+        use_background_loop=True,
+    )
+    if not time_sync_responder.start():
+        logging.warning("TimeSync responder could not start; continuing without MQTT sync.")
+
     context = Context(ConfigurationState())
     camera = cv2.VideoCapture(0)
     camera.set(cv2.CAP_PROP_FPS, 30)
@@ -49,6 +59,7 @@ def run() -> None:
     finally:
         camera.release()
         cv2.destroyAllWindows()
+        time_sync_responder.stop()
 
 
 def run_record() -> None:

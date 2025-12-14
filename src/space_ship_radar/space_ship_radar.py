@@ -18,8 +18,10 @@ import keyboard
 
 from controller import Robot  # type: ignore # pylint: disable=import-error
 from utils.image_getter import ImageGetter
+from utils.scene import Scene
 from utils.state import Context
 from utils.state_configuration import ConfigurationState
+from utils.time_sync_responder import HostTimeSyncResponder, auto_time_source
 
 try:
     from space_ship_radar.version import __version__, __author__, __email__, __repository__, __license__
@@ -47,13 +49,16 @@ class Controller(Robot):
         # time_step defines the smallest update time
         # (1000ms / 100fps = 10)
         self.time_step = 10  # ms
-        self.camera = self.getDevice('camera')
+        self.camera = self.getDevice('camera') 
 
         if self.camera is None:
             logging.error("Camera init failed!")
             sys.exit(1)
 
         self.camera.enable(self.time_step)
+        self._time_sync_responder = None
+        # use simulation time as timestamp source for outbound MQTT
+        Scene.publisher.set_time_source(auto_time_source(self))
 
     def run(self) -> None:
         """Main function of the controller"""
@@ -62,13 +67,26 @@ class Controller(Robot):
         self.step(self.time_step)  # step required
 
         context = Context(ConfigurationState())
+        self._time_sync_responder = HostTimeSyncResponder(
+            time_source=auto_time_source(self),
+            use_background_loop=False,
+        )
+        if not self._time_sync_responder.start():
+            logging.warning("TimeSync responder could not start; continuing without MQTT sync.")
+        else:
+            # Run one loop iteration to complete initial MQTT handshake.
+            self._time_sync_responder.loop()
         # Main Loop
         try:
             while self.step(self.time_step) != -1:
+                if self._time_sync_responder:
+                    self._time_sync_responder.loop()
                 context.update(self.camera)
                 if keyboard.is_pressed('q'):  # quit
                     break
         finally:
+            if self._time_sync_responder:
+                self._time_sync_responder.stop()
             cv2.destroyAllWindows()
 
     def run_save(self) -> None:

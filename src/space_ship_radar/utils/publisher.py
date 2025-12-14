@@ -16,6 +16,7 @@ from paho.mqtt import client as mqtt_client
 
 from utils.singleton_meta import SingletonMeta
 from utils.time_checker import TimeChecker
+from utils.time_sync_responder import TimeSource, WallClockTimeSource
 
 # Variables ********************************************************************
 
@@ -25,9 +26,9 @@ from utils.time_checker import TimeChecker
 class Publisher(TimeChecker, metaclass=SingletonMeta):
     """Publisher"""
 
-    def __init__(self):
+    def __init__(self, time_source: TimeSource | None = None):
         super().__init__()
-        self.broker = '192.168.56.1'
+        self.broker = 'localhost'
         self.port = 1883
         self.topic = "ssr/"
 
@@ -37,6 +38,7 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
         self._last_call_time = None
 
         self._connected = True
+        self._time_source = time_source or WallClockTimeSource()
 
     def _connect_mqtt(self) -> mqtt_client:
         """tries to connect to MQTT broker"""
@@ -89,17 +91,27 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
         self._client.loop_stop()
         return True
 
-    @staticmethod
-    def json_builder(position, speed, angle: int) -> str:
+    def set_time_source(self, time_source: TimeSource) -> None:
+        """Configure the time source for timestamping outgoing messages."""
+        self._time_source = time_source
+
+    def _now_ms(self) -> int:
+        """Return current time in ms using configured time source."""
+        return int(self._time_source.now_ms())
+
+    def json_builder(self, position, speed, angle: int) -> str:
         """creates a json element with:
             - positionX
             - positionY
             - speedX
             - speedY
             - angle
+            - timestamp_ms (epoch in ms)
         """
         position_x, position_y = position
         speed_x, speed_y = speed
+
+        timestamp_ms = self._now_ms()
 
         message_dict = {
             "positionX": position_x,
@@ -107,6 +119,7 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
             "speedX": speed_x,
             "speedY": speed_y,
             "angle": angle,
+            "timestamp_ms": timestamp_ms
         }
 
         return json.dumps(message_dict)
