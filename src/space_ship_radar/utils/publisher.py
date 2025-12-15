@@ -23,7 +23,7 @@ from utils.time_sync_responder import TimeSource, WallClockTimeSource
 # Classes **********************************************************************
 
 
-class Publisher(TimeChecker, metaclass=SingletonMeta):
+class Publisher(TimeChecker, metaclass=SingletonMeta): # pylint: disable=too-many-instance-attributes
     """Publisher"""
 
     def __init__(self, time_source: TimeSource | None = None):
