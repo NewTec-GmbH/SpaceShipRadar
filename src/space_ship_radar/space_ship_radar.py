@@ -49,7 +49,7 @@ class Controller(Robot):
         # time_step defines the smallest update time
         # (1000ms / 100fps = 10)
         self.time_step = 10  # ms
-        self.camera = self.getDevice('camera') 
+        self.camera = self.getDevice('camera')
 
         if self.camera is None:
             logging.error("Camera init failed!")

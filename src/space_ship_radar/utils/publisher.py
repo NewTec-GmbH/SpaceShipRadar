@@ -95,10 +95,6 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
         """Configure the time source for timestamping outgoing messages."""
         self._time_source = time_source
 
-    def _now_ms(self) -> int:
-        """Return current time in ms using configured time source."""
-        return int(self._time_source.now_ms())
-
     def json_builder(self, position, speed, angle: int) -> str:
         """creates a json element with:
             - positionX
@@ -111,7 +107,7 @@ class Publisher(TimeChecker, metaclass=SingletonMeta):
         position_x, position_y = position
         speed_x, speed_y = speed
 
-        timestamp_ms = self._now_ms()
+        timestamp_ms = self._time_source.now_ms()
 
         message_dict = {
             "positionX": position_x,

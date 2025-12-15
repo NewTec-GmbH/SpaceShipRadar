@@ -20,7 +20,7 @@ from paho.mqtt import client as mqtt_client
 
 
 @runtime_checkable
-class TimeSource(Protocol):
+class TimeSource(Protocol): # pylint: disable=too-few-public-methods
     """Interface for time providers."""
 
     def now_ms(self) -> int:
@@ -28,7 +28,7 @@ class TimeSource(Protocol):
 
 
 @dataclass
-class WallClockTimeSource(TimeSource):
+class WallClockTimeSource(TimeSource): # pylint: disable=too-few-public-methods
     """Epoch-based time source."""
 
     def now_ms(self) -> int:
@@ -55,7 +55,7 @@ def auto_time_source(robot: Optional[object] = None) -> TimeSource:
         try:
             # Validate that the robot instance can deliver simulation time.
             robot.getTime()
-        except Exception as exc:  # pylint: disable=broad-except
+        except Exception as exc: # pylint: disable=broad-except
             logging.debug("TimeSync: Falling back to wall clock: %s", exc)
         else:
             return WebotsSimulationTimeSource(robot)
@@ -133,7 +133,7 @@ class HostTimeSyncResponder:
         # timeout=0.0 -> non-blocking; keeps Webots simulation responsive.
         self._client.loop(timeout=timeout)
 
-    def _on_connect(self, client, userdata, flags, rc) -> None:
+    def _on_connect(self, client, _userdata, _flags, rc) -> None:
         """Handle MQTT connect callback."""
         if rc == 0:
             logging.info("TimeSync: Connected to MQTT broker.")
@@ -144,7 +144,7 @@ class HostTimeSyncResponder:
         else:
             logging.error("TimeSync: MQTT connect failed with rc=%d", rc)
 
-    def _on_message(self, client, userdata, msg) -> None:
+    def _on_message(self, _client, _userdata, msg) -> None:
         """Handle inbound MQTT messages."""
         topic = msg.topic
         payload = msg.payload.decode("utf-8", errors="replace")
