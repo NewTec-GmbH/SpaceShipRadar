@@ -35,7 +35,7 @@ class WallClockTimeSource(TimeSource): # pylint: disable=too-few-public-methods
         return int(time.time() * 1000)
 
 
-class WebotsSimulationTimeSource(TimeSource):
+class WebotsSimulationTimeSource(TimeSource): # pylint: disable=too-few-public-methods
     """Time source backed by the Webots simulation clock."""
 
     def __init__(self, robot) -> None:
