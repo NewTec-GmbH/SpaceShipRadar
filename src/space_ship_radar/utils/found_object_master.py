@@ -30,6 +30,14 @@ class FoundObjectMaster:
 
         self.lord_scaler = LordScaler()
 
+
+        self.origin_x = 0
+        self.origin_y = 0
+
+    def set_origin(self, x, y):
+        self.origin_x = x
+        self.origin_y = y
+
     @staticmethod
     def angle_difference(alpha: float, beta: float) -> float:
         """calculates the shortest difference between two angles
@@ -55,8 +63,8 @@ class FoundObjectMaster:
         """
         # scale coordinates
         for identifier, found_object in props.items():
-            r_x = self.lord_scaler.convert(found_object.position_x)
-            r_y = self.lord_scaler.convert(found_object.position_y)
+            r_x = self.lord_scaler.convert(found_object.position_x - self.origin_x)
+            r_y = self.lord_scaler.convert(found_object.position_y - self.origin_y)
 
             found_object.position_x = r_x
             found_object.position_y = r_y

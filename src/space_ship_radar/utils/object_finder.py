@@ -68,7 +68,10 @@ class ObjectFinder:
             identifier = marker_ids[i]
             rotation = ObjectFinder._get_rotation_from_ar(marker[0])
 
-            x, y = marker[0][0]
+            pts = marker[0]
+            x = (pts[0][0] + pts[1][0] + pts[2][0] + pts[3][0]) / 4
+            y = (pts[0][1] + pts[1][1] + pts[2][1] + pts[3][1]) / 4
+
             my_object = FoundObject((x, y), (0, 0), rotation)
             object_location[int(identifier.item())] = my_object
 

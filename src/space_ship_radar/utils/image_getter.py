@@ -16,9 +16,15 @@ import keyboard
 import numpy as np
 import cv2
 
-import controller  # type: ignore # pylint: disable=import-error
-
 from utils.path_governor import PathGovernor
+
+try:
+    import controller  # type: ignore
+    WEBOTS_AVAILABLE = True
+except ModuleNotFoundError:
+    controller = None  # type: ignore
+    WEBOTS_AVAILABLE = False
+
 
 # Variables ********************************************************************
 
@@ -35,16 +41,16 @@ class ImageGetter():
     def get_image(device) -> np.array:
         """returns the current image from the webots camera or a video for testing"""
 
-        if isinstance(device, controller.camera.Camera):
+        if WEBOTS_AVAILABLE and isinstance(device, controller.camera.Camera):
             return ImageGetter.__get_image_webots_camera(device)
 
-        if isinstance(device, cv2.VideoCapture):
+        if not WEBOTS_AVAILABLE and isinstance(device, cv2.VideoCapture):
             return ImageGetter.__get_image_video(device)
 
         raise TypeError("Unsupported type")
 
     @staticmethod
-    def __get_image_webots_camera(device: controller.camera.Camera) -> np.array:
+    def __get_image_webots_camera(device) -> np.array:
         """return the current image form a webots camera
 
         Args:
