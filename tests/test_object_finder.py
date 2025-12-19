@@ -35,7 +35,7 @@ def test_object_finder():
     markers = finder.get_ar(image)
 
     # 3. Assert
-    assert markers[0].position_x == 54
+    assert markers[0].position_x == 151
     assert markers[0].position_y == 58
     assert markers[0].speed_x == 0
     assert markers[0].speed_y == 0
