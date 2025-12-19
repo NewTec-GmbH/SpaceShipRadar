@@ -19,10 +19,10 @@ import cv2
 from utils.path_governor import PathGovernor
 
 try:
-    import controller  # type: ignore
+    import controller  # pylint: disable=invalid-name
     WEBOTS_AVAILABLE = True
 except ModuleNotFoundError:
-    controller = None  # type: ignore
+    controller = None  # pylint: disable=invalid-name
     WEBOTS_AVAILABLE = False
 
 

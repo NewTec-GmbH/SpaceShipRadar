@@ -27,6 +27,7 @@ class Transformer:
 
     @staticmethod
     def calculate_matrix(corners):
+        """Calculate the perspective transform matrix based on the bounding corners """
         top_l, top_r, bottom_r, bottom_l = corners
 
         # Determine width of new image which is the max distance between
