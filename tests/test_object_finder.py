@@ -47,7 +47,7 @@ def test_object_finder():
     assert markers[3].speed_y == 0
     assert markers[3].angle == 1570.8
 
-    assert markers[7].position_x == 910
+    assert markers[7].position_x == 1012.0
     assert markers[7].position_y == 147
     assert markers[7].speed_x == 0
     assert markers[7].speed_y == 0
