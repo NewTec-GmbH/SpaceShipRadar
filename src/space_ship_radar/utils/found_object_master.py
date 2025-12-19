@@ -35,6 +35,7 @@ class FoundObjectMaster:
         self.origin_y = 0
 
     def set_origin(self, x, y):
+        """sets the origin for all found_objects """
         self.origin_x = x
         self.origin_y = y
 

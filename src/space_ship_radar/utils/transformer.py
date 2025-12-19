@@ -26,7 +26,7 @@ class Transformer:
     """Transformer for images"""
 
     @staticmethod
-    def _calculate_matrix(corners):
+    def calculate_matrix(corners):
         top_l, top_r, bottom_r, bottom_l = corners
 
         # Determine width of new image which is the max distance between
@@ -70,7 +70,7 @@ class Transformer:
             np.array: The resulting transformed image
         """
 
-        matrix, width, height = Transformer._calculate_matrix(corners)
+        matrix, width, height = Transformer.calculate_matrix(corners)
         return cv2.warpPerspective(image, matrix, (width, height))
 
 
