@@ -65,7 +65,7 @@ class FoundObjectMaster:
         # scale coordinates
         for identifier, found_object in props.items():
             r_x = self.lord_scaler.convert(found_object.position_x - self.origin_x)
-            r_y = self.lord_scaler.convert(found_object.position_y - self.origin_y)
+            r_y = self.lord_scaler.convert(self.origin_y - found_object.position_y)
 
             found_object.position_x = r_x
             found_object.position_y = r_y
@@ -93,7 +93,10 @@ class FoundObjectMaster:
                 angle_difference = self.angle_difference(
                     previous_angle, new_angle)
 
-                found_object.angle = previous_angle + angle_difference
+                two_pi_mrad = 2 * math.pi * 1000
+                pi_mrad = math.pi * 1000
+                new_angle = previous_angle + angle_difference
+                found_object.angle = (new_angle + pi_mrad) % two_pi_mrad - pi_mrad
 
             self.found_objects[identifier] = found_object
         self.last_speed_calculation_time = time.time()
