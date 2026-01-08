@@ -27,7 +27,9 @@ from utils.time_sync_responder import HostTimeSyncResponder, auto_time_source
 
 def run() -> None:
     """run SSR for a real camera"""
-
+    # Main Loop
+    logging.basicConfig(level=logging.INFO,
+                        format="%(asctime)s - %(levelname)s - %(message)s")
     # Setup
     Scene.publisher.set_time_source(auto_time_source())
     time_sync_responder = HostTimeSyncResponder(
@@ -43,9 +45,7 @@ def run() -> None:
     camera.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
     camera.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
 
-    # Main Loop
-    logging.basicConfig(level=logging.ERROR,
-                        format="%(asctime)s - %(levelname)s - %(message)s")
+
 
     try:
         while True:
